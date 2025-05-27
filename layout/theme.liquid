@@ -51,6 +51,7 @@
 			<link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
 		{%- endunless -%}
 		<script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+      {{ 'custom-css-for-healththroughherbs.css' | asset_url | stylesheet_tag }}
 	</head>
 
 	<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ request.page_type | handle }} {{ template.suffix }}">
