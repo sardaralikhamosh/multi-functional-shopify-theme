@@ -276,52 +276,6 @@
       },
       "header-contact": {
         "type": "header-contact",
-        "blocks": {
-          "4d61cbe4-bba5-4dc2-bd97-0ce2bcda2597": {
-            "type": "item",
-            "settings": {
-              "link": "https://www.instagram.com"
-            }
-          },
-          "be860b40-a5ee-4292-984b-a51d079250c9": {
-            "type": "item",
-            "settings": {
-              "link": "https://www.instagram.com"
-            }
-          },
-          "6a49acc2-b56f-4af6-9f16-eee8db9ec0c0": {
-            "type": "item",
-            "settings": {
-              "link": "https://www.instagram.com"
-            }
-          },
-          "d0488edf-dfb2-48d3-bb6d-24007158b6b7": {
-            "type": "item",
-            "settings": {
-              "link": "https://www.instagram.com"
-            }
-          },
-          "6e67cfa5-d97e-4a22-a121-76afa86cab7e": {
-            "type": "item",
-            "settings": {
-              "link": "https://www.instagram.com"
-            }
-          },
-          "88cffeb8-07b5-45da-ba45-1f2e049d0b0c": {
-            "type": "item",
-            "settings": {
-              "link": "https://www.instagram.com"
-            }
-          }
-        },
-        "block_order": [
-          "4d61cbe4-bba5-4dc2-bd97-0ce2bcda2597",
-          "be860b40-a5ee-4292-984b-a51d079250c9",
-          "6a49acc2-b56f-4af6-9f16-eee8db9ec0c0",
-          "d0488edf-dfb2-48d3-bb6d-24007158b6b7",
-          "6e67cfa5-d97e-4a22-a121-76afa86cab7e",
-          "88cffeb8-07b5-45da-ba45-1f2e049d0b0c"
-        ],
         "settings": {
           "full_with": false,
           "color_bg": "rgba(0,0,0,0)",
@@ -332,6 +286,17 @@
           "mailchimp": false,
           "newsletter_form_action": "",
           "social_link_enable": true
+        }
+      },
+      "header-1": {
+        "type": "header-1",
+        "settings": {
+          "fullwidth": true,
+          "padding_block": "",
+          "logo_svg": "",
+          "logo_width": 100,
+          "menu": "main-menu",
+          "enable_sticky_header": true
         }
       }
     },
