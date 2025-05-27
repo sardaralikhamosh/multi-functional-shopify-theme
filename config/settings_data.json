@@ -295,7 +295,7 @@
       "header-1": {
         "type": "header-1",
         "settings": {
-          "fullwidth": true,
+          "fullwidth": false,
           "padding_block": "",
           "logo": "shopify://shop_images/icon-Logo.png",
           "logo_svg": "",
