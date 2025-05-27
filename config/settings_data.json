@@ -297,8 +297,9 @@
         "settings": {
           "fullwidth": true,
           "padding_block": "",
+          "logo": "shopify://shop_images/icon-Logo.png",
           "logo_svg": "",
-          "logo_width": 100,
+          "logo_width": 80,
           "menu": "main-menu",
           "enable_sticky_header": true
         }
