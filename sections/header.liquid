@@ -14,11 +14,11 @@
 						</div>
 					</div>
 					{%- assign mw_logo = section.settings.logo_width | append: 'px' -%}
-					<div class="col-md-6 col-sm-4 col-lg-6 header-left col custom-header-for-healththroughherb">
+					<div class="col-md-6 col-sm-4 col-lg-6 header-left col">
 						{%- if request.page_type == 'index' -%}
 						<h1 class="header__heading mb-0 custom-header-for-healththroughherb">
 						{%- endif -%}
-							<a href="{{ routes.root_url }}" class="header__heading-link d-flex" style="max-width: {{ mw_logo }}">
+							<a href="{{ routes.root_url }}" class="header__heading-link d-flex custom-header-for-healththroughherb" style="max-width: {{ mw_logo }}">
 								{%- assign logo_size = section.settings.logo_width | append: 'x' -%}
 								{%- assign size_rentina = section.settings.logo_width | times: 2 -%}
 								{%- if section.settings.logo_svg != blank -%}
