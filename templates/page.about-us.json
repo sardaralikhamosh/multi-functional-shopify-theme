@@ -116,6 +116,7 @@
       "settings": {
         "full_with": false,
         "color_bg": "rgba(0,0,0,0)",
+        "image_bg": "shopify://shop_images/p1_704a8662-d715-4e0f-a589-fc12828b8d9c.jpg",
         "bg_align": "center",
         "padding_block": "60px 0 50px",
         "margin_block": "0 0 70px",
