@@ -100,8 +100,8 @@
           "color_top_text": "#ffffff",
           "color_top_link": "#ffffff",
           "font-size": 16,
-          "text_left": "<em>+391 (0)35 2568 4593 | info@healththroughherbs.com.pk</em>",
-          "text": "<em>Free shipping on all orders over <u>$120</u></em>",
+          "text_left": "<p>+391 (0)35 2568 4593 | info@healththroughherbs.com.pk</p>",
+          "text": "<p>Free shipping on all orders over <u>$120</u></p>",
           "enable_country_selector": false,
           "social_enable": true
         }
@@ -199,7 +199,7 @@
           "ed7e3a02-0946-497d-8424-5a5c56a0fbb5"
         ],
         "settings": {
-          "fullwidth": true,
+          "fullwidth": false,
           "padding_block": "0",
           "logo": "shopify://shop_images/icon-Logo.png",
           "logo_svg": "",
