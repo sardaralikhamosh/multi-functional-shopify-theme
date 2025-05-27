@@ -14,11 +14,11 @@
 						</div>
 					</div>
 					{%- assign mw_logo = section.settings.logo_width | append: 'px' -%}
-					<div class="header-left col">
+					<div class="col-md-6 col-sm-4 col-lg-6 header-left col">
 						{%- if request.page_type == 'index' -%}
-						<h1 class="header__heading mb-0">
+						<h1 class="header__heading mb-0 custom-header-for-healththroughherb">
 						{%- endif -%}
-							<a href="{{ routes.root_url }}" class="header__heading-link d-flex" style="max-width: {{ mw_logo }}">
+							<a href="{{ routes.root_url }}" class="header__heading-link d-flex custom-header-for-healththroughherb" style="max-width: {{ mw_logo }}">
 								{%- assign logo_size = section.settings.logo_width | append: 'x' -%}
 								{%- assign size_rentina = section.settings.logo_width | times: 2 -%}
 								{%- if section.settings.logo_svg != blank -%}
@@ -37,12 +37,8 @@
 						</h1>
 						{%- endif -%}
 					</div>
-					<div class="header-center col-auto d-none d-lg-block">
-						{%- if section.settings.menu != blank -%}
-							{%- include 'header-menu' -%}
-						{%- endif -%}
-					</div>
-					<div class="header-right d-flex align-items-center justify-content-end col">
+					
+					<div class="col-sm-4 col-lg-6 col-md-6 header-right d-flex align-items-center justify-content-end col">
 						{%- include "vela-toplinks" -%}
 						<div class="header__search ms-2 ms-sm-3 ms-xxl-4">
 							<a  class="header__icon header__icon--search modal__toggle" href="#searchTop" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="searchTop">
@@ -51,13 +47,22 @@
 						</div>
 						{%- include 'header-cart' -%}
 						{%- render 'header-search' -%}
-						<a class="header__icon header__icon--align d-flex flex-wrap justify-content-end collapsed ms-2 ms-sm-3 ms-xxl-4" data-bs-toggle="offcanvas" data-bs-target="#header-contact" role="button" aria-controls="header-contact">
+						<a class="displaynone header__icon header__icon--align d-flex flex-wrap justify-content-end collapsed ms-2 ms-sm-3 ms-xxl-4" data-bs-toggle="offcanvas" data-bs-target="#header-contact" role="button" aria-controls="header-contact">
 							<span class="icon-line"></span>
                             <span class="icon-line"></span>
                             <span class="icon-line"></span>
                             <span class="icon-line"></span>
 						</a>
 					</div>
+
+					<div class="col-sm-4 col-lg-12 col-md-12 header-center col-auto d-none d-lg-block">
+						<center>
+						{%- if section.settings.menu != blank -%}
+							{%- include 'header-menu' -%}
+						{%- endif -%}
+						</center>
+					</div>
+
 				</div>
 			</div>
 		</div>
