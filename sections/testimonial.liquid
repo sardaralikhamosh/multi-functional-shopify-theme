@@ -1,0 +1,325 @@
+{%- assign nav = section.settings.navigation -%}
+{%- assign pagination = section.settings.pagination -%}
+{%- assign infinite = section.settings.infinite -%}
+{%- assign autoplay = section.settings.autoplay -%}
+{%- assign autoplay_speed = section.settings.autoplay_speed | escape -%}
+{%- assign owlColumn1 = section.settings.column1 | plus:0 -%}
+{%- assign owlColumn2 = section.settings.column2 | plus:0 -%}
+{%- assign owlColumn3 = section.settings.column3 | plus:0 -%}
+{%- assign owlColumn4 = section.settings.column4 | plus:0 -%}
+{%- capture section_style -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        background-color: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+        padding: {{section.settings.padding_block}};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        margin: {{section.settings.margin_block}};
+    {%- endif -%}
+    {%- if section.settings.imge_bg != blank -%}
+        background-image: url({{section.settings.imge_bg | img_url: 'master' }});
+        background-size: cover;
+    {%- endif -%}
+{%- endcapture -%}
+
+{%- if section.settings.size != blank -%}
+    {%- assign wimg = section.settings.size | split: "x" | first -%}
+    {%- assign himg = section.settings.size | split: "x" | last -%}
+{%- else -%}
+    {%- assign wimg = "140" -%}
+    {%- assign himg = "140" -%}
+{%- endif -%}
+{%- assign image_margin = himg | divided_by: 2 | floor -%}
+<div class="vela-section testimonial overflow-hidden"{% if section_style%} style="{{ section_style }}"{% endif%}>
+    <div class="container{%- if section.settings.full_with -%}-fluid{%- endif -%}">
+        <div class="vela-section__inner{% if section.settings.color_bg != 'rgba(0,0,0,0)' or section.settings.imge_bg != blank %} py-5 my-3{% endif %}">
+            {%- if section.settings.heading != blank -%}
+                <div class="heading-group mb-xl-2 pb-4">
+                    <h2 class="heading mb-1">
+                        <span>{{ section.settings.heading }}</span>
+                    </h2>
+                    {%- if section.settings.sub_heading != blank -%}
+                        <div class="sub-heading">
+                            {{ section.settings.sub_heading }}
+                        </div>
+                    {%- endif -%}
+                </div>
+            {%- endif -%}
+            <div class="vela-section__content" >
+                <div class="vela-section__wrapper">
+                    {%- if section.settings.slide_enable -%}
+                        <div class="js-carousel slick-carousel row g-3 g-md-4"
+                        data-nav="{{ nav }}"
+                        data-dots="{{ pagination }}"
+                        data-infinite="{{ infinite }}"
+                        data-autoplay="{{ autoplay }}"
+                        data-autoplayspeed="{{ autoplay_speed }}"
+                        data-columnone="{{ owlColumn1 }}" 
+                        data-columntwo="{{ owlColumn2 }}" 
+                        data-columnthree="{{ owlColumn3 }}" 
+                        data-columnfour="{{ owlColumn4 }}">
+                            {% for block in section.blocks %}
+                                <div class="slick-carousel__item">
+                                    <div class="testimonial__item text-center mx-auto">
+                                        <div class="testimonial__avatar mb-3">
+                                            <div class="avata d-inline-block">
+                                                <div class="d-block overflow-hidden rounded-circle" style="width: {{wimg}}px; height: {{himg}}px;">
+                                                    {%- if block.settings.avatar != blank -%}
+                                                        {% include 'img-global' with image: block.settings.avatar, image_size: section.settings.size, image_ratio: 'square', crop: 'center'  %}
+                                                    {%- else -%}
+                                                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg ' }}
+                                                    {%- endif -%}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="testimonial__item-content">
+                                            {%- if block.settings.review != blank -%}
+                                                <div class="testimonial__review mx-auto  mb-3">{{ block.settings.review }}</div>
+                                            {%- endif -%}
+                                            {%- if section.settings.star_enable -%}
+                                                <div class="testimonial__star d-flex justify-content-center mb-2">
+                                                    {% include 'icons', icon: 'star', class: 'icon-star me-1', attr: 'width="17" height="17"' %}
+                                                    {% include 'icons', icon: 'star', class: 'icon-star me-1', attr: 'width="17" height="17"' %}
+                                                    {% include 'icons', icon: 'star', class: 'icon-star me-1', attr: 'width="17" height="17"' %}
+                                                    {% include 'icons', icon: 'star', class: 'icon-star me-1', attr: 'width="17" height="17"' %}
+                                                    {% include 'icons', icon: 'star', class: 'icon-star', attr: 'width="17" height="17"' %}
+                                                </div>  
+                                            {%- endif -%}
+                                            {%- if block.settings.name != blank -%}
+                                                <h5 class="testimonial__name mb-0">{{ block.settings.name }}</h5>
+                                            {%- endif -%}
+                                            {%- if block.settings.position != blank -%}
+                                                <div class="testimonial__name mb-1">{{ block.settings.position }}</div>
+                                            {%- endif -%}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {%- else -%}
+                        <div class="row g-3 g-md-4 row-cols-{{owlColumn4}} row-cols-ms-{{owlColumn3}} row-cols-md-{{owlColumn2}} row-cols-lg-{{owlColumn1}}">
+                            {% for block in section.blocks %}
+                                <div class="col">
+                                    <div class="testimonial__item text-center mx-auto">
+                                        <div class="testimonial__avatar mb-4">
+                                            <div class="avata d-inline-block">
+                                                <div class="d-block overflow-hidden rounded-circle" style="width: {{wimg}}px; height: {{himg}}px;">
+                                                    {%- if block.settings.avatar != blank -%}
+                                                        {% include 'img-global' with image: block.settings.avatar, image_size: section.settings.size  %}
+                                                    {%- else -%}
+                                                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                                    {%- endif -%}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="testimonial__item-content">
+                                            {%- if block.settings.review != blank -%}
+                                                <div class="testimonial__review mx-auto">{{ block.settings.review }}</div>
+                                            {%- endif -%}
+                                            {%- if block.settings.name != blank -%}
+                                                <h5 class="testimonial__name mb-1">{{ block.settings.name }}</h5>
+                                            {%- endif -%}
+                                            {%- if block.settings.position != blank -%}
+                                                <div class="testimonial__name mb-1">{{ block.settings.position }}</div>
+                                            {%- endif -%}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {%- endif -%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Testimonial",
+        "class": "velaFramework",
+		"max_blocks": 10,
+        "settings":[
+            {
+                "type": "header",
+                "content": "Design Section"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "Enabel Full Width?"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "Background Color",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "image_picker",
+                "id": "imge_bg",
+                "label": "Background Image"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "Padding",
+                "placeholder": "0px 0px",
+                "info": "Ex: 0px 0px 0px 0px and use desktop only"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "Margin",
+                "placeholder": "0px 0px",
+                "default": "0 0 30px",
+                "info": "Ex: 0px 0px 30px 0px"
+            },
+            {
+                "type": "header",
+                "content": "General Settings"
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Heading"
+            },
+            {
+                "type": "text",
+                "id": "sub_heading",
+                "label": "Sub heading",
+                "default": "sub heading"
+            },
+            {
+                "type": "text",
+                "id": "size",
+                "label": "Avata Size",
+                "placeholder": "100x100",
+                "default": "100x100",
+                "info": "100x100"
+            },
+            {
+                "type": "checkbox",
+                "id": "star_enable",
+                "label": "Show star",
+                "default": true
+            },
+            {
+                "type": "header",
+                "content": "Carousel Settings"
+            },
+            {
+                "type": "checkbox",
+                "id": "slide_enable",
+                "label": "Enable Slide",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "navigation",
+                "label": "Show navigation",
+                "default": true
+            },
+            {
+				"type": "checkbox",
+				"id": "pagination",
+				"label": "Show dot indicators",
+				"default": true
+			},
+            {
+                "type": "checkbox",
+                "id": "infinite",
+                "label": "Infinite loop sliding",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "autoplay",
+                "label": "Enable autoplay",
+                "default": false
+            },
+            {
+                "type": "text",
+                "id": "autoplay_speed",
+                "label": "Autoplay speed",
+                "info": "Autoplay speed in milliseconds. Type: int(ms)",
+                "default": "10000"
+            },
+            {
+                "type": "range",
+                "id": "column1",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "#Column 1",
+                "default": 4,
+                "info": "Large desktops"
+            },
+            {
+                "type": "range",
+                "id": "column2",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 2",
+                "default": 3,
+                "info": "Desktops & Tablets landscape"
+            },
+            {
+                "type": "range",
+                "id": "column3",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 3",
+                "default": 2,
+                "info": "Mobile phone landscape"
+            },
+            {
+                "type": "range",
+                "id": "column4",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 4",
+                "default": 2,
+                "info": "Mobile phone"
+            }
+        ],
+		"blocks": [
+			{
+                "type": "item",
+                "name": "Testimonial Item",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "avatar",
+                        "label": "Avatar"
+                    },
+                    {
+                        "type": "text",
+                        "id": "name",
+                        "label": "Customer name"
+                    },
+                    {
+                        "type": "text",
+                        "id": "position",
+                        "label": "Position"
+                    },
+                    {
+                        "type": "textarea",
+                        "id": "review",
+                        "label": "Customer Review"
+                    }
+                ]
+            }
+		],
+        "presets": [
+            {
+                "name": "Testimonial",
+                "category": "4. element"
+            }
+        ]
+    }
+{% endschema %}

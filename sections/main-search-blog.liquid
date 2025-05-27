@@ -1,0 +1,221 @@
+{%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+    {%- capture bgColor -%}
+        background-color: {{ section.settings.color_bg }};
+    {%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.padding_block != blank -%}
+    {%- capture paddingblock -%}
+        padding: {{section.settings.padding_block}};
+    {%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.margin_block != blank -%}
+    {%- capture marginblock -%}
+        margin: {{section.settings.margin_block}};
+    {%- endcapture -%}
+{%- endif -%}
+<div class="template-search {% unless search.performed and search.results.size > 0 %} template-search--empty{% endunless %} py-5" style="{{ bgColor}}{{ paddingblock }}{{ marginblock }}"">
+  	<div class="container">
+		{%- if search.performed -%}
+			<h1 class="h3 text-center mb-3">{{ 'templates.search.title' | t }}</h1>
+		{%- else -%}
+			<h1 class="h3 text-center mb-3">{{ 'general.search.search' | t }}</h1>
+		{%- endif -%}
+		<div class="template-search__search w-100 m-auto">
+			<form action="{{ routes.search_url }}" method="get" role="search" class="search mb-4">
+                <input type="hidden" name="view" value="article" />
+                <input type="hidden" name="type" value="article" />
+				<div class="input-group border">
+					<input
+						class="search__input form-control border-0"
+						id="Search-In-Template"
+						type="search"
+						name="q"
+						value="{{ search.terms | escape }}"
+						{% if search.performed %}autofocus{% endif %}
+						placeholder="{{ 'templates.search.search-placeholder' | t }}"
+					>
+					<span class="p-0">
+						<button type="submit" class="btn btn-link p-2 m-1" aria-label="{{ 'templates.search.search' | t }}">
+							{% render 'icons', icon: 'search', class: 'icon icon-search', attr: 'width="20"' %}
+						</button>
+					</span>
+				</div>
+			</form>
+		</div>
+		{%- if search.performed -%}
+			<p class="element-margin text-center" role="status">
+				{%- if search.results_count == 0 -%}
+				{{ 'templates.search.no_results' | t: terms: search.terms }}
+				{%- else -%}
+				{{ 'templates.search.results_with_count_and_term' | t: terms: search.terms, count: search.results_count }}
+				{%- endif -%}
+			</p>
+		{%- endif -%}
+	
+		{%- if search.performed and search.results.size > 0 -%}
+			{%- if section.settings.products_ditem_per_row == 5 -%}
+				{%- assign col-item-xl = '2-4' -%}
+			{%- else -%}
+				{%- assign col-item-xl = 12 | divided_by: section.settings.products_ditem_per_row -%}
+			{%- endif -%}
+			{%- assign col-item-md = 12 | divided_by: section.settings.products_titem_per_row -%}
+			{%- assign col-item =  12 | divided_by: section.settings.products_mitem_per_row -%}
+			{%- assign pro_first =  true -%}
+			{%- assign article_first =  true -%}
+			{%- assign page_first =  true -%}
+			{% paginate search.results by section.settings.products_per_page %}
+				<div class="template-search__results">
+					<div class="row g-3 g-md-4">
+						{%- for item in search.results -%}
+								{%- case item.object_type -%}
+									{%- when 'product' -%}
+										{% if pro_first %}
+											<div class="col-12 d-none">
+												<h2 class="border-bottom mb-4 pb-2">{{ 'templates.search.product_title' | t }}</h2>
+											</div>
+										{%- endif -%}
+										<div class="col-{{col-item }} col-md-{{col-item-md}} col-xl-{{ col-item-xl }}">
+											{% include 'product-grid-item', product: item  %}
+										</div>
+										{%- assign pro_first =  false -%}
+									{%- when 'article' -%}
+										{% if article_first %}
+											<div class="col-12">
+												<h2 class="border-bottom mb-4 pb-2">{{ 'templates.search.article_title' | t }}</h2>
+											</div>
+										{%- endif -%}
+										<div class="col-12">
+											<article class="mb-4">
+												<div class="row gx-3">
+													<div class="col-3 col-lg-2">
+														{% unless item.image == blank %}
+															<div class="article__image rounded-2 overflow-hidden">
+																<a class="article__featured-image-link" href="{{ item.url }}">
+																	{% include 'img-global', image: item.image, image_size: '500x500', crop: 'center' %}
+																</a>
+															</div>
+														{% endunless %}
+													</div>   
+													<div class="col-9 col-lg-10"> 
+														<div class="article__content">
+															<h5 class="mb-1">
+																<a href="{{ item.url }}" title="{{ item.title }}">{{ item.title }}</a>
+															</h5>
+															<div class="article__meta d-flex flex-wrap mb-2">
+																<span class="article__meta-date"><time datetime="{{ item.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}" class="date">{{ item.published_at | date: format: 'date' }}</time></span>									
+															</div>
+															{%- assign article_content = item.excerpt_or_content -%}
+															<div class="rte article__excerpt">
+																<div class="d-none d-sm-block">
+																	{{ article_content | strip_html | truncatewords: 28 }}
+																</div>
+																<div class="d-block d-sm-none">
+																	{{ article_content | strip_html | truncatewords: 10 }}
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</article>
+										</div>
+										{%- assign article_first =  false -%}
+									{%- when 'page' -%}
+										{% if page_first %}
+											<div class="col-12">
+												<h2 class="border-bottom mb-4 pb-2">{{ 'templates.search.page_title' | t }}</h2>
+											</div>
+										{%- endif -%}
+										<a href="{{ item.url }}" class="card-wrapper">
+											<h2 class="card__text h4">{{ item.title | truncate: 50 | escape }}</h2>
+											<span class="badge color-background-1">{{ 'templates.search.page' | t }}</span>
+										</a>
+										{%- assign page_first =  false -%}
+								{%- endcase -%}
+							
+						{%- endfor -%}
+					</div>
+					{%- if paginate.pages > 1 -%}
+
+						{% render 'pagination', paginate: paginate, class: 'pagination-wrapper d-flex justify-content-center pt-5 mt-xl-4'  %}
+					{%- endif -%}
+				</div>
+			{% endpaginate %}
+		{%- endif -%}
+	</div>
+</div>
+
+{% schema %}
+{
+	"name": "Search results",
+	"settings": [
+		{
+			"type": "header",
+			"content": "Design Section"
+		},
+		{
+			"type": "color",
+			"id": "color_bg",
+			"label": "Background Color",
+			"default": "rgba(0,0,0,0)"
+		},
+		{
+			"type": "text",
+			"id": "padding_block",
+			"label": "Padding",
+			"placeholder": "0px 0px",
+			"info": "Ex: 0px 0px 0px 0px and use desktop only"
+		},
+		{
+			"type": "text",
+			"id": "margin_block",
+			"label": "Margin",
+			"placeholder": "0px 0px",
+			"default": "0 0 30px",
+			"info": "Ex: 0px 0px 30px 0px"
+		},
+		{
+			"type": "range",
+			"id": "products_per_page",
+			"min": 6,
+			"max": 50,
+			"step": 1,
+			"default": 32,
+			"label": "Item per page"
+		},
+		{
+			"type": "header",
+			"content": "Product Card"
+		},
+		{
+			"type": "range",
+			"id": "products_ditem_per_row",
+			"min": 1,
+			"max": 6,
+			"step": 1,
+			"default": 4,
+			"label": "Item per row",
+			"info": "On the Desktop"
+		},
+		{
+			"type": "range",
+			"id": "products_titem_per_row",
+			"min": 1,
+			"max": 4,
+			"step": 1,
+			"default": 3,
+			"label": "Item per row",
+			"info": "On the Tablets"
+		},
+		{
+			"type": "range",
+			"id": "products_mitem_per_row",
+			"min": 1,
+			"max": 3,
+			"step": 1,
+			"default": 2,
+			"label": "Item per row",
+			"info": "On the Mobile"
+		}
+	]
+}
+{% endschema %}

@@ -1,0 +1,83 @@
+{% if product_style %}
+    {%- for i in (1..20) -%}
+        {%- capture strGridItem -%}col-6 col-lg-6{%- endcapture -%}
+        {%- assign special_item = forloop.index | modulo : 5 -%}
+        {% if special_item == 1 or forloop.first %}
+            {%- assign h = h | plus: 1 -%}
+            {%- assign k = 0 -%}
+            {%- assign t = h | modulo : 2 -%}
+            <div class="row g-3 mb-3 {% if t == 1 %}flex-row-reverse{% endif %}"> 
+        {% endif %}
+        {%- assign k =  k | plus: 1 -%}
+        {%- if k == 2 -%}
+            <div class="{{ strGridItem }}">
+                <div class="row g-3">
+        {%- endif -%}
+            <div class="gallery-card {{ strGridItem }}">
+                <div class="gallery-card__image-wrapper position-relative">
+                    <a class="gallery-card__image-link" href="/admin/products">
+                        {%- capture current -%}{% cycle 1, 2, 3, 4, 5, 6 %}{%- endcapture -%}
+                        {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                    </a>
+                    <div class="gallery-card__content text-center position-absolute top-50 start-0 translate-middle-y w-100 px-3">
+                        <div class="gallery-card__buttons d-flex justify-content-center">
+                            {%- if settings.quickview_enable -%}
+                                <a class="js-btn-quickview btn btn--quickview rounded-circle me-2" href="/admin/products"  data-handle="{{ product.handle }}" title="{{ 'products.product.quickview' | t }}">
+                                    {% include 'icons', icon: 'eye', attr: 'width="16" height="16"' %}
+                                    <span class="d-none">{{ 'products.product.quickview' | t }}</span>
+                                </a>
+                            {%- endif -%}
+                            <a class="btn btn-more rounded-circle" href="/admin/products"  title="{{ product.title }}">
+                                <svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(90deg);"><path fill="currentColor" d="M1520 1216q0-40-28-68l-208-208q-28-28-68-28-42 0-72 32 3 3 19 18.5t21.5 21.5 15 19 13 25.5 3.5 27.5q0 40-28 68t-68 28q-15 0-27.5-3.5t-25.5-13-19-15-21.5-21.5-18.5-19q-33 31-33 73 0 40 28 68l206 207q27 27 68 27 40 0 68-26l147-146q28-28 28-67zm-703-705q0-40-28-68l-206-207q-28-28-68-28-39 0-68 27l-147 146q-28 28-28 67 0 40 28 68l208 208q27 27 68 27 42 0 72-31-3-3-19-18.5t-21.5-21.5-15-19-13-25.5-3.5-27.5q0-40 28-68t68-28q15 0 27.5 3.5t25.5 13 19 15 21.5 21.5 18.5 19q33-31 33-73zm895 705q0 120-85 203l-147 146q-83 83-203 83-121 0-204-85l-206-207q-83-83-83-203 0-123 88-209l-88-88q-86 88-208 88-120 0-204-84l-208-208q-84-84-84-204t85-203l147-146q83-83 203-83 121 0 204 85l206 207q83 83 83 203 0 123-88 209l88 88q86-88 208-88 120 0 204 84l208 208q84 84 84 204z"/></svg>                                        
+                            </a>
+                        </div>
+                        <div class="gallery-card__content--inner  position-relative mt-2 text-center">
+                            <div class="gallery-card__name">
+                                <a href="/admin/products">Massage Body Oil</a>
+                            </div>
+                            <div class="gallery-card__vendor">Vendor demo</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {%- if k == 5  or forloop.last  -%}
+                </div>
+            </div>
+        {%- endif -%}
+        {% if forloop.last or special_item == 0 %}
+            </div>
+        {% endif %}
+    {%- endfor -%}
+{%- else -%}
+    <div class="row {% if section.settings.space_between == '4 '%}g-3 g-md-4 {% else  %} g-{{ section.settings.space_between}}{% endif %}">
+        {%- for i in (1..16) -%}  
+            <div class="gallery-card col-6 col-lg-3">
+                <div class="gallery-card__image-wrapper position-relative">
+                    <a class="gallery-card__image-link" href="/admin/products">
+                        {%- capture current -%}{% cycle 1, 2, 3, 4, 5, 6 %}{%- endcapture -%}
+                        {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                    </a>
+                    <div class="gallery-card__content text-center position-absolute top-50 start-0 translate-middle-y w-100 px-3">
+                        <div class="gallery-card__buttons d-flex justify-content-center">
+                            {%- if settings.quickview_enable -%}
+                                <a class="js-btn-quickview btn btn--quickview rounded-circle me-2" href="/admin/products"  data-handle="{{ product.handle }}" title="{{ 'products.product.quickview' | t }}">
+                                    {% include 'icons', icon: 'eye', attr: 'width="16" height="16"' %}
+                                    <span class="d-none">{{ 'products.product.quickview' | t }}</span>
+                                </a>
+                            {%- endif -%}
+                            <a class="btn btn-more rounded-circle" href="/admin/products"  title="{{ product.title }}">
+                                <svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(90deg);"><path fill="currentColor" d="M1520 1216q0-40-28-68l-208-208q-28-28-68-28-42 0-72 32 3 3 19 18.5t21.5 21.5 15 19 13 25.5 3.5 27.5q0 40-28 68t-68 28q-15 0-27.5-3.5t-25.5-13-19-15-21.5-21.5-18.5-19q-33 31-33 73 0 40 28 68l206 207q27 27 68 27 40 0 68-26l147-146q28-28 28-67zm-703-705q0-40-28-68l-206-207q-28-28-68-28-39 0-68 27l-147 146q-28 28-28 67 0 40 28 68l208 208q27 27 68 27 42 0 72-31-3-3-19-18.5t-21.5-21.5-15-19-13-25.5-3.5-27.5q0-40 28-68t68-28q15 0 27.5 3.5t25.5 13 19 15 21.5 21.5 18.5 19q33-31 33-73zm895 705q0 120-85 203l-147 146q-83 83-203 83-121 0-204-85l-206-207q-83-83-83-203 0-123 88-209l-88-88q-86 88-208 88-120 0-204-84l-208-208q-84-84-84-204t85-203l147-146q83-83 203-83 121 0 204 85l206 207q83 83 83 203 0 123-88 209l88 88q86-88 208-88 120 0 204 84l208 208q84 84 84 204z"/></svg>                                        
+                            </a>
+                        </div>
+                        <div class="gallery-card__content--inner  position-relative mt-2 text-center">
+                            <div class="gallery-card__name">
+                                <a href="/admin/products">Massage Body Oil</a>
+                            </div>
+                            <div class="gallery-card__vendor">Vendor demo</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {%- endfor -%}
+    </div>
+{%- endif -%}

@@ -1,0 +1,325 @@
+    {%- assign nav = section.settings.navigation -%}
+    {%- assign infinite = section.settings.infinite -%}
+    {%- assign autoplay = section.settings.autoplay -%}
+    {%- assign autoplay_speed = section.settings.autoplay_speed | escape -%}
+    {%- assign owlColumn1 = section.settings.column1 | plus:0 -%}
+    {%- assign owlColumn2 = section.settings.column2 | plus:0 -%}
+    {%- assign owlColumn3 = section.settings.column3 | plus:0 -%}
+    {%- assign owlColumn4 = section.settings.column4 | plus:0 -%}
+
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        {%- capture bgColor -%}
+            background-color: {{ section.settings.color_bg }};
+        {%- endcapture -%}
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+        {%- capture paddingblock -%}
+            padding: {{section.settings.padding_block}};
+        {%- endcapture -%}
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        {%- capture marginblock -%}
+            margin: {{section.settings.margin_block}};
+        {%- endcapture -%}
+    {%- endif -%}
+    {%- assign image_crop = nil -%}
+    {%- if section.settings.crop -%}
+        {%- assign image_crop = 'center' -%}
+    {%- endif -%} 
+    <div class="our-teams vela-section overflow-hidden" style="{{ bgColor}} {{ paddingblock }} {{ marginblock }}">
+        <div class="container{% if section.settings.full_with %}-full{% endif %}">
+            <div class="our-teams__inner">
+                {%- if section.settings.heading != blank -%}
+                    <div class="heading-group mb-xl-2 pb-4">
+                        <h2 class="heading mb-1">
+                            <span>{{ section.settings.heading }}</span>
+                        </h2>
+                        {%- if section.settings.sub_heading != blank -%}
+                            <div class="sub-heading">
+                                {{ section.settings.sub_heading }}
+                            </div>
+                        {%- endif -%}
+                    </div>
+                {%- endif -%}
+                <div class="vela-section__content">
+                    {%- if section.blocks.size > 0 -%}
+                        <div class="our-teams__content">
+                            {%- if section.settings.slide_enable -%}
+                                <div class="js-carousel slick-carousel row g-3 g-md-4"
+                                data-nav="{{ nav }}"
+                                data-infinite="{{ infinite }}"
+                                data-autoplay="{{ autoplay }}"
+                                data-autoplayspeed="{{ autoplay_speed }}"
+                                data-columnone="{{ owlColumn1 }}" 
+                                data-columntwo="{{ owlColumn2 }}" 
+                                data-columnthree="{{ owlColumn3 }}" 
+                                data-columnfour="{{ owlColumn4 }}">
+                                    {% for block in section.blocks %}
+                                        <div class="slick-carousel__item">
+                                            {%- include 'our-team-item', layout_style: section.settings.layout_style -%}
+                                        </div>
+                                    {%- endfor -%}
+                                </div>
+                            {%- else -%}
+                                <div class="row g-3 g-md-4 row-cols-{{owlColumn4}} row-cols-ms-{{owlColumn3}} row-cols-md-{{owlColumn2}} row-cols-lg-{{owlColumn1}}">
+                                    {% for block in section.blocks %}
+                                        <div class="col">
+                                            {%- include 'our-team-item', layout_style: section.settings.layout_style -%}
+                                        </div>
+                                    {%- endfor -%}
+                                </div>
+                            {%- endif -%}
+                        </div>
+                    {%- endif -%}
+                </div>
+            </div>
+        </div>
+    </div>
+{% schema %}
+    {
+        "name": "Our Teams",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Design Section"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "Enable Full Width?"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "Background Color",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "Padding",
+                "placeholder": "0px 0px",
+                "info": "Ex: 0px 0px 0px 0px and use desktop only"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "Margin",
+                "placeholder": "0px 0px",
+                "default": "0 0 30px",
+                "info": "Ex: 0px 0px 30px 0px"
+            },
+            {
+                "type": "header",
+                "content": "General Settings"
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Heading"
+            },
+            {
+                "type": "text",
+                "id": "sub_heading",
+                "label": "Sub heading",
+                "default": "sub heading"
+            },
+            {
+                "type": "select",
+                "id": "image_ratio",
+                "options": [
+                  {
+                    "value": "adapt",
+                    "label": "Adapt to image"
+                  },
+                  {
+                    "value": "portrait",
+                    "label": "Portrait"
+                  },
+                  {
+                    "value": "square",
+                    "label": "Square"
+                  }
+                ],
+                "default": "adapt",
+                "label": "Image ratio"
+            },
+            {
+                "type": "checkbox",
+                "id": "crop",
+                "label": "Crop Image",
+                "default": false,
+                "info": "Not use with Adapt to image"
+            },
+            {
+                "type": "select",
+                "id": "layout_style",
+                "label": "Layout Style",
+                "default": "grid",
+                "options": [
+                    {
+                        "value": "grid",
+                        "label": "Grid"
+                    },
+                    {
+                        "value": "list",
+                        "label": "List"
+                    }
+                ]
+            },
+            {
+                "type": "select",
+                "id": "text_align",
+                "label": "Text Alignment",
+                "default": "start",
+                "options": [
+                    {
+                        "value": "start",
+                        "label": "Left"
+                    },
+                    {
+                        "value": "center",
+                        "label": "Center"
+                    },
+                    {
+                        "value": "end",
+                        "label": "Right"
+                    }
+                ]
+            },
+            {
+                "type": "header",
+                "content": "Carousel Settings"
+            },
+            {
+                "type": "checkbox",
+                "id": "slide_enable",
+                "label": "Enable Slide",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "navigation",
+                "label": "Show navigation",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "infinite",
+                "label": "Infinite loop sliding",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "autoplay",
+                "label": "Enable autoplay",
+                "default": false
+            },
+            {
+                "type": "text",
+                "id": "autoplay_speed",
+                "label": "Autoplay speed",
+                "info": "Autoplay speed in milliseconds. Type: int(ms)",
+                "default": "10000"
+            },
+            {
+                "type": "range",
+                "id": "column1",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "#Column 1",
+                "default": 4,
+                "info": "Large desktops"
+            },
+            {
+                "type": "range",
+                "id": "column2",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 2",
+                "default": 3,
+                "info": "Desktops & Tablets landscape"
+            },
+            {
+                "type": "range",
+                "id": "column3",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 3",
+                "default": 2,
+                "info": "Mobile phone landscape"
+            },
+            {
+                "type": "range",
+                "id": "column4",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 4",
+                "default": 1,
+                "info": "Mobile phone"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "item",
+                "name": "Items",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Member avatar"
+                    },
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Member name"
+                    },
+                    {
+                        "type": "text",
+                        "id": "position",
+                        "label": "Member position"
+                    },
+                    {
+                        "type": "textarea",
+                        "id": "desc",
+                        "label": "Description"
+                    },
+                    {
+                        "type": "header",
+                        "content": "Social link"
+                    },
+                    {
+                        "type": "text",
+                        "id": "fa_link",
+                        "label": "Facebook link"
+                    },
+                    {
+                        "type": "text",
+                        "id": "tw_link",
+                        "label": "Twitter link"
+                    },
+                    {
+                        "type": "text",
+                        "id": "in_link",
+                        "label": "Youtube"
+                    },
+                    {
+                        "type": "text",
+                        "id": "instagram_link",
+                        "label": "Instagram link"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Our Teams"
+            }
+        ]
+    }
+{% endschema %}

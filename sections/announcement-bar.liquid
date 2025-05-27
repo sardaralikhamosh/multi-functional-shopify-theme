@@ -1,0 +1,145 @@
+{%- if section.settings.enable -%}
+<style data-shopify>
+	.announcement-bar {
+		color: {{ section.settings.color_top_text }};
+		background-color: {{ section.settings.color_bg }};
+		font-size: {{ section.settings.font-size}}px;
+		{%- if section.settings.padding_block != blank -%}
+			padding: {{ section.settings.padding_block }};
+		{%- endif -%}
+		{%- if section.settings.image_bg != blank -%}
+			background-image: url({{ section.settings.image_bg | img_url: 'master' }});
+			background-size: cover;
+			background-position: cetner cetner;
+		{%- endif -%}
+	}
+	.announcement-bar .disclosure__button {color: {{ section.settings.color_top_text }};font-size: {{ section.settings.font-size}}px;}
+	.announcement-bar .text,.announcement-bar a {color: {{ section.settings.color_top_link }};}
+	.announcement-bar .disclosure__button:hover,.announcement-bar .text:hover,.announcement-bar a:hover {color: var(--primary);}
+</style>
+<div class="announcement-bar py-2">
+	<div class="container{%- if section.settings.full_with -%}-fluid{%-endif-%}">
+		<div class="announcement-bar__inner row g-3 justify-content-between align-items-center">
+			{%- if section.settings.text_left != blank -%}
+				<div class="announcement-bar__left col text-center text-sm-start">
+					{{ section.settings.text_left }}
+				</div>
+			{%- endif -%}
+			{%- if section.settings.text != blank -%}
+				<div class="announcement-bar__left col-auto  d-none d-lg-flex">
+					{{ section.settings.text }}
+				</div>
+			{%- endif -%}
+			<div class="announcement-bar__right col d-none d-sm-flex justify-content-end align-items-center">
+				{%- if section.settings.enable_country_selector -%}
+					<div class="topbar__disclosure me-3">
+						<div class="position-relative d-flex">
+							{%- include 'localization'-%}
+						</div>
+					</div>
+				{%- endif -%}
+				{%- if section.settings.social_enable -%}
+					<div class="topbar-social">
+						{%- include 'social-link' position: "topbar" -%}
+					</div>
+				{%- endif -%}
+			</div>
+		</div>
+	</div>
+</div>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Announcement",
+  "settings": [
+  	{
+		"type": "checkbox",
+		"id": "enable",
+		"label": "Enabel?",
+		"default": true
+	},
+	{
+		"type": "checkbox",
+		"id": "full_with",
+		"label": "Enabel Full Width?"
+	},
+	{
+		"type": "text",
+		"id": "padding_block",
+		"label": "Padding",
+		"placeholder": "0px 0px",
+		"info": "0px 0px 0px 0px"
+	},
+	{
+		"type": "color",
+		"id": "color_bg",
+		"label": "Background Color",
+		"default": "rgba(0,0,0,0)"
+	},
+	{
+		"type": "image_picker",
+		"id": "image_bg",
+		"label": "Background Image"
+	},
+	{
+		"type": "color",
+		"id": "color_top_text",
+		"label": "Color",
+		"default": "#1f2021"
+	},
+	{
+		"type": "color",
+		"id": "color_top_link",
+		"label": "Color Link",
+		"default": "#1f2021"
+	},
+	{
+		"type": "range",
+		"id": "font-size",
+		"min": 8,
+		"max": 30,
+		"step": 1,
+		"unit":"px",
+		"label": "Font-size",
+		"default": 14
+	},
+	{
+		"type": "header",
+		"content": "Text left"
+	},
+    {
+      "type": "textarea",
+      "id": "text_left",
+      "label": "Text",
+      "info": "Ex: +391 (0)35 2568 4593 | support@gmail.com"
+    },
+	{
+		"type": "header",
+		"content": "Text Center"
+	},
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "info": "Ex: Free shipping on all orders over <u>$79<\/u><a href=\"\/collections\/all\" class=\"bg-primary\">shop Now!<\/a>"
+    },
+	{
+		"type": "checkbox",
+		"id": "enable_country_selector",
+		"label": "Enable language & currency",
+		"default": false,
+		"info": "[Add language](https:\/\/help.shopify.com\/en\/manual\/cross-border\/multilingual-online-store),[Add currency](https:\/\/help.shopify.com\/en\/manual\/payments\/shopify-payments\/multi-currency\/setup)"
+	},
+	{
+		"type": "header",
+		"content": "Social Link"
+	},
+	{
+		"type": "checkbox",
+		"id": "social_enable",
+		"label": "Social enable?"
+	}
+  ]
+       
+}
+{% endschema %}

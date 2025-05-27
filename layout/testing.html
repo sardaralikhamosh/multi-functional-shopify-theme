@@ -1,0 +1,443 @@
+<footer id="footer" class="footer">
+    <div class="footer-inner"> 
+		{%- if section.blocks.size > 0 -%}
+			{%- for block in section.blocks -%}
+				{%- if block.type == 'newsletter' -%}
+					<div class="footer__top">
+						<div class="container">
+							<div class="footer__top-inner">
+								{% assign newsletterCaption = block.settings.newsletter_caption %}
+								{% assign newsletterTitle = block.settings.newsletter_title %}
+								{% assign newsletterDesc = block.settings.newsletter_description %}
+								{% assign newsletterMailchimp = block.settings.newsletter_mailchimp %}
+								{% assign newsletterFormAction = block.settings.newsletter_form_action %}
+								{% assign newsletterBgColor = block.settings.newsletter_bg_color %}
+								{% assign newsletterBgImage = block.settings.newsletter_bg_image %}
+								{%- include 'footer-newsletter' -%}
+							</div>
+						</div>
+					</div>
+				{%- endif -%}
+			{%- endfor -%}
+			<div class="footer__center">
+				<div class="container">
+					<div class="footer__center-inner">
+						<div class="row g-4 justify-content-center">
+							{%- for block in section.blocks -%}
+								{%- case block.type -%}
+									{%- when 'contact_info' -%}
+										<div class="col col-md-6 col-lg-5">
+											<div class="footer-info">
+												{%- if block.settings.contactinfo_heading != blank -%}
+													<h5 class="footer__title py-1 py-md-2 mb-md-2">{{ block.settings.contactinfo_heading }} {% render 'icons', icon: 'angle-left', class: "d-none ms-1" %}</h5>
+												{%- endif -%}
+												<div class="footer-info-content {%if block.settings.contactinfo_heading != blank %} accordion-footer__content{% endif %}">
+													{%- assign contactinfoDesc = block.settings.contactinfo_desc -%}
+													{%- assign contactinfoAdd = block.settings.contactinfo_add -%}
+													{%- assign contactinfoPhone = block.settings.contactinfo_phone -%}
+													{%- assign contactinfoEmail = block.settings.contactinfo_email -%}
+													{%- assign contactinfoTime = block.settings.contactinfo_time -%}
+													{% include 'footer-contact-info' %}
+													{%- if block.settings.payment_enable -%}
+														<div class="payment">
+															{%- if block.settings.payment_image != blank -%}
+																<img srcset="{{ block.settings.payment_image| img_url: 'master' }} 1x, {{ block.settings.payment_image| img_url: 'master', scale: 2 }} 2x"
+																src="{{ block.settings.payment_image| img_url: 'master' }}"
+																loading="lazy"
+																class="img-fluid"
+																alt="{{ block.settings.payment_image.alt | default: shop.name | escape }}" >
+															{%- else -%}
+																<span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
+																<ul class="list list-payment list-unstyled m-0 d-flex flex-wrap" role="list">
+																{%- for type in shop.enabled_payment_types -%}
+																	<li class="list-payment__item py-1{% unless forloop.last %} me-2{% endunless%}">
+																	{{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+																	</li>
+																{%- endfor -%}
+																</ul>
+															{%- endif -%}
+														</div>
+													{%- endif -%}
+												</div>
+											</div>
+										</div>
+									{%- when 'image_list' -%}
+										<div class="col">
+											<div class="footer-image-list">
+												{%- if block.settings.title != blank -%}
+													<h6 class="footer__title py-1 py-md-2 mb-md-2">{{ block.settings.title }} {% render 'icons', icon: 'angle-left', class: "d-none ms-1" %}</h6>
+												{%- endif -%}
+												<div class="footer-info-content pt-2{%if block.settings.title != blank %} accordion-footer__content{% endif %}">
+													<div class="row g-2 row-cols-4">
+														{% for i in(1..8) %}
+															{%- assign image_item = "image" | append: forloop.index -%}
+															{%- assign image_url = "url" | append: forloop.index -%}
+															{%- if block.settings[image_item] != blank -%}
+																{%- if block.settings[image_url] != blank -%}
+																	<a href="{{ block.settings[image_url] }}" title="{{ shop.name }}" target="_blank">
+																{%- endif -%}
+																	{% include 'img-global' with image: block.settings[image_item], image_ratio: 'square', crop: 'center'  %}
+																{%- if block.settings[image_url] != blank -%}
+																	</a>
+																{%- endif -%}
+															{%- endif -%}
+														{% endfor %}
+													</div>
+												</div>
+											</div>
+										</div>
+									{%- when 'link_list' -%}
+										<div class="col col-lg-2">
+											{%- assign linklist-title =  block.settings.title -%}
+											{%- assign linklist-handle = block.settings.menu -%}
+											{% include  'footer-link-list'%}
+										</div>
+									{%- when 'text' -%}
+										<div class="col">
+											<div class="footer__center-text">
+												{%- if block.settings.heading  != blank -%}
+													<h6 class="footer__title py-1 py-md-2 mb-md-2">{{ block.settings.heading }} {% render 'icons', icon: 'angle-left', class: "d-none ms-1" %}</h6>
+												{%- endif -%}
+												{%- if block.settings.subtext != blank -%}
+													<div class="footer__content pt-1 {% if block.settings.heading != blank %}accordion-footer__content{% endif %}">
+														{{ block.settings.subtext }}
+													</div>
+												{%- endif -%}
+											</div>
+										</div>
+								{%- endcase-%}
+							{%- endfor -%}
+						</div>
+					</div>
+				</div>
+			</div>
+			{%- for block in section.blocks -%}
+				{%- if block.type == 'copyright' -%}
+					<div class="footer__bottom">
+						<div class="container">
+							<div class="footer__bottom-inner fst-italic py-2 py-md-3">
+								<div class="row row-cols-1 row-cols-md-2 justify-content-between align-items-center py-2">
+									{%- if block.settings.footer_copyright != blank -%}
+										<div class="copyright col mb-2 mb-md-0">
+											{{ block.settings.footer_copyright }}
+										</div>
+									{%- endif -%}
+									{%- if block.settings.social_enable -%}
+										<div class="col d-flex justify-content-md-end ">
+											{%- if block.settings.social_enable -%}
+												<div class="footer-social d-flex justify-content-md-end align-items-center">
+													{%- if block.settings.social_title != blank %}
+														<span class="footer-social__title me-2">{{ block.settings.social_title }}</span>
+													{%- endif -%}
+													{%- include 'social-link' position: "footer" -%}
+												</div>
+											{%- endif -%}
+										</div>
+									{%- endif -%}
+								</div>
+							</div>
+						</div>
+					</div>	
+				{%- endif -%}	
+			{%- endfor -%}
+		{%- endif -%}
+	</div>
+</footer>
+
+{% schema %}
+{
+  	"name": "Footer",
+  	"blocks": [
+	{
+		"type": "newsletter",
+		"name": "Newsletter",
+		"limit": 1,
+		"settings": [
+			{
+				"type": "text",
+				"id": "newsletter_caption",
+				"placeholder": "Caption for Block",
+				"label": "Caption"
+			},
+			{
+				"type": "text",
+				"id": "newsletter_title",
+				"placeholder": "Title for Block",
+				"label": "Title"
+			},
+			{
+				"type": "textarea",
+				"id": "newsletter_description",
+				"placeholder": "Description for Block",
+				"label": "Description"
+			},
+			{
+				"type": "checkbox",
+				"id": "newsletter_mailchimp",
+				"label": "Use MailChimp",
+				"default": true
+			},
+			{
+				"type": "paragraph",
+				"content": "Uncheck if You use Newsletter of Shopify. Email will be saved to shopify customer. Admin -> Customers -> Accepts Marketting. You must send invite account for customer."
+			},
+			{
+				"type": "text",
+				"id": "newsletter_form_action",
+				"label": "MailChimp form action URL",
+				"info": "[Where do I find my MailChimp form action URL?](https:\/\/www.youtube.com/watch?v=mQ6UFLP_iEI)"
+			}
+		]
+	},
+	{
+		"type": "contact_info",
+		"name": "Contact info",
+		"limit": 1,
+		"settings": [
+			{
+				"type": "header",
+				"content": "Block Contact info"
+			},
+			{
+				"type": "text",
+				"id": "contactinfo_heading",
+				"label": "Heading"
+			},
+			{
+				"type": "image_picker",
+				"id": "contactinfo_logo",
+				"label": "Logo footer"
+			},
+			{
+				"type": "text",
+				"id": "contactinfo_logo_svg",
+				"label": "Logo footer svg",
+				"info": "insert link logo svg"
+			},
+			{
+				"type": "range",
+				"id": "logo_footer_width",
+				"min": 50,
+				"max": 250,
+				"step": 10,
+				"default": 100,
+				"unit": "px",
+				"label": "Custom logo width"
+			},
+			{
+				"type": "textarea",
+				"id": "contactinfo_desc",
+				"label": "Description"
+			},
+			{
+				"type": "text",
+				"id": "contactinfo_add",
+				"label": "Adress",
+				"default": "1234 Heaven Stress, Beverly Hill."
+			},
+			{
+				"type": "text",
+				"id": "contactinfo_phone",
+				"label": "Phone",
+				"default": "Telephone: +01 234 567 89"
+			},
+			{
+				"type": "text",
+				"id": "contactinfo_email",
+				"label": "Email",
+				"default": "Email: info@gmail.com"
+			},
+			{
+				"type": "text",
+				"id": "contactinfo_time",
+				"label": "Time",
+				"default": "8:00 - 19:00, Monday - Saturday"
+			},
+			{
+				"type": "header",
+				"content": "Payment"
+			},
+			{
+				"type": "checkbox",
+				"id": "payment_enable",
+				"label": "Enable Payment"
+			},
+			{
+				"type": "image_picker",
+				"id": "payment_image",
+				"label": "Payment Logo"
+			}
+		]
+	},
+    {
+      "type": "link_list",
+      "name": "Menu",
+	  "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Link List",
+          "label": "Heading",
+          "info": "A heading is required to display the menu."
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "default": "footer",
+          "label": "Menu",
+          "info": "Displays only top-level menu items."
+        }
+      ]
+    },
+	{
+		"type": "image_list",
+		"name": "Image List",
+		"limit": 1,
+		"settings": [
+			{
+				"type": "text",
+				"id": "title",
+				"default": "Instagram",
+				"label": "Heading"
+			},
+			{
+				"type": "header",
+				"content": "Image list"
+			},
+			{
+				"type": "image_picker",
+				"id": "image1",
+				"label": "1st Image"
+			},
+			{
+				"type": "url",
+				"id": "url1",
+				"label": "1st Url"
+			},
+			{
+				"type": "image_picker",
+				"id": "image2",
+				"label": "2st Image"
+			},
+			{
+				"type": "url",
+				"id": "url2",
+				"label": "2st Url"
+			},
+			{
+				"type": "image_picker",
+				"id": "image3",
+				"label": "3st Image"
+			},
+			{
+				"type": "url",
+				"id": "url3",
+				"label": "3st Url"
+			},
+			{
+				"type": "image_picker",
+				"id": "image4",
+				"label": "4st Image"
+			},
+			{
+				"type": "url",
+				"id": "url4",
+				"label": "4st Url"
+			},
+			{
+				"type": "image_picker",
+				"id": "image5",
+				"label": "5st Image"
+			},
+			{
+				"type": "url",
+				"id": "url5",
+				"label": "5st Url"
+			},
+			{
+				"type": "image_picker",
+				"id": "image6",
+				"label": "6st Image"
+			},
+			{
+				"type": "url",
+				"id": "url6",
+				"label": "6st Url"
+			},
+			{
+				"type": "image_picker",
+				"id": "image7",
+				"label": "7st Image"
+			},
+			{
+				"type": "url",
+				"id": "url7",
+				"label": "7st Url"
+			},
+			{
+				"type": "image_picker",
+				"id": "image8",
+				"label": "8st Image"
+			},
+			{
+				"type": "url",
+				"id": "url8",
+				"label": "8st Url"
+			}
+		]
+	  },
+    {
+      "type": "text",
+      "name": "Text",
+	  "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Heading",
+          "label": "Heading"
+        },
+        {
+          "type": "html",
+          "id": "subtext",
+          "default": "<p>Share store details, promotions, or brand content with your customers.</p>",
+          "label": "Content"
+        }
+      ]
+    },
+	{
+		"type": "copyright",
+		"name": "CopyRight",
+		"limit": 1,
+		"settings": [
+			{
+				"type": "header",
+				"content": "Block Copyright"
+			},
+			{
+				"type": "text",
+				"id": "footer_copyright",
+				"label": "Copyright",
+				"placeholder": "Copyright"
+			},
+			{
+				"type": "header",
+				"content": "Social link"
+			},
+			{
+				"type": "checkbox",
+				"id": "social_enable",
+				"label": "Enable"
+			},
+			{
+				"type": "text",
+				"id": "social_title",
+				"label": "Title",
+				"default": "Social Media:"
+			}
+		]
+	}
+  ]
+}
+{% endschema %}

@@ -1,0 +1,251 @@
+{%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+    {%- capture bgColor -%}
+        background-color: {{ section.settings.color_bg }};
+    {%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.padding_block != blank -%}
+    {%- capture paddingblock -%}
+        padding: {{section.settings.padding_block}};
+    {%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.margin_block != blank -%}
+    {%- capture marginblock -%}
+        margin: {{section.settings.margin_block}};
+    {%- endcapture -%}
+{%- endif -%}
+{%- assign proLimit = section.settings.limit -%}
+<section class="vela-section product-tabs overflow-hidden" style="{{ bgColor}} {{ paddingblock }} {{ marginblock }}">
+	<div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+		<div class="vela-section__inner">
+			<div class="vela-section__content">
+				<div class="product-tabs__heading mb-4 mb-md-5">
+					<ul class="nav product-tabs__nav d-flex justify-content-center">
+						{%- for block in section.blocks -%}
+						{%- assign tab_heading =  block.settings.title | escape -%}
+						<li class="nav-item product-tabs__nav-item">
+							<a class="product-tabs__nav-link{% if forloop.first %} active{% endif %}"  data-bs-toggle="tab"
+							href="#product-tabs-{{ section.id }}{{ forloop.index }}">
+							{{ tab_heading }}
+							</a>
+						</li>
+						{%- endfor -%}
+					</ul>
+				</div>
+				<div class="tab-content product-tabs__content">
+					{%- for block in section.blocks -%}
+						{%- assign proCollection = block.settings.collection -%}
+						<div class="tab-pane fade{% if forloop.first %} show active{% endif %}" id="product-tabs-{{ section.id }}{{ forloop.index }}">
+                            {%- if proCollection == blank or collections[proCollection] == empty or collections[proCollection].products_count == 0 -%}
+                                {% include 'onboarding-featured-products1', product_style: section.settings.layout_special %}
+                            {%- else -%}
+                                {%- if section.settings.layout_special -%}
+                                    {%- assign h = 0 -%}
+                                    {% for product in collections[proCollection].products limit: proLimit %}
+                                        {%- capture strGridItem -%}col-6 col-lg-6{%- endcapture -%}
+                                        {%- assign special_item = forloop.index | modulo : 5 -%}
+                                        {% if special_item == 1 or forloop.first %}
+                                            {%- assign h = h | plus: 1 -%}
+                                            {%- assign k = 0 -%}
+                                            {%- assign t = h | modulo : 2 -%}
+                                            <div class="row {% if section.settings.space_between == '4 '%}g-3 g-md-4  mb-3 mb-md-4{% else  %}g-{{ section.settings.space_between}} mb-{{ section.settings.space_between}}{% endif %} {% if t == 1 %}flex-row-reverse{% endif %}"> 
+                                        {% endif %}
+                                            {%- assign k =  k | plus: 1 -%}
+                                            {%- if k == 2 -%}
+                                                <div class="{{ strGridItem }}">
+                                                    <div class="row {% if section.settings.space_between == '4 '%}g-3 g-md-4 {% else  %}g-{{ section.settings.space_between}}{% endif %}">
+                                            {%- endif -%}
+                                                <div class="gallery-card {{ strGridItem }}">
+                                                    <div class="gallery-card__image-wrapper position-relative">
+                                                        <a class="gallery-card__image-link" href="{{ product.url }}">
+                                                            {% include 'img-global', image: product.featured_media, image_ratio: settings.image_ratio, crop: image_crop  %}
+                                                        </a>
+                                                        <div class="gallery-card__content text-center position-absolute top-50 start-0 translate-middle-y w-100 px-3">
+                                                            <div class="gallery-card__buttons d-flex justify-content-center">
+                                                                {%- if settings.quickview_enable -%}
+                                                                    <a class="js-btn-quickview btn btn--quickview rounded-circle me-2" href="javascript:void(0);"  data-handle="{{ product.handle }}" title="{{ 'products.product.quickview' | t }}">
+                                                                        {% include 'icons', icon: 'eye', attr: 'width="16" height="16"' %}
+                                                                        <span class="d-none">{{ 'products.product.quickview' | t }}</span>
+                                                                        <div class="d-none proShortDesc">
+                                                                            {{ shortDescription }}
+                                                                        </div>
+                                                                    </a>
+                                                                {%- endif -%}
+                                                                <a class="btn btn-more rounded-circle" href="{{ product.url }}"  title="{{ product.title }}">
+                                                                    <svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(90deg);"><path fill="currentColor" d="M1520 1216q0-40-28-68l-208-208q-28-28-68-28-42 0-72 32 3 3 19 18.5t21.5 21.5 15 19 13 25.5 3.5 27.5q0 40-28 68t-68 28q-15 0-27.5-3.5t-25.5-13-19-15-21.5-21.5-18.5-19q-33 31-33 73 0 40 28 68l206 207q27 27 68 27 40 0 68-26l147-146q28-28 28-67zm-703-705q0-40-28-68l-206-207q-28-28-68-28-39 0-68 27l-147 146q-28 28-28 67 0 40 28 68l208 208q27 27 68 27 42 0 72-31-3-3-19-18.5t-21.5-21.5-15-19-13-25.5-3.5-27.5q0-40 28-68t68-28q15 0 27.5 3.5t25.5 13 19 15 21.5 21.5 18.5 19q33-31 33-73zm895 705q0 120-85 203l-147 146q-83 83-203 83-121 0-204-85l-206-207q-83-83-83-203 0-123 88-209l-88-88q-86 88-208 88-120 0-204-84l-208-208q-84-84-84-204t85-203l147-146q83-83 203-83 121 0 204 85l206 207q83 83 83 203 0 123-88 209l88 88q86-88 208-88 120 0 204 84l208 208q84 84 84 204z"/></svg>
+                                                                </a>
+                                                            </div>
+                                                            <div class="gallery-card__content--inner  position-relative mt-2 text-center">
+                                                                <div class="gallery-card__name">
+                                                                    <a href="{{ product.url }}">{{ product.title }}</a>
+                                                                </div>
+                                                                <div class="gallery-card__vendor">{{ product.vendor }}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {%- if k == 5  or forloop.last  -%}
+                                                    </div>
+                                                </div>
+                                            {%- endif -%}
+                                        {% if forloop.last or special_item == 0 %}
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {%- else -%}
+                                    {%- capture strGridItem -%}col-6 col-lg-3{%- endcapture -%}
+                                    <div class="row {% if section.settings.space_between == '4 '%}g-3 g-md-4 {% else  %}g-{{ section.settings.space_between}}{% endif %}">
+                                        {% for product in collections[proCollection].products limit: proLimit %}
+                                            <div class="gallery-card {{ strGridItem }}">
+                                                <div class="gallery-card__image-wrapper position-relative">
+                                                    <a class="gallery-card__image-link" href="{{ product.url }}">
+                                                        {% include 'img-global', image: product.featured_media, image_ratio: settings.image_ratio, crop: image_crop  %}
+                                                    </a>
+                                                    <div class="gallery-card__content text-center position-absolute top-50 start-0 translate-middle-y w-100 px-3">
+                                                        <div class="gallery-card__buttons d-flex justify-content-center">
+                                                            {%- if settings.quickview_enable -%}
+                                                                <a class="js-btn-quickview btn btn--quickview rounded-circle me-2" href="javascript:void(0);"  data-handle="{{ product.handle }}" title="{{ 'products.product.quickview' | t }}">
+                                                                    {% include 'icons', icon: 'eye', attr: 'width="16" height="16"' %}
+                                                                    <span class="d-none">{{ 'products.product.quickview' | t }}</span>
+                                                                    <div class="d-none proShortDesc">
+                                                                        {{ shortDescription }}
+                                                                    </div>
+                                                                </a>
+                                                            {%- endif -%}
+                                                            <a class="btn btn-more rounded-circle" href="{{ product.url }}"  title="{{ product.title }}">
+                                                                <svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(90deg);"><path fill="currentColor" d="M1520 1216q0-40-28-68l-208-208q-28-28-68-28-42 0-72 32 3 3 19 18.5t21.5 21.5 15 19 13 25.5 3.5 27.5q0 40-28 68t-68 28q-15 0-27.5-3.5t-25.5-13-19-15-21.5-21.5-18.5-19q-33 31-33 73 0 40 28 68l206 207q27 27 68 27 40 0 68-26l147-146q28-28 28-67zm-703-705q0-40-28-68l-206-207q-28-28-68-28-39 0-68 27l-147 146q-28 28-28 67 0 40 28 68l208 208q27 27 68 27 42 0 72-31-3-3-19-18.5t-21.5-21.5-15-19-13-25.5-3.5-27.5q0-40 28-68t68-28q15 0 27.5 3.5t25.5 13 19 15 21.5 21.5 18.5 19q33-31 33-73zm895 705q0 120-85 203l-147 146q-83 83-203 83-121 0-204-85l-206-207q-83-83-83-203 0-123 88-209l-88-88q-86 88-208 88-120 0-204-84l-208-208q-84-84-84-204t85-203l147-146q83-83 203-83 121 0 204 85l206 207q83 83 83 203 0 123-88 209l88 88q86-88 208-88 120 0 204 84l208 208q84 84 84 204z"/></svg>                                        
+                                                            </a>
+                                                        </div>
+                                                        <div class="gallery-card__content--inner  position-relative mt-2 text-center">
+                                                            <div class="gallery-card__name">
+                                                                <a href="{{ product.url }}">{{ product.title }}</a>
+                                                            </div>
+                                                            <div class="gallery-card__vendor">{{ product.vendor }}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {%- endif -%}
+                            {%- endif -%}
+						</div>
+					{%- endfor -%}
+				</div>
+			</div>
+		</div>
+  	</div>
+</section>
+{% schema %}
+{
+	"name": "Gallery product tabs",
+	"class": "velaFramework",
+	"settings": [
+		{
+			"type": "header",
+			"content": "Design Section"
+		},
+		{
+			"type": "checkbox",
+			"id": "full_with",
+			"label": "Enabel Full Width?"
+		},
+		{
+			"type": "color",
+			"id": "color_bg",
+			"label": "Background Color",
+			"default": "rgba(0,0,0,0)"
+		},
+		{
+			"type": "text",
+			"id": "padding_block",
+			"label": "Padding",
+			"placeholder": "0px 0px",
+			"info": "Ex: 0px 0px 0px 0px and use desktop only"
+		},
+		{
+			"type": "text",
+			"id": "margin_block",
+			"label": "Margin",
+			"placeholder": "0px 0px",
+			"default": "0 0 30px",
+			"info": "Ex: 0px 0px 30px 0px"
+		},
+        {
+			"type": "text",
+			"id": "limit",
+			"label": "Maximum products to show",
+			"default": "12"
+		},
+        {
+            "type": "select",
+            "id": "space_between",
+            "label": "Space Between Item",
+            "default": "4",
+            "options": [
+                {
+                    "value": "0",
+                    "label": "0"
+                },
+                {
+                    "value": "2",
+                    "label": "10"
+                },
+                {
+                    "value": "3",
+                    "label": "20"
+                },
+                {
+                    "value": "4",
+                    "label": "30"
+                },
+                {
+                    "value": "5",
+                    "label": "40"
+                }
+            ]
+        },
+        {
+			"type": "checkbox",
+			"id": "layout_special",
+			"label": "Layout special",
+			"default": false
+		}
+  	],
+	"blocks": [
+		{
+			"type": "tab",
+			"name": "Tab item",
+			"settings": [
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Heading",
+					"default": "Tab heading"
+				},
+				{
+					"type": "collection",
+					"id": "collection",
+					"label": "Collection"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Gallery product tabs",
+			"category": "3. Product",
+			"blocks": [
+				{
+					"type": "tab"
+				},
+				{
+					"type": "tab"
+				},
+				{
+					"type": "tab"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

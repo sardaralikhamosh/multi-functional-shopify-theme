@@ -1,0 +1,14 @@
+<div class="footer-link-list">
+	{%- if linklist-title != blank -%}
+		<h5 class="footer__title py-1 py-md-2 mb-md-2 {% if settings.footer_bg_enable %}show_icon{% endif %}">{{ linklist-title }}{% render 'icons', icon: 'angle-left', class: "d-none ms-1" %}</h5>
+	{% endif %}
+	<div class="footer-link-list-content">
+		<ul class="footer-links list-unstyled mb-0">
+			{% for linklist in linklists[linklist-handle].links %}
+				<li class="py-1">
+					<a href="{{ linklist.url }}" title="">{{ linklist.title }}</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>

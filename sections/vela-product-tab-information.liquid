@@ -1,0 +1,172 @@
+
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+    {%- capture bgColor -%}
+        background-color: {{ section.settings.color_bg }};
+    {%- endcapture -%}
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+    {%- capture paddingblock -%}
+        padding: {{section.settings.padding_block}};
+    {%- endcapture -%}
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+    {%- capture marginblock -%}
+        margin: {{section.settings.margin_block}};
+    {%- endcapture -%}
+    {%- endif -%}
+    <div class="vela-section product-more-info" style="{{ bgColor}} {{ paddingblock }} {{ marginblock }}">
+        <div class="container{%- if section.settings.full_with -%}-full{%- endif -%}">
+            {%- if section.blocks.size > 0 -%}
+                <div class="product-more-info__inner mb-5">
+                    <div class="more-info-tabs__heading mb-3 mb-lg-4">
+                        <ul class="more-info-tabs__nav nav d-flex flex-wrap justify-content-center list-unstyled mb-1">
+                            {%- for block in section.blocks -%}
+                                {%- if block.type == "description" or block.settings.content != blank or block.settings.content_1 != blank -%}
+                                    <li class="more-info-tabs__nav-item">
+                                        <a class="more-info-tabs__nav-link {% if forloop.first %} active{% endif %}" data-bs-toggle="tab" href="#js-more-info-tabs-{{forloop.index}}">
+                                            {{ block.settings.heading  }}
+                                        </a>
+                                    </li>
+                                {%- endif -%}
+                            {%- endfor -%}
+                            {%- if section.settings.product_review =='tab' and settings.product_reviews_enable -%}
+                                <li class="more-info-tabs__nav-item">
+                                    <a class="more-info-tabs__nav-link {% if forloop.first %} active{% endif %}" data-bs-toggle="tab" href="#js-more-info-tabs-review">
+                                        {{ section.settings.review_title  }}
+                                    </a>
+                                </li>
+                            {%- endif -%}
+                        </ul>
+                    </div>
+                    <div class="more-info-tabs__content tab-content pt-3">
+                        {%- for block in section.blocks -%}
+                            <div id="js-more-info-tabs-{{forloop.index}}" class="tab-pane fade {% if forloop.first %}show active{% endif %}">
+                                <div class="rte">
+                                    {% if block.type == "description" %}
+                                        {{ product.description }}
+                                    {%- else -%}
+                                        {{ block.settings.content }}
+                                        {{ block.settings.content_1 }}
+                                    {%- endif -%}
+                                </div>
+                            </div>
+                        {%- endfor -%}
+                        {%- if section.settings.product_review =='tab' and settings.product_reviews_enable -%}
+                            <div id="js-more-info-tabs-review" class="tab-pane fade {% if forloop.first %}show active{% endif %}">
+                                <div class="product-reviews">
+                                    <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+                                </div>
+                            </div>
+                        {%- endif -%}
+                    </div>
+                </div>
+            {%- endif -%}
+            {%- if section.settings.product_review =='bottom' and settings.product_reviews_enable -%}
+                <div class="product-reviews">
+                    <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+                </div>
+            {%- endif -%}
+        </div>
+    </div>
+{% schema %}
+{
+    "name": "Product tab information",
+    "tag": "section",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Design Section"
+        },
+        {
+            "type": "checkbox",
+            "id": "full_with",
+            "label": "Enabel Full Width?"
+        },
+        {
+            "type": "color",
+            "id": "color_bg",
+            "label": "Background Color",
+            "default": "rgba(0,0,0,0)"
+        },
+        {
+            "type": "text",
+            "id": "padding_block",
+            "label": "Padding",
+            "placeholder": "0px 0px"
+        },
+        {
+            "type": "text",
+            "id": "margin_block",
+            "label": "Margin",
+            "placeholder": "0px 0px"
+        },
+        {
+            "type": "header",
+            "content": "Product review"
+        },
+        {
+            "type": "text",
+            "id": "review_title",
+            "label": "Review Title",
+            "default": "Reviews"
+        },
+        {
+            "type": "radio",
+            "id": "product_review",
+            "label": "Choose position",
+            "options": [
+                {
+                    "value": "tab",
+                    "label": "Show in Tab"
+                },
+                {
+                    "value": "bottom",
+                    "label": "Show bottom"
+                }
+            ],
+            "default": "tab"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "description",
+            "name": "Description",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "default": "Tab heading",
+                    "info": "Include a heading that explains the content.",
+                    "label": "Heading"
+                }
+            ]
+        },
+        {
+            "type": "extra_tab",
+            "name": "Extra tab",
+            "limit": 5,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "default": "Tab heading",
+                    "info": "Include a heading that explains the content.",
+                    "label": "Heading"
+                },
+                {
+                    "type": "html",
+                    "id": "content",
+                    "label": "Tab content",
+                    "info": "HTML"
+                },
+                {
+                    "type": "richtext",
+                    "id": "content_1",
+                    "label": "Tab content"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

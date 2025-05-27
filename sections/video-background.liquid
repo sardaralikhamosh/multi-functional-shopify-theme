@@ -1,0 +1,398 @@
+{%- capture section_style -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        background-color: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+        padding: {{section.settings.padding_block}};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        margin: {{section.settings.margin_block}};
+    {%- endif -%}
+{%- endcapture -%}
+<style>
+    {%- for block in section.blocks -%}
+        {%- case block.type -%}
+            {%- when 'text' -%}
+                {%- if block.settings.text != blank -%}
+                    #video-background-{{section.id}} .video-background__text--{{ forloop.index}} {
+                        color: {{ block.settings.text_color_mobile }};
+                        font-size: {{ block.settings.text_font_size_mobile }}px;
+                        {%- if block.settings.margin_mobile != blank -%}
+                            margin: {{ block.settings.margin_mobile }};
+                        {%- endif -%}
+                    }
+                    @media(min-width: 768px) {
+                        #video-background-{{section.id}} .video-background__text--{{ forloop.index}} {
+                            color: {{ block.settings.text_color_tablet }};
+                            font-size: {{ block.settings.text_font_size_tablet }}px;
+                            {%- if block.settings.margin_tablet != blank -%}
+                                margin: {{ block.settings.margin_tablet }};
+                            {%- endif -%}
+                        }
+                    }
+                    @media(min-width: 1200px) {
+                        #video-background-{{section.id}} .video-background__text--{{ forloop.index}} {
+                            color: {{ block.settings.text_color_desktop }};
+                            font-size: {{ block.settings.text_font_size_desktop }}px;
+                            {%- if block.settings.margin_desktop != blank -%}
+                                margin: {{ block.settings.margin_desktop }};
+                            {%- endif -%}
+                        }
+                    }
+                {%- endif -%}
+            
+        {%- endcase-%}
+    {%- endfor -%}
+</style>
+<div id="video-background-{{section.id}}" class="vela-section video-background-section overflow-hidden" {% if section_style%}style="{{ section_style }}"{% endif%}>
+    <div class="container{% if section.settings.full_with %}-full{% endif %}">
+		<div class="vela-section__inner">
+            <div class="vela-section__content position-relative">
+                {% assign opacity = section.settings.opacity | times: 0.01 %}
+                {% assign overlay = section.settings.overlay_color | color_modify: 'alpha', opacity %}
+                {%- capture bg_color -%}
+                    style="background-color: {{overlay}}; max-width: {{ section.settings.box_width}}px;"
+                {%- endcapture -%}
+                <div class="media-content position-absolute bottom-0 end-0 p-3 p-sm-4 m-3 m-sm-5" {{bg_color}}>
+                    {%- for block in section.blocks -%}
+                        {%- case block.type -%}
+                            {%- when 'text' -%}
+                                <div class="video-background__text--{{ forloop.index}} {{ block.settings.text_style }} {% unless block.settings.text_style  =='text'%}lh-1{% endunless%}">
+                                    {{ block.settings.text }}
+                                </div>
+                            {%- when 'button'-%}
+                                {%- capture font_size -%}
+                                    font-size: {{ block.settings.button_font_size | append: 'px' }};
+                                {%- endcapture -%}
+                                {%- if block.settings.button_padding != blank -%}
+                                    {%- capture button_padding -%}
+                                        padding: {{ block.settings.button_padding }};
+                                    {%- endcapture -%}
+                                {%- endif -%}
+                                {%- if block.settings.button_margin != blank -%}
+                                    {%- capture button_margin -%}
+                                        margin: {{ block.settings.button_margin }};
+                                    {%- endcapture -%}
+                                {%- endif -%}
+                                {%- if block.settings.button_color != "rgba(0,0,0,0)" -%}
+                                    {%- capture button_color -%}
+                                        color: {{ block.settings.button_color }};
+                                    {%- endcapture -%}
+                                {%- endif -%}
+                                {%- if block.settings.button_color_border != "rgba(0,0,0,0)" -%}
+                                    {%- capture button_color_border -%}
+                                        border-color: {{ block.settings.button_color_border }};
+                                    {%- endcapture -%}
+                                {%- endif -%}
+                                {%- if block.settings.button_color_bg != "rgba(0,0,0,0)" -%}
+                                    {%- capture button_color_bg -%}
+                                        background-color: {{ block.settings.button_color_bg }};
+                                    {%- endcapture -%}
+                                {%- endif -%}
+                                <a class="btn video-background__btn--{{ forloop.index}} px-md-4" href="{{ block.settings.link }}" style="{{ font_size }}{{ button_padding }}{{ button_color }}{{ button_color_border }}{{ button_color_bg }}{{button_margin}}">
+                                    {{- block.settings.button -}}</a>
+                        {%- endcase -%}
+                    {%- endfor -%}
+                </div>
+                <div class="position-relative ratio overflow-hidden d-block w-100 {{ section.settings.aspect_ratios}}">
+                    {%- if section.settings.video_url != blank -%}
+                        <video class="video-background__media" loop autoplay playsinline  {% if section.settings.muted %}muted {% else %} muted {% endif %}>
+                            <source src="{{ section.settings.video_url }}" type="video/mp4" />
+                            <source src="movie.ogg" type="video/ogg">
+                        </video> 
+                    {%- endif -%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Video-background",
+    "class": "velaFramework",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Design Section"
+        },
+        {
+            "type": "checkbox",
+            "id": "full_with",
+            "label": "Enabel Full Width?"
+        },
+        {
+            "type": "color",
+            "id": "color_bg",
+            "label": "Background Color",
+            "default": "rgba(0,0,0,0)"
+        },
+        {
+            "type": "text",
+            "id": "padding_block",
+            "label": "Padding",
+            "placeholder": "0px 0px",
+            "info": "Ex: 0px 0px 0px 0px and use desktop only"
+        },
+        {
+            "type": "text",
+            "id": "margin_block",
+            "label": "Margin",
+            "placeholder": "0px 0px",
+            "default": "0 0 30px",
+            "info": "Ex: 0px 0px 30px 0px"
+        },
+        {
+            "type": "header",
+            "content": "General Settings"
+        },
+        {
+            "type": "url",
+            "id": "video_url",
+            "label": "Video url",
+            "info": ".mp4 File Extension"
+        },
+        {
+            "type": "checkbox",
+            "id": "muted",
+            "label": "Muted?"
+        },
+        {
+            "type": "select",
+            "id": "aspect_ratios",
+            "label": "Aspect ratios",
+            "default": "ratio-16x9",
+            "options": [
+                {
+                    "value": "ratio-1x1",
+                    "label": "1x1"
+                },
+                {
+                    "value": "ratio-4x3",
+                    "label": "4x3"
+                },
+                {
+                    "value": "ratio-16x9",
+                    "label": "16x9"
+                },
+                {
+                    "value": "ratio-21x9",
+                    "label": "21x9"
+                }
+            ]
+        },
+        {
+            "type": "header",
+            "content": "Box bg color"
+        },
+        {
+            "type": "color",
+            "id": "overlay_color",
+            "label": "Color",
+            "default": "#fff"
+        },
+        {
+            "type": "range",
+            "id": "opacity",
+            "label": "Opacity",
+            "min": 1,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "default": 50
+        },
+        {
+			"type": "text",
+			"id": "box_width",
+			"label": "Box width(px)",
+			"default": "420",
+            "info": "ex: 400"
+		}
+    ],
+    "blocks": [
+        {
+            "type": "text",
+            "name": "Text",
+            "settings": [
+                {
+                    "type": "html",
+                    "id": "text",
+                    "label": "Text",
+                    "default": "<div><p>Use HTML to format your text so it can be easily read.<br/>This text can be used to share information about your brand with customers.</p></div>"
+                },
+                {
+                    "type": "select",
+                    "id": "text_style",
+                    "label": "Text style",
+                    "default": "text",
+                    "options": [
+                        {
+                            "value": "text",
+                            "label": "Text"
+                        },
+                        {
+                            "value": "h3",
+                            "label": "Heading"
+                        },
+                        {
+                            "value": "ff-special",
+                            "label": "Special"
+                        }
+                    ]
+                },
+                {
+                    "type": "header",
+                    "content": "Config for desktop"
+                },
+                {
+                    "type": "color",
+                    "id": "text_color_desktop",
+                    "label": "Color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "range",
+                    "id": "text_font_size_desktop",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "px",
+                    "label": "Font Size",
+                    "default": 16
+                },
+                {
+                    "type": "text",
+                    "id": "margin_desktop",
+                    "label": "Margin",
+                    "info": "Ex: 10px 10px 10px 10px"
+                },
+                {
+                    "type": "header",
+                    "content": "Config for Tablets"
+                },
+                {
+                    "type": "color",
+                    "id": "text_color_tablet",
+                    "label": "Color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "range",
+                    "id": "text_font_size_tablet",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "px",
+                    "label": "Font Size",
+                    "default": 16
+                },
+                {
+                    "type": "text",
+                    "id": "margin_tablet",
+                    "label": "Margin",
+                    "info": "Ex: 10px 10px 10px 10px"
+                },
+                {
+                    "type": "header",
+                    "content": "Config for Mobile"
+                },
+                {
+                    "type": "color",
+                    "id": "text_color_mobile",
+                    "label": "Color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "range",
+                    "id": "text_font_size_mobile",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "px",
+                    "label": "Font Size",
+                    "default": 16
+                },
+                {
+                    "type": "text",
+                    "id": "margin_mobile",
+                    "label": "Margin",
+                    "info": "Ex: 10px 10px 10px 10px"
+                }
+            ]
+        },
+        {
+            "type": "button",
+            "name": "Button",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "button",
+                    "label": "Text Button",
+                    "default": "Read More"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Link"
+                },
+                {
+                    "type": "range",
+                    "id": "button_font_size",
+                    "min": 10,
+                    "max": 30,
+                    "step": 1,
+                    "unit": "px",
+                    "label": "Button Font Size",
+                    "default": 14
+                },
+                {
+                    "type": "text",
+                    "id": "button_padding",
+                    "label": "Padding",
+                    "placeholder": "6px 20px",
+                    "info": "Ex: 10px 10px 10px 10px"
+                }, 
+                {
+                    "type": "color",
+                    "id": "button_color",
+                    "label": "Button color",
+                    "default": "#ffffff"
+                },
+                {
+                    "type": "color",
+                    "id": "button_color_border",
+                    "label": "Button border color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "color",
+                    "id": "button_color_bg",
+                    "label": "Button background color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "text",
+                    "id": "button_margin",
+                    "label": "Margin",
+                    "placeholder": "0px 0px",
+                    "default": "0 0 30px",
+                    "info": "Ex: 0px 0px 30px 0px"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Video-background",
+            "blocks": [
+                {
+                    "type": "text"
+                },
+                {
+                    "type": "text"
+                }
+            ]
+        }
+    ]
+}
+  {% endschema %}

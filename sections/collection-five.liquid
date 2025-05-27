@@ -1,0 +1,286 @@
+{%- capture section_style -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        background-color: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+        padding: {{section.settings.padding_block}};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        margin: {{section.settings.margin_block}};
+    {%- endif -%}
+{%- endcapture -%}
+<div class="vela-section collection-five overflow-hidden" {% if section_style%}style="{{ section_style }}"{% endif%}>
+    <div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+        <div class="vela-section__inner">
+            <div class="vela-section__content">
+                <div class="row g-3 g-lg-4">
+                    <div class="col-12 col-md-8">
+                        <div class="row g-3 g-lg-4">
+                            <div class="col-12">
+                                <div class="collection-five__wrap collection-wrapper position-relative overflow-hidden">
+                                    {%- assign proCollection1 = section.settings.collection_handle1 -%}
+                                    <a class="collection-five__image collection-effect__image" href="{% if proCollection1 != blank %}{{ collections[proCollection1].url }}{% else %}#{% endif %}" title="{{ section.settings.title1 }}">
+                                        {% if section.settings.single_images1 != blank %}
+                                            {% include 'img-global' with image: section.settings.single_images1 %}
+                                        {% else %}
+                                            <img class="img-fluid" alt="{{ shop.name }}" src="https://via.placeholder.com/920x720.jpg" />
+                                        {% endif %}
+                                    </a>
+                                    <div class="collection-five__content position-absolute bottom-0 start-50 translate-middle-x mb-3 mb-sm-4 text-center">
+                                        <a class="collection-five__title collection-effect__title d-inline-block h3 mb-0 position-relative"  href="{% if proCollection1 != blank %}{{ collections[proCollection1].url }}{% else %}#{% endif %}" title="{{ section.settings.title1 }}">{{ section.settings.title1 }}</a>                                                          
+                                        {%- if proCollection1 != blank -%}
+                                            {%- if collections[proCollection1].products_count != blank  -%}
+                                                {%- assign productCount = collections[proCollection1].products_count -%}
+                                            {%- else -%}
+                                                {%- assign productCount = 0 -%}
+                                            {%- endif -%}
+                                            {%- if section.settings.collection_count -%}
+                                                <p class="colCount mb-1">{% if productCount > 1 %}{{ 'collections.general.product_count.other' | t:product_count:productCount }}{% else %}{{ 'collections.general.product_count.one' | t:product_count:productCount }}{% endif %}</p>
+                                            {%- endif -%}
+                                        {%- endif -%}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="collection-five__wrap collection-wrapper position-relative overflow-hidden">
+                                    {%- assign proCollection2 = section.settings.collection_handle2 -%}
+                                    <a class="collection-five__image collection-effect__image" href="{% if proCollection2 != blank %}{{ collections[proCollection2].url }}{% else %}#{% endif %}" title="{{ section.settings.title2 }}">
+                                        {% if section.settings.single_images2 != blank %}
+                                            {% include 'img-global' with image: section.settings.single_images2 %}
+                                        {% else %}
+                                            <img class="img-fluid" alt="{{ shop.name }}" src="https://via.placeholder.com/440x320.jpg" />
+                                        {% endif %}
+                                    </a>
+                                    <div class="collection-five__content position-absolute bottom-0 start-50 translate-middle-x mb-3 mb-sm-4 text-center">
+                                        <a class="collection-five__title collection-effect__title d-inline-block h3 mb-0 position-relative" href="{% if proCollection2 != blank %}{{ collections[proCollection2].url }}{% else %}#{% endif %}" title="{{ section.settings.title2 }}">{{ section.settings.title2 }}</a>
+                                        {%- if proCollection2 != blank -%}
+                                            {%- if collections[proCollection2].products_count != blank  -%}
+                                                {%- assign productCount = collections[proCollection2].products_count -%}
+                                            {%- else -%}
+                                                {%- assign productCount = 0 -%}
+                                            {%- endif -%}
+                                            {%- if section.settings.collection_count -%}
+                                                <p class="colCount mb-1">{% if productCount > 1 %}{{ 'collections.general.product_count.other' | t:product_count:productCount }}{% else %}{{ 'collections.general.product_count.one' | t:product_count:productCount }}{% endif %}</p>
+                                            {%- endif -%}
+                                        {%- endif -%}
+                                    </div>              
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="collection-five__wrap collection-wrapper collection-primary position-relative overflow-hidden">
+                                    {%- assign proCollection3 = section.settings.collection_handle3 -%}
+                                    <a class="collection-five__image collection-effect__image" href="{% if proCollection3 != blank %}{{ collections[proCollection3].url }}{% else %}#{% endif %}" title="{{ section.settings.title3 }}">
+                                        {% if section.settings.single_images3 != blank %}
+                                            {% include 'img-global' with image: section.settings.single_images3 %}
+                                        {% else %}
+                                            <img class="img-fluid" alt="{{ shop.name }}" src="https://via.placeholder.com/440x320.jpg" />
+                                        {% endif %}
+                                    </a>
+                                    <div class="collection-five__content position-absolute bottom-0 start-50 translate-middle-x mb-3 mb-sm-4 text-center">
+                                        <a class="collection-five__title collection-effect__title d-inline-block h3 mb-0 position-relative" href="{% if proCollection3 != blank %}{{ collections[proCollection3].url }}{% else %}#{% endif %}" title="{{ section.settings.title3 }}">{{ section.settings.title3 }}</a>
+                                        {%- if proCollection3 != blank -%}
+                                            {%- if collections[proCollection3].products_count != blank  -%}
+                                                {%- assign productCount = collections[proCollection3].products_count -%}
+                                            {%- else -%}
+                                                {%- assign productCount = 0 -%}
+                                            {%- endif -%}
+                                            {%- if section.settings.collection_count -%}
+                                                <p class="colCount mb-1">{% if productCount > 1 %}{{ 'collections.general.product_count.other' | t:product_count:productCount }}{% else %}{{ 'collections.general.product_count.one' | t:product_count:productCount }}{% endif %}</p>
+                                            {%- endif -%}
+                                        {%- endif -%}
+                                    </div>              
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="row g-3 g-lg-4">
+                            <div class="col-12">
+                                <div class="collection-five__wrap collection-wrapper position-relative overflow-hidden">
+                                    {%- assign proCollection4 = section.settings.collection_handle4 -%}
+                                    <a class="collection-five__image collection-effect__image" href="{% if proCollection4 != blank %}{{ collections[proCollection4].url }}{% else %}#{% endif %}" title="{{ section.settings.title4 }}">
+                                        {% if section.settings.single_images4 != blank %}
+                                            {% include 'img-global' with image: section.settings.single_images4 %}
+                                        {% else %}
+                                            <img class="img-fluid" alt="{{ shop.name }}" src="https://via.placeholder.com/440x320.jpg" />
+                                        {% endif %}
+                                    </a>
+                                    <div class="collection-five__content position-absolute bottom-0 start-50 translate-middle-x mb-3 mb-sm-4 text-center">
+                                        <a class="collection-five__title collection-effect__title d-inline-block h3 mb-0 position-relative" href="{% if proCollection4 != blank %}{{ collections[proCollection4].url }}{% else %}#{% endif %}" title="{{ section.settings.text_button4 }}">{{ section.settings.title4 }}</a>                                                
+                                        {%- if proCollection4 != blank -%}
+                                            {%- if collections[proCollection4].products_count != blank  -%}
+                                                {%- assign productCount = collections[proCollection4].products_count -%}
+                                            {%- else -%}
+                                                {%- assign productCount = 0 -%}
+                                            {%- endif -%}
+                                            {%- if section.settings.collection_count -%}
+                                                <p class="colCount mb-1">{% if productCount > 1 %}{{ 'collections.general.product_count.other' | t:product_count:productCount }}{% else %}{{ 'collections.general.product_count.one' | t:product_count:productCount }}{% endif %}</p>
+                                            {%- endif -%}
+                                        {%- endif -%}
+                                    </div>              
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="collection-five__wrap collection-wrapper position-relative overflow-hidden">
+                                    {%- assign proCollection5 = section.settings.collection_handle5 -%}
+                                    <a class="collection-five__image collection-effect__image" href="{% if proCollection5 != blank %}{{ collections[proCollection5].url }}{% else %}#{% endif %}" title="{{ section.settings.title5 }}">
+                                        {% if section.settings.single_images5 != blank %}
+                                            {% include 'img-global' with image: section.settings.single_images5 %}
+                                        {% else %}
+                                            <img class="img-fluid" alt="{{ shop.name }}" src="https://via.placeholder.com/440x720.jpg" />
+                                        {% endif %}
+                                    </a>
+                                    <div class="collection-five__content position-absolute bottom-0 start-50 translate-middle-x mb-3 mb-sm-4 text-center">
+                                        <a class="collection-five__title collection-effect__title d-inline-block h3 mb-0 position-relative" href="{% if proCollection5 != blank %}{{ collections[proCollection5].url }}{% else %}#{% endif %}" title="{{ section.settings.text_button5 }}">{{ section.settings.title5 }}</a>           
+                                        {%- if proCollection5 != blank -%}
+                                            {%- if collections[proCollection5].products_count != blank  -%}
+                                                {%- assign productCount = collections[proCollection5].products_count -%}
+                                            {%- else -%}
+                                                {%- assign productCount = 0 -%}
+                                            {%- endif -%}
+                                            {%- if section.settings.collection_count -%}
+                                                <p class="colCount mb-1">{% if productCount > 1 %}{{ 'collections.general.product_count.other' | t:product_count:productCount }}{% else %}{{ 'collections.general.product_count.one' | t:product_count:productCount }}{% endif %}</p>
+                                            {%- endif -%}
+                                        {%- endif -%}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Five Collections",
+        "class": "velaFramework",
+        "settings": [
+            {
+              "type": "header",
+              "content": "Design Block"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "Enabel Full Width?"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "Background Color",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "Padding",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "Margin",
+                "placeholder": "0px 0px",
+                "default": "0 0 30px",
+                "info": "Ex: 0px 0px 30px 0px"
+            },
+            {
+               "type": "header",
+               "content": "General Settings"
+            },
+            {
+                "type": "checkbox",
+                "id": "collection_count",
+                "label": "Show product count?",
+                "default": true
+            },
+            {
+               "type": "header",
+               "content": "Collection Item"
+            },
+            {
+                "type": "text",
+                "id": "title1",
+                "label": "1st Title"
+            },
+            {
+                "type": "image_picker",
+                "id": "single_images1",
+                "label": "1st Collection Image"
+            },
+            {
+                "type": "collection",
+                "id": "collection_handle1",
+                "label": "Collection"
+            },
+            {
+                "type": "text",
+                "id": "title2",
+                "label": "2st Title"
+            },            
+            {
+                "type": "image_picker",
+                "id": "single_images2",
+                "label": "2st Collection Image"
+            },
+            {
+                "type": "collection",
+                "id": "collection_handle2",
+                "label": "Collection"
+            },
+            {
+                "type": "text",
+                "id": "title3",
+                "label": "3st Title"
+            },           
+            {
+                "type": "image_picker",
+                "id": "single_images3",
+                "label": "3st Collection Image"
+            },
+            {
+                "type": "collection",
+                "id": "collection_handle3",
+                "label": "Collection"
+            },
+            {
+                "type": "text",
+                "id": "title4",
+                "label": "4st Title"
+            },           
+            {
+                "type": "image_picker",
+                "id": "single_images4",
+                "label": "4st Collection Image"
+            },
+            {
+                "type": "collection",
+                "id": "collection_handle4",
+                "label": "Collection"
+            },
+            {
+                "type": "text",
+                "id": "title5",
+                "label": "5st Title"
+            },           
+            {
+                "type": "image_picker",
+                "id": "single_images5",
+                "label": "5st Collection Image"
+            },
+            {
+                "type": "collection",
+                "id": "collection_handle5",
+                "label": "Collection"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Five Collections",
+                "category": "3. Images"
+            }
+        ]
+    }
+{% endschema %}

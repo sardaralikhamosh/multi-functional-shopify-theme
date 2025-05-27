@@ -1,0 +1,54 @@
+
+{%- if block.settings.contactinfo_logo != blank or block.settings.contactinfo_logo_svg != blank -%}
+	<div class="footer-info--logo pt-2 mb-3 mb-md-4">
+	{%- assign mw_logo = block.settings.logo_footer_width | append: 'px' -%}
+	<a class="d-flex" href="/" itemprop="url" style="max-width: {{mw_logo}};">
+			{%- if block.settings.contactinfo_logo_svg != blank -%}
+				<img class="img-fluid" src="{{ block.settings.contactinfo_logo_svg }}" alt="{{ shop.name }}"/>
+			{%- elsif block.settings.contactinfo_logo != blank -%}
+					{%- assign image_footer_size = block.settings.logo_footer_width | append: 'x' -%}
+					{%- assign footer_size_rentina = block.settings.logo_footer_width | times: 2 -%}
+					<img {% unless block.settings.contactinfo_logo.width < footer_size_rentina %}srcset="{{ block.settings.contactinfo_logo | img_url: image_footer_size }} 1x, {{ block.settings.contactinfo_logo | img_url: image_footer_size, scale: 2 }} 2x" {% endunless %}
+					src="{{ block.settings.contactinfo_logo | img_url: image_footer_size }}"
+					loading="lazy"
+					class="img-fluid"
+					alt="{{ block.settings.logo.alt | default: shop.name | escape }}" >
+			{%- endif -%}
+		</a>
+	</div>
+{%- endif -%}
+{% if contactinfoDesc != blank %}
+	<div class="footer-info--desc mb-2">{{ contactinfoDesc }}</div>
+{% endif %}
+{% if contactinfoAdd != blank %}
+	<div class="footer-info--address">
+		<i class="icons me-3 d-none">
+			{% include 'icons', icon: 'map-marker' %}
+		</i>
+		{{ contactinfoAdd }}
+	</div>
+{% endif %}		
+{% if contactinfoPhone != blank %}
+	<div class="footer-info--phone">
+		<i class="icons me-3 d-none">
+			{% include 'icons', icon: 'phone' %}
+		</i>
+		{{ contactinfoPhone }}
+	</div>
+{% endif %}		
+{% if contactinfoEmail != blank %}
+	<div class="footer-info--email">
+		<i class="icons me-3 d-none">
+			{% include 'icons', icon: 'email', attr: 'width="14px"' %}
+		</i>
+		{{ contactinfoEmail }}
+	</div>
+{% endif %}
+{% if contactinfoTime != blank %}
+	<div class="footer-info--time">
+		<i class="icons me-3 d-none">
+			{% include 'icons', icon: 'clock-o' %}
+		</i>
+		{{ contactinfoTime }}
+	</div>
+{% endif %}

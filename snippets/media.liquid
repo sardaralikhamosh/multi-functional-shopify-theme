@@ -1,0 +1,38 @@
+{%- capture media_id -%}{{ section.id }}-{{ media.id }}{%- endcapture -%}
+{%- capture image_size -%}{{ height }}x{{ height }}{%- endcapture -%}
+{%- assign class_name = '' -%}
+
+<div class="js-product-media product-media"
+  {% if media.media_type == 'video' or media.media_type == 'external_video' %}data-product-media-type-video
+  data-enable-video-looping="{{ section.settings.enable_video_looping }}"{% endif %}
+  {% if media.media_type == 'model' %} data-product-media-type-model{% endif %}
+  {% if media.media_type == 'external_video' %} data-video-id="{{ media.external_id }}"{% endif %}
+  data-media-id="{{ media_id }}"
+  tabindex="-1">
+  {% case media.media_type %}
+  {% when 'image' %}
+    <div class="product-media__wrapper" {% if enable_image_zoom %} data-mfp-src="{{ media | img_url: '2048x2048' }}"{% endif %} ata-media-id="{{ media.id }}">
+		{% include 'img-global', image: media %}
+    </div>
+  {% when 'external_video' %}
+    <div class="product-media__wrapper product-media__wrapper--video">
+      {{ media | external_video_tag }}
+    </div>
+  {% when 'video' %}
+    <div class="product-media__wrapper product-media__wrapper--video">
+      {{ media | video_tag: controls: false, class: 'media-video', image_size: image_size }}
+    </div>
+  {% when 'model' %}
+    <div class="product-media__wrapper product-media__wrapper--model">
+      {{ media | model_viewer_tag: image_size: image_size, reveal: 'interaction', toggleable: true, data-model-id: media.id}}
+      {%- if first_3d_model -%}
+        {%- include 'xr-button' with model_id: first_3d_model.id, multi: false -%}
+      {%- endif -%}
+    </div>
+
+  {% else %}
+    <div class="product-media__wrapper">
+      {{ media | media_tag: class: 'media-item', image_size: image_size }}
+    </div>
+  {% endcase %}
+</div>

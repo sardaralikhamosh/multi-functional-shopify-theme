@@ -1,0 +1,47 @@
+{{ 'disclosure.css' | asset_url | stylesheet_tag }}
+{%- if localization.available_languages.size > 1 -%}
+    <localization-form>
+        {%- form 'localization', id: 'FooterLanguageForm', class: 'localization-form' -%}
+            <div class="no-js-hidden">
+                <div class="disclosure d-flex">
+                    <button type="button" class="disclosure__button localization-form__select localization-selector ps-3" aria-expanded="false" aria-controls="FooterLanguageList" aria-describedby="FooterLanguageLabel">
+                        {{ localization.language.endonym_name | capitalize }}
+                        {% render 'icons', icon: 'caret', class: 'ms-1' %}
+                    </button>
+                    <ul id="FooterLanguageList" role="list" class="disclosure__list list-unstyled" hidden>
+                        {%- for language in localization.available_languages -%}
+                        <li class="disclosure__item" tabindex="-1">
+                            <a class="disclosure__link {% if language.iso_code == localization.language.iso_code %} disclosure__link--active{% endif %} focus-inset" href="#" hreflang="{{ language.iso_code }}" lang="{{ language.iso_code }}"{% if language.iso_code == localization.language.iso_code %} aria-current="true"{% endif %} data-value="{{ language.iso_code }}">
+                            {{ language.endonym_name | capitalize }}
+                            </a>
+                        </li>
+                        {%- endfor -%}
+                    </ul>
+                </div>
+                <input type="hidden" name="locale_code" value="{{ localization.language.iso_code }}">
+            </div>
+        {%- endform -%}
+    </localization-form>
+{%- endif -%}
+{%- if localization.available_countries.size > 1 -%}
+    <localization-form>
+        {%- form 'localization', id: 'FooterCountryForm', class: 'localization-form ' -%}
+            <div class="disclosure">
+                <button type="button" class="disclosure__button localization-form__select localization-selector text-uppercase ps-3" aria-expanded="false" aria-controls="FooterCountryList" aria-describedby="FooterCountryLabel">
+                    {{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }}
+                    {% render 'icons', icon: 'caret', class: 'ms-1' %}
+                </button>
+                <ul id="FooterCountryList" role="list" class="disclosure__list list-unstyled" hidden>
+                    {%- for country in localization.available_countries -%}
+                    <li class="disclosure__item" tabindex="-1">
+                        <a class="disclosure__link {% if country.iso_code == localization.country.iso_code %} disclosure__link--active{% endif %} focus-inset" href="#"{% if country.iso_code == localization.country.iso_code %} aria-current="true"{% endif %} data-value="{{ country.iso_code }}">
+                            {{ country.name | truncate: 12 }} <span class="localization-form__currency">{{ country.currency.iso_code }} {{ country.currency.symbol }}</span>
+                        </a>
+                    </li>
+                    {%- endfor -%}
+                </ul>
+            </div>
+            <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+        {%- endform -%}
+    </localization-form>
+{%- endif -%}

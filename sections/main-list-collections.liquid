@@ -1,0 +1,167 @@
+
+{{ 'section-collection-list.css' | asset_url | stylesheet_tag }}
+
+<div class="container">
+	{%- if section.settings.title != blank -%}
+		<h1 class="page-title mb-4">{{ section.settings.title | escape }}</h1>
+	{%- endif -%}
+	{%- liquid
+		case section.settings.sort
+		when 'products_high' or 'products_low'
+			assign collections = collections | sort: 'all_products_count'
+		when 'date' or 'date_reversed'
+			assign collections = collections | sort: 'published_at'
+		endcase
+
+		if section.settings.sort == 'products_high' or section.settings.sort == 'date_reversed' or section.settings.sort == 'alphabetical_reversed'
+		assign collections = collections | reverse
+		endif
+	-%}
+	{%- if section.settings.products_ditem_per_row == 5 -%}
+  	{%- assign col-item-xl = '2-4' -%}
+	{%- else -%}
+	{%- assign col-item-xl = 12 | divided_by: section.settings.products_ditem_per_row -%}
+	{%- endif -%}
+	{%- assign col-item-md = 12 | divided_by: section.settings.products_titem_per_row -%}
+	{%- assign col-item =  12 | divided_by: section.settings.products_mitem_per_row -%}
+	{%- assign image_crop = nil -%}
+	{%- if section.settings.crop -%}
+		{%- assign image_crop = 'center' -%}
+	{%- endif -%}
+	<div class="collection-list row g-2 g-md-4 mb-xl-5">
+		{%- for collection in collections -%}
+			{%- assign nitem = nitem |  plus: 1 -%}
+			{%- assign imagePlacdhold = "collection-" | append: nitem -%}
+			{%- if nitem > 5 -%}
+				{%- assign nitem = 0 -%} 
+			{%- endif -%}
+			<div class="col-{{col-item }} col-md-{{col-item-md}} col-xl-{{ col-item-xl }}">
+				<div class="collection-list__item collection-wrapper position-relative  overflow-hidden">
+					<div class="collection-image collection-effect__image">
+						<a class="position-relative d-block overflow-hidden" href="{{ collection.url }}" title="{{collection.title }}">
+							{%- if collection.image != blank -%}
+								{%- include 'img-global', image: collection.image, image_ratio: section.settings.image_ratio, crop: image_crop -%}
+							{%- else -%}
+								{{ imagePlacdhold | placeholder_svg_tag }}
+							{%- endif -%}
+						</a>
+					</div>
+					<div class="collection-list--content position-absolute bottom-0 start-50 translate-middle-x mb-4 text-center">
+						<h2 class="mb-0 h4">
+							<a class="collection-list--title collection-effect__title d-inline-block position-relative" href="{{ collection.url }}"> 
+								<span class="position-relative">
+									{{collection.title }}
+								</span>
+							</a>
+						</h2>
+						<div class="collection-count">{% if collection.all_products_count > 1%}{{ 'collections.general.product_count.other' | t : product_count: collection.all_products_count }}{% else %}{{ 'collections.general.product_count.one' | t : product_count: collection.all_products_count }}{% endif %}</div>
+						<div class="collection-desc">{{collection.description | truncate: 146, '...' }}</div>
+					</div>
+				</div>
+			</div>
+		{%- endfor -%}
+	</div>
+</div>
+
+{% schema %}
+{
+	"name": "Collections list page",
+	"settings": [
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Heading",
+			"default": "Collections"
+		},
+		{
+			"type": "range",
+			"id": "products_ditem_per_row",
+			"min": 1,
+			"max": 6,
+			"step": 1,
+			"default": 4,
+			"label": "Products item per row",
+			"info": "On the Desktop"
+		},
+		{
+			"type": "range",
+			"id": "products_titem_per_row",
+			"min": 1,
+			"max": 4,
+			"step": 1,
+			"default": 3,
+			"label": "Products item per row",
+			"info": "On the Tablets"
+		},
+		{
+			"type": "range",
+			"id": "products_mitem_per_row",
+			"min": 1,
+			"max": 3,
+			"step": 1,
+			"default": 2,
+			"label": "Products item per row",
+			"info": "On the Mobile"
+		},
+		{
+			"type": "select",
+			"id": "image_ratio",
+			"options": [
+				{
+					"value": "adapt",
+					"label": "Adapt to image"
+				},
+				{
+					"value": "portrait",
+					"label": "Portrait"
+				},
+				{
+					"value": "square",
+					"label": "Square"
+				}
+			],
+			"default": "adapt",
+			"label": "Image ratio"
+		},
+		{
+			"type": "checkbox",
+			"id": "crop",
+			"label": "Crop Image",
+			"default": false,
+			"info": "Not use with Adapt to image"
+		},
+		{
+			"type": "select",
+			"id": "sort",
+			"options": [
+			  {
+				"value": "alphabetical",
+				"label": "t:sections.main-list-collections.settings.sort.options__1.label"
+			  },
+			  {
+				"value": "alphabetical_reversed",
+				"label": "t:sections.main-list-collections.settings.sort.options__2.label"
+			  },
+			  {
+				"value": "date_reversed",
+				"label": "t:sections.main-list-collections.settings.sort.options__3.label"
+			  },
+			  {
+				"value": "date",
+				"label": "t:sections.main-list-collections.settings.sort.options__4.label"
+			  },
+			  {
+				"value": "products_high",
+				"label": "t:sections.main-list-collections.settings.sort.options__5.label"
+			  },
+			  {
+				"value": "products_low",
+				"label": "t:sections.main-list-collections.settings.sort.options__6.label"
+			  }
+			],
+			"default": "alphabetical",
+			"label": "t:sections.main-list-collections.settings.sort.label"
+		}
+	]
+}
+{% endschema %}

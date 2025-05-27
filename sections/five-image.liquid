@@ -1,0 +1,197 @@
+{%- capture section_style -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        background-color: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+        padding: {{section.settings.padding_block}};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        margin: {{section.settings.margin_block}};
+    {%- endif -%}
+{%- endcapture -%}
+<div class="vela-section section-five-image overflow-hidden" {% if section_style%}style="{{ section_style }}"{% endif%}>
+    <div class="container{% if section.settings.full_with %}-full{% endif %}">
+        <div class="vela-section__inner">
+            <div class="vela-section__content">
+                <div class="row g-0">
+                    <div class="col-12 col-md-6">
+                        <div class="five-image__item">
+                            {%- if section.settings.image1_url != blank -%}
+                                <a  href="{{ section.settings.image1_url }}" title="" >
+                            {%- endif -%}
+                                {% if section.settings.image1 != blank %}
+                                    {% include 'img-global' with image: section.settings.image1 %}
+                                {% else %}
+                                    <img class="img-fluid" alt="{{ shop.name }}" src="https://via.placeholder.com/960x1056.jpg" />
+                                {% endif %}
+                            {%- if section.settings.image1_url != blank -%}
+                                </a>
+                            {%- endif -%}
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="row g-0">
+                            <div class="col-6">
+                                <div class="five-image__item">
+                                    {%- if section.settings.image2_url != blank -%}
+                                        <a  href="{{ section.settings.image2_url }}" title="" >
+                                    {%- endif -%}
+                                        {% if section.settings.image2 != blank %}
+                                            {% include 'img-global' with image: section.settings.image2 %}
+                                        {% else %}
+                                            <img class="img-fluid" alt="{{ shop.name }}" src="https://via.placeholder.com/480x528.jpg" />
+                                        {% endif %}
+                                    {%- if section.settings.image2_url != blank -%}
+                                        </a>
+                                    {%- endif -%}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="five-image__item">
+                                    {%- if section.settings.image3_url != blank -%}
+                                        <a  href="{{ section.settings.image3_url }}" title="" >
+                                    {%- endif -%}
+                                        {% if section.settings.image3 != blank %}
+                                            {% include 'img-global' with image: section.settings.image3 %}
+                                        {% else %}
+                                            <img class="img-fluid" alt="{{ shop.name }}" src="https://via.placeholder.com/480x528.jpg" />
+                                        {% endif %}
+                                    {%- if section.settings.image3_url != blank -%}
+                                        </a>
+                                    {%- endif -%}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="five-image__item">
+                                    {%- if section.settings.image4_url != blank -%}
+                                        <a  href="{{ section.settings.image4_url }}" title="" >
+                                    {%- endif -%}
+                                        {% if section.settings.image4 != blank %}
+                                            {% include 'img-global' with image: section.settings.image4 %}
+                                        {% else %}
+                                            <img class="img-fluid" alt="{{ shop.name }}" src="https://via.placeholder.com/480x528.jpg" />
+                                        {% endif %}
+                                    {%- if section.settings.image4_url != blank -%}
+                                        </a>
+                                    {%- endif -%}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="five-image__item">
+                                    {%- if section.settings.image5_url != blank -%}
+                                        <a  href="{{ section.settings.image5_url }}" title="" >
+                                    {%- endif -%}
+                                        {% if section.settings.image5 != blank %}
+                                            {% include 'img-global' with image: section.settings.image5 %}
+                                        {% else %}
+                                            <img class="img-fluid" alt="{{ shop.name }}" src="https://via.placeholder.com/480x528.jpg" />
+                                        {% endif %}
+                                    {%- if section.settings.image5_url != blank -%}
+                                        </a>
+                                    {%- endif -%}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Five Images",
+        "class": "velaFramework",
+        "settings": [
+            {
+              "type": "header",
+              "content": "Design Block"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "Enabel Full Width?"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "Background Color",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "Padding",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "Margin",
+                "placeholder": "0px 0px",
+                "default": "0 0 30px",
+                "info": "Ex: 0px 0px 30px 0px"
+            },
+            {
+               "type": "header",
+               "content": "General Settings"
+            },
+            {
+                "type": "image_picker",
+                "id": "image1",
+                "label": "1st Image"
+            },
+            {
+                "type": "url",
+                "id": "image1_url",
+                "label": "Url"
+            },            
+            {
+                "type": "image_picker",
+                "id": "image2",
+                "label": "2st Image"
+            },
+            {
+                "type": "url",
+                "id": "image2_url",
+                "label": "Url"
+            },
+            {
+                "type": "image_picker",
+                "id": "image3",
+                "label": "3st Image"
+            },
+            {
+                "type": "url",
+                "id": "image3_url",
+                "label": "Url"
+            },
+            {
+                "type": "image_picker",
+                "id": "image4",
+                "label": "4st Image"
+            },
+            {
+                "type": "url",
+                "id": "image4_url",
+                "label": "Url"
+            },
+            {
+                "type": "image_picker",
+                "id": "image5",
+                "label": "5st Image"
+            },
+            {
+                "type": "url",
+                "id": "image5_url",
+                "label": "Url"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Five Images",
+                "category": "3. Images"
+            }
+        ]
+    }
+{% endschema %}

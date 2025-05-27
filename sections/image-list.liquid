@@ -1,0 +1,237 @@
+{%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+    {%- capture bgColor -%}
+        background-color: {{ section.settings.color_bg }};
+    {%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.padding_block != blank -%}
+    {%- capture paddingblock -%}
+        padding: {{section.settings.padding_block}};
+    {%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.margin_block != blank -%}
+    {%- capture marginblock -%}
+        margin: {{section.settings.margin_block}};
+    {%- endcapture -%}
+{%- endif -%}
+{%- assign image_crop = nil -%}
+{%- if section.settings.crop -%}
+    {%- assign image_crop = 'center' -%}
+{%- endif -%} 
+<div class="vela-section image-list overflow-hidden position-relative" style="{{ bgColor}} {{ paddingblock }} {{ marginblock }}">
+    <div class="container{% if section.settings.full_with %}-full{% endif %}">
+        <div class="vela-section__inner">
+            {%- if section.settings.heading != blank -%}
+                <div class="heading-group mb-xl-2 pb-4">
+                    <h2 class="heading mb-1">
+                        <span>{{ section.settings.heading }}</span>
+                    </h2>
+                    {%- if section.settings.sub_heading != blank -%}
+                        <div class="sub-heading">
+                            {{ section.settings.sub_heading }}
+                        </div>
+                    {%- endif -%}
+                </div>
+            {%- endif -%}
+            <div class="vela-section__content">
+                <div class="row g-{{section.settings.space_between}}">
+                    {% for block in section.blocks %}
+                        <div class="{% if block.settings.width != blank %}{{ block.settings.width }}{% else %}col-12{% endif%}">
+                            <div class="image-item {{ section.settings.effect }}">
+                                {%- if block.settings.link != blank -%}
+                                    <a href="{{ block.settings.link }}">
+                                {%- else -%}
+                                    <span>
+                                {%- endif -%}
+                                    {%- if block.settings.image != blank -%}
+                                        {% include 'img-global', image: block.settings.image, image_ratio: section.settings.image_ratio, crop: image_crop  %}
+                                    {%- else -%}
+                                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                    {%- endif -%}
+                                {%- if block.settings.link != blank -%}
+                                    </a>
+                                {%- else -%}
+                                    </span>
+                                {%- endif -%}
+                            </div>
+                        </div>
+                    {%- endfor -%}
+                </div>
+            </div>
+            {%- if section.settings.custom_css != blank -%}
+                {{ section.settings.custom_css }}
+            {%- endif -%}
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Image List",
+        "class": "velaFramework",
+		"max_blocks": 18,
+        "settings":[
+            {
+                "type": "header",
+                "content": "Design Section"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "Enabel Full Width?"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "Background Color",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "Padding",
+                "placeholder": "0px 0px",
+                "info": "Ex: 0px 0px 0px 0px and use desktop only"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "Margin",
+                "placeholder": "0px 0px",
+                "default": "0 0 30px",
+                "info": "Ex: 0px 0px 30px 0px"
+            },
+            {
+                "type": "header",
+                "content": "General Settings"
+            },
+            {
+                "type": "select",
+                "id": "image_ratio",
+                "options": [
+                  {
+                    "value": "adapt",
+                    "label": "Adapt to image"
+                  },
+                  {
+                    "value": "portrait",
+                    "label": "Portrait"
+                  },
+                  {
+                    "value": "square",
+                    "label": "Square"
+                  }
+                ],
+                "default": "adapt",
+                "label": "Image ratio"
+            },
+            {
+                "type": "checkbox",
+                "id": "crop",
+                "label": "Crop Image",
+                "default": false,
+                "info": "Not use with Adapt to image"
+            },
+            {
+                "type": "select",
+                "id": "effect",
+                "label": "Effect",
+                "default": "effectOne",
+                "options": [
+                    {
+                        "value": "effectNone",
+                        "label": "None"
+                    },
+                    {
+                        "value": "effectOne",
+                        "label": "Effect one"
+                    },
+                    {
+                        "value": "effectTwo",
+                        "label": "Effect two"
+                    },
+                    {
+                        "value": "effectThree",
+                        "label": "Effect Three"
+                    },
+                    {
+                        "value": "effectFour",
+                        "label": "Effect Four"
+                    },
+                    {
+                        "value": "effectFive",
+                        "label": "Effect Five"
+                    }
+                ]
+            },
+            {
+                "type": "select",
+                "id": "space_between",
+                "label": "Space Between Item(px)",
+                "default": "4",
+                "options": [
+                    {
+                        "value": "0",
+                        "label": "0"
+                    },
+                    {
+                        "value": "2",
+                        "label": "10"
+                    },
+                    {
+                        "value": "3",
+                        "label": "20"
+                    },
+                    {
+                        "value": "4",
+                        "label": "30"
+                    },
+                    {
+                        "value": "5",
+                        "label": "40"
+                    }
+                ]
+            },
+            {
+                "type": "liquid",
+                "id": "custom_css",
+                "label": "Custom liquid"
+            }
+        ],
+		"blocks": [
+			{
+                "type": "image",
+                "name": "Image item",
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "width",
+                        "label": "Column Witdh",
+                        "default": "col-12",
+                        "placeholder": "col-12 col-md-4",
+                        "info":"Ex: col-12 col-md-4. See more [Grid class bootstrap](https:\/\/getbootstrap.com\/docs\/5.0\/layout\/grid\/)"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "image"
+                    },
+                    {
+                        "type": "url",
+                        "id": "link",
+                        "label": "URL"
+                    }
+                ]
+            }
+		],
+        "presets": [
+            {
+                "name": "Image List",
+                "category": "3. Images",
+				"blocks": [
+                    {
+                        "type":"image"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

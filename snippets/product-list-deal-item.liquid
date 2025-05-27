@@ -1,0 +1,116 @@
+{%- assign on_sale = false -%}
+{%- if product.compare_at_price > product.price -%}
+{%- assign on_sale = true -%}
+{%- endif -%}
+{%- assign sold_out = true -%}
+{%- if product.available -%}
+{%- assign sold_out = false -%}
+{%- endif -%}
+
+{%- assign variant = product.selected_or_first_available_variant -%}
+
+{%- if product.metafields.custom.shortdescription != blank  -%}
+    {%- assign shortDescription = product.metafields.custom.shortdescription -%}
+{%- else -%}
+    {%- assign shortDescription = product.description | strip_html | truncate: 250 -%}
+{%- endif -%}
+{% assign date_created = product.created_at | date:'%s' %}
+{% assign     date_now = 'now' | date:'%s' %}
+{% assign   difference = date_now | minus: date_created %}
+<div class="product-card product-deal-list">
+    <div class="row g-0 align-items-center">
+        <div class="col-12 col-md-6 col-lg-5">
+            <div class="product-card__image-wrapper">
+                <a class="product-card__image-link" href="{{ product.url }}">
+                    <span {% if product.media[1] != nil and settings.show_secondary_image %} class="img-primary"{% endif %}>
+                        {% include 'img-global', image: product.featured_media, image_ratio: settings.image_ratio, crop: image_crop  %}
+                    </span>
+                    {%- if product.media[1] != nil and settings.show_secondary_image -%}
+                        <span class="img-secondary position-absolute">
+                            {% include 'img-global', image: product.media[1], image_ratio: settings.image_ratio, crop: image_crop %}
+                        </span>
+                    {%- endif -%}
+                </a>
+                <div class="product-card__label">
+                    {%- if difference < 2592000 and settings.product_card_new -%}
+                        <span class="label-new"><span class="d-block overflow-hidden">{{ 'products.product.label_new' | t }}</span></span>
+                    {%- endif -%}
+                    {%- if sold_out and settings.product_card_available -%}
+                        <span class="label-sold-out"><span class="d-block overflow-hidden">{{ 'products.product.sold_out_html' | t }}</span></span>
+                    {%- elsif on_sale and settings.product_card_sale -%}
+                        {%- capture saved_amount -%}{{ product.compare_at_price | minus: product.price | times: 100 | divided_by : product.compare_at_price  }}{%- endcapture -%}
+                        <span class="label-on-sale"><span class="d-block overflow-hidden">{{ 'products.general.save_html' | t: saved_amount: saved_amount }}%</span></span>
+                        
+                    {%- endif -%}
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-7 bg-white">
+            <div class="product-card__content position-relative ps-md-4 ps-lg-5 ms-lg-2">
+                <div class="product-card__name ff-special text-uppercase fw-bold">
+                    <a href="{{ product.url }}">{{ product.title }}</a>
+                </div>
+                {%- if settings.product_reviews_enable -%}
+                    <div class="product-card__review product-review pb-lg-1">
+                        <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                    </div>
+                {%- endif -%}
+                <div class="product-card__price mb-2 mb-lg-3">
+                    <div class="product-group-price d-flex align-items-center">
+                        {%- if on_sale -%}
+                            <div class="product-price">{{ product.price | money }}</div>
+                            <div class="product-price product-price--regular ms-2">{{ product.compare_at_price | money }}</div>
+                        {%- else -%}
+                            {% if product.price_max > product.price_min %}
+                                <div class="product-price">{{ product.price_min | money }} - {{ product.price_max | money }}</div> 
+                            {%- else -%}
+                                <div class="product-price {% if on_sale %}priceSale{% endif %}">{{ product.price | money }}</div>
+                            {%- endif -%} 
+                        {%- endif -%}
+                        
+                        {%- if product.price_varies == false and variant.unit_price_measurement -%}
+                        {%- capture unit_price_separator -%}
+                            <span>/</span><span class="d-none">&nbsp;{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+                        {%- endcapture -%}
+                        {%- capture unit_price_base_unit -%}
+                            <span>
+                            {%- if variant.unit_price_measurement.reference_value != 1 -%}
+                                {{- variant.unit_price_measurement.reference_value -}}
+                            {%- endif -%}
+                            {{ variant.unit_price_measurement.reference_unit }}
+                            </span>
+                        {%- endcapture -%}
+                        <span class="product-unit-price">
+                            <span class="d-none">{{ 'products.general.unit_price' | t }}</span>
+                            <span>{{ variant.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+                        </span>
+                        {%- endif -%}
+                    </div>
+                </div>
+                {%- if product.has_only_default_variant -%}
+                    {%- if shortDescription != blank -%}
+                        <div class="product-card__summary mb-1 mb-lg-2">{{ shortDescription }}</div>
+                    {%- endif -%}
+                {%- else -%}
+                    <div class="product-card__swatch--deal">
+                        {%- for option in product.options_with_values -%}             
+                                <div class="d-flex mb-lg-2">
+                                    <label class="me-2">{{ option.name | escape }}:</label>
+                                    {%- assign optionIndex = forloop.index0 -%}
+                                    {% for value in option.values %}
+                                            <span class="text-primary">{{value}}{% unless forloop.last %},&nbsp;{% endunless %}</span>
+                                    {% endfor %}
+                                </div>
+                        {% endfor %}
+                    </div>
+                {%- endif -%}
+                {%- if product.metafields.custom.countdown != blank and section.settings.countdown -%}
+                    <div class="d-flex flex-wrap align-items-center pt-2">
+                        {% assign final_time = product.metafields.custom.countdown %} 
+                        <div class="product-card__countdown countdown" data-countdown="{{ final_time }}"></div>
+                    </div>
+                {%- endif -%}
+            </div>
+        </div>
+    </div>
+</div>

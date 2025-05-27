@@ -1,0 +1,66 @@
+{%- assign on_sale = false -%}
+{%- if product.compare_at_price > product.price -%}
+{%- assign on_sale = true -%}
+{%- endif -%}
+{%- assign sold_out = true -%}
+{%- if product.available -%}
+{%- assign sold_out = false -%}
+{%- endif -%}
+
+{%- assign variant = product.selected_or_first_available_variant -%}
+
+{%- if product.metafields.custom.shortdescription != blank  -%}
+    {%- assign shortDescription = product.metafields.custom.shortdescription -%}
+{%- else -%}
+    {%- assign shortDescription = product.description | strip_html | truncate: 200 -%}
+{%- endif -%}
+{%- assign image_crop = nil -%}
+{%- if section.settings.crop -%}
+    {%- assign image_crop = 'center' -%}
+{%- endif -%}
+<div class="product-card product-list-style d-flex">
+    <div class="product-card__image-wrapper">
+        <a class="product-card__image-link" href="{{ product.url }}">
+            {% include 'img-global', image: product.featured_media, image_ratio: settings.image_ratio, crop: image_crop  %}
+            {%- if product.media[1] != nil and settings.show_secondary_image -%}
+                <span class="img-secondary position-absolute">
+                    {% include 'img-global', image: product.media[1], image_ratio: settings.image_ratio, crop: image_crop %}
+                </span>
+            {%- endif -%}
+        </a>
+    </div>
+    <div class="product-card__content position-relative">
+        <div class="product-card__name h6 mb-0">
+            <a href="{{ product.url }}"><span>{{ product.title }}</span></a>
+        </div>
+        {%- if settings.product_reviews_enable -%}
+            <div class="product-card__review product-review">
+                <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+            </div>
+        {%- endif -%}
+        <div class="product-group-price d-flex align-items-center">
+            <div class="product-price">{{ product.price | money }}</div>
+            {%- if on_sale -%}
+                <div class="product-price product-price--regular ms-1">{{ product.compare_at_price | money }}</div>
+            {%- endif -%}
+            
+            {%- if product.price_varies == false and variant.unit_price_measurement -%}
+            {%- capture unit_price_separator -%}
+                <span>/</span><span class="d-none">&nbsp;{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+            {%- endcapture -%}
+            {%- capture unit_price_base_unit -%}
+                <span>
+                {%- if variant.unit_price_measurement.reference_value != 1 -%}
+                    {{- variant.unit_price_measurement.reference_value -}}
+                {%- endif -%}
+                {{ variant.unit_price_measurement.reference_unit }}
+                </span>
+            {%- endcapture -%}
+            <span class="product-unit-price">
+                <span class="d-none">{{ 'products.general.unit_price' | t }}</span>
+                <span>{{ variant.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+            </span>
+            {%- endif -%}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+{% if shop.customer_accounts_optional or shop.customer_accounts_enabled %}
+	{%- capture fullname -%}{{ customer.first_name }}{%- endcapture -%}
+	{%- assign logout = 'customer.log_out' | t -%}
+	{%- assign login = 'customer.log_in' | t -%}
+	{%- assign register = 'customer.registration' | t -%}
+	<div class="header-customer">
+		<a class="d-block d-sm-none" href="{{routes.account_url}}" title="{{ 'customer.account.title' | t }}">{%- render 'icons' with icon: 'user', class: 'icon icon-user', attr: 'width="20" height="20"' -%}</a>
+		<ul class="d-none d-sm-flex align-items-center list-unstyled m-0">
+			{% if customer  %}
+				<li><a href="{{routes.account_url}}" title="{{ 'customer.account.title' | t }}">{{ 'customer.account.title' | t }}</a></li> 
+				<li>/</li>             
+				<li>{{ logout | customer_logout_link }}</li>
+			{% else %}
+				<li>{{ login | customer_login_link }}</li>
+				<li>/</li>    
+				<li>{{ register | customer_register_link }}</li>
+			{% endif %}
+		</ul>
+	</div>
+{% endif %}

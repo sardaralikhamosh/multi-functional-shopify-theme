@@ -1,0 +1,53 @@
+{%- assign show_date = section.settings.blog_date -%}
+{%- assign show_author = section.settings.blog_author -%}
+{%- assign show_image = section.settings.blog_image -%}
+{%- assign show_excerpt = section.settings.blog_excerp -%}
+{%- assign show_tags = section.settings.blog_tags -%}
+{%- assign show_readmore = section.settings.blog_readmore -%}
+
+{% for i in (1..3) %}
+  <div class="slick-carousel__item">
+    <div class="featured-blog__post">
+      <article class="article">
+        {%- if show_image -%}
+          <div class="article__image position-relative mb-3 mb-lg-4 pb-1">
+            <a class="article__featured-image-link" href="{{ article.url }}">
+              <div class="article__featured-image-wrapper" style="padding-top:{{ 1 | divided_by: article.image.aspect_ratio | times: 100}}%;">
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+            </a>
+          </div>
+        {%- endif -%}
+        <div class="article__content pt-1">
+			<div class="article__meta d-flex flex-wrap align-items-center mb-2 text-uppercase">
+				{%- if show_tags -%}
+					<div class="blog-tags">
+						<a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="tags__item">Fresh</a>,
+						<a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="tags__item">Furniture</a>
+					</div>
+				{%- endif -%}
+				{%- if show_date -%}
+					<div class="article__meta-date"><time datetime="{{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}" class="date">{{ 'now' | date: format: 'date' }}</time></div>
+				{%- endif -%}
+				{%- if show_author -%}
+					<div class="article__meta-author">Velatheme</div>
+				{%- endif -%}
+			</div>
+			<h5 class="article__title mb-3">
+				<a href="{{ article.url }}" title="In Black and White. The perfect match of all times">In Black and White. The perfect match of all times</a>
+			</h5>
+			{%- if show_excerpt -%}
+				<div class="rte article__excerpt">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo...
+				</div>
+			{%- endif -%}
+			{%- if show_readmore -%}
+				<div class="d-flex pt-3 mt-1">
+					<a class="article__read-more p-0 btn btn-link-outline" href="{{ article.url }}">{{ 'blogs.article.read_more' | t }}</a>
+				</div>
+			{%- endif -%}
+		</div>
+      </article>
+    </div>
+  </div>
+{% endfor %}

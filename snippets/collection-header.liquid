@@ -1,0 +1,100 @@
+<div class="page-collection-header__left {% unless section.settings.sidebar_template  == 'sidebarnone'  %}page-collection-header--no-fullwith flex-lg-nowrap{% endunless %} mb-3 mb-md-4 mb-xl-5">
+	<div class="d-flex align-items-center justify-content-between flex-wrap border-bottom pb-3">
+		{%- if section.blocks.size > 0 -%}
+			{%- if section.settings.sidebar_template  == 'sidebarnone' -%}
+				{%- assign product_count_display = "d-none d-md-block" -%}
+			{%- elsif section.settings.sidebar_template  == 'sidebarleft' or section.settings.sidebar_template  == 'sidebarright' -%}
+				{%- assign class_display = "d-block d-lg-none" -%}
+				{%- assign product_count_display = "d-none d-md-block" -%}
+			{%- elsif section.settings.sidebar_template  == 'sidebartop' -%}
+				{%- assign class_display = "d-none" -%}
+			{%- endif -%}
+		{%- else -%}
+			{%- assign class_display = "d-none" -%}
+		{%- endif -%}
+		<div class="collection-filter me-2 {{class_display}}">
+			<button class="js-sidebar-toggle collection-filter__button d-flex align-items-center p-0 border-0" type="button">
+				{% render 'icons', icon: 'filter', attr: 'width="14px"' %}
+				<span class="ms-1">{{ 'collections.filter.filter' | t }}</span>
+			</button>
+		</div>
+		{%- assign min_page = 1 -%}
+		{%- assign max_page = paginate.page_size | times:paginate.current_page -%}
+		{%- if paginate.current_page > 1 -%}
+		{%- assign current_page = paginate.current_page | minus:1 -%}
+		{%- assign min_page = current_page | times: paginate.page_size -%}
+		{%- endif -%}
+		{%- if max_page > paginate.items -%}
+		{%- assign max_page = paginate.items -%}
+		{%- endif -%}
+		<div id="ProductCount" class="collection-product-count {{product_count_display}}" role="status">{{ 'collections.general.product_count_html' | t: min_page:min_page, max_page:max_page, items_page:paginate.items }}</div>
+		<facet-filters-form class="product-filter">
+			<form id="CollectionFiltersForm" class="product-filter__form">
+				{%- for filter in collection.filters -%}
+					{%- for value in filter.values -%}
+						{% if value.active %}
+							<input type="hidden" name="{{ value.param_name }}" value="{{ value.value }}">
+						{%- endif -%}
+						{%- endfor -%}
+						{%- if filter.min_value.value -%}
+							<input type="hidden" name="{{ filter.min_value.param_name }}" value="{{range_min}}">
+						{%- endif -%}
+						{%- if filter.max_value.value -%}
+							<input type="hidden" name="{{ filter.max_value.param_name }}" value="{{range_max}}">
+						{%- endif -%}
+						{% if collection.current_vendor or collection.current_type %}
+							<input type="hidden" name="q" value="{{ collection.current_vendor }}{{ collection.current_type }}">
+						{% endif %}
+				{%- endfor -%}	
+				{%- if template.suffix != blank -%}
+					<input type="hidden" name="view" value="{{template.suffix}}" />
+				{%- endif -%}
+				{%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+				<div class="collection-filters__field d-flex align-items-center">
+					<label class="collection-filters__label me-2 d-none">{{ 'collections.sorting.title' | t }}:</label>
+					<div class="collection-filters__dropdown d-flex align-items-center justify-content-between position-relative fst-italic" data-bs-toggle="dropdown" aria-expanded="false">
+						{%- for option in collection.sort_options -%}
+							{%- if option.value == sort_by -%}{{ option.name | escape }} {% break %}{%- endif -%}
+						{%- endfor -%}
+						{%- render 'icons', icon:'caret', attr: 'width="10" height="10"' -%}
+					</div>
+					<ul class="dropdown-menu border-0 facets__list" id="SortBy" aria-describedby="a11y-refresh-page-message" >
+						{%- for option in collection.sort_options -%}
+							<li class="facets__item px-3 py-1 {% if option.value == sort_by %} selected{% endif %}">
+								<label for="{{ option.value | escape }}">
+									<input class="d-none" type="radio" id="{{ option.value | escape }}" name="sort_by" value="{{ option.value | escape }}">
+									<span>{{ option.name | escape }}</span>
+								</label>
+							</li>
+						{%- endfor -%}
+					</ul>
+				</div>
+			</form>
+		</facet-filters-form>
+	</div>
+	
+	<div class="active-facets active-facets-desktop">
+		{%- for filter in collection.filters -%}
+			{%- for value in filter.active_values -%}
+				<a class="active-facets__button active-facets__button--light js-facet-remove" href="{{ value.url_to_remove }}">
+				{{ value.label | escape }}
+				{% render 'icons', icon: 'close-bold', class: 'ms-1' %}
+				</a>
+			{%- endfor -%}
+			{% if filter.type == "price_range" %}
+				{%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+				<a class="active-facets__button active-facets__button--light js-facet-remove" href="{{ filter.url_to_remove }}" title="{{ 'collections.filter.clear' | t }}">
+					{%- if filter.min_value.value -%}{{ filter.min_value.value | money }}{%- else -%}{{ 0 | money }}{%- endif -%}-{%- if filter.max_value.value -%}{{ filter.max_value.value | money }}{%- else -%}{{ filter.range_max | money }}{%- endif -%}
+					{% render 'icons', icon: 'close-bold', class: 'ms-2' %}
+				</a>
+				{%- endif -%}
+			{% endif %}
+		{%- endfor -%}
+		{%- if template.suffix != blank -%} 
+			{%- capture layoutview -%}
+				&view={{template.suffix}}
+			{%- endcapture-%}
+		{%- endif -%}
+		<a href="{{ collection.url }}?sort_by={{ sort_by }}{{layoutview}}" class="active-facets__button active-facets__clear_all js-facet-remove p-0" title="{{ 'collections.filter.clear_all' | t }}">{{ 'collections.filter.clear_all' | t }}</a>
+	</div>
+</div>

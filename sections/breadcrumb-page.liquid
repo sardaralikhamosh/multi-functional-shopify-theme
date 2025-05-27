@@ -1,0 +1,203 @@
+
+	{%- assign nocolor = "rgba(0,0,0,0)" -%}
+	<style>
+		:root {
+			{%- if section.settings.breadcrumb_bg != nocolor-%}
+				--breadcrumb-bg: {{ section.settings.breadcrumb_bg }};
+			{%- endif -%}
+			{%- if section.settings.breadcrumb_color_link != nocolor -%}
+				--breadcrumb-color-link: {{ section.settings.breadcrumb_color_link }};
+			{%- endif -%}
+			{%- if section.settings.breadcrumb_color != nocolor -%}
+				--breadcrumb-color: {{ section.settings.breadcrumb_color }};
+			{%- endif -%}
+			{%- if section.settings.breadcrumb_color_heading != nocolor -%}
+				--breadcrumb-heading-color: {{ section.settings.breadcrumb_color_heading }};
+			{%- endif -%}
+		}
+
+		.vela-breadcrumbs{
+			{%- if  section.settings.breadcrumb-height != blank -%}
+				min-height: {{section.settings.breadcrumb-height}};
+			{%- endif -%}
+			{%- if section.settings.padding_block != blank -%}
+				padding: {{section.settings.padding_block}};
+			{%- endif -%}
+			{%- if section.settings.margin_block != blank -%}
+				margin: {{section.settings.margin_block}};
+			{%- endif -%}
+		}
+		{%- if section.settings.breadcrumb-mheight != blank -%}@media screen and (max-width: 767px){ .vela-breadcrumbs{ min-height: {{section.settings.breadcrumb-mheight}}; }}{% endif %}
+	</style>
+	{%- assign is_bg_image = section.settings.bgimage -%}
+	{%- if is_bg_image -%}
+		{%- assign class_name = 'vela-breadcrumbs--image' -%}
+	{%- else -%}
+		{%- assign class_name = 'vela-breadcrumbs--no-image' -%}
+	{%- endif -%}
+	<div class="vela-breadcrumbs d-flex flex-wrap align-items-center {{ class_name }}">
+        {%- if section.settings.breadcrumb_title != blank  -%}
+            {%- assign breadcrumb_title = section.settings.breadcrumb_title -%}
+        {%- else -%}
+		    {%- assign breadcrumb_title = page_title -%}
+        {%- endif -%}
+		{%- if is_bg_image -%}
+			{%- assign bg_image = section.settings.image -%}
+			<div class="vela-breadcrumbs__image lazyload"
+				data-bgset="{%- if bg_image != blank -%}{%- include 'bgset', image: bg_image -%}{%- else -%}https://via.placeholder.com/1710x190.jpg {%- endif -%}"
+				data-sizes="auto"
+				data-parent-fit="cover">
+				
+			</div>
+		{%- endif -%}
+		<div class="container">
+			<div class="vela-breadcrumbs__inner align-items-{% if section.settings.text-align == 'justify'%}center{% else %}{{ section.settings.text-align }}{% endif %}{% if section.settings.text-align == 'justify'%} flex-wrap justify-content-md-between{% else %} flex-column{% endif %}" aria-label="breadcrumb">
+				{%- if section.settings.enable_title == 'alwary'-%} 
+					{%- assign showtitle = "" -%}
+				{%- elsif section.settings.enable_title == 'desktop'-%} 
+					{%- assign showtitle = "d-none d-md-block" -%}
+				{%- else -%}
+					{%- assign showtitle = "d-none" -%}
+				{%- endif -%}
+				<h1 class="vela-breadcrumbs__title mb-1 {{ showtitle }}">{{ breadcrumb_title }}</h1>
+				<ol class="breadcrumb m-0" itemscope itemtype="http://schema.org/BreadcrumbList">
+					<li class="breadcrumb-item breadcrumb__item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+						<a class="breadcrumb__link" href="/" title="{{ 'general.breadcrumbs.home_link_title' | t }}" itemprop="item">
+							<span itemprop="name">{{ 'general.breadcrumbs.home_link_title' | t }}</span>
+						</a>
+						<meta itemprop="position" content="1" />
+					</li>
+                    <li class="breadcrumb-item breadcrumb__item active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                        <span class="breadcrumb__text">
+                            <span itemprop="name">{{ page_title }}</span>
+                        </span>
+                        <meta itemprop="position" content="2" />
+                    </li>
+			    </ol>
+		    </div>
+	    </div>
+    </div>
+	{% schema %}
+	{
+	"name": "Breadcrumb",
+	"settings": [
+		{
+			"type": "header",
+			"content": "Settings"
+		},
+		{
+			"type": "text",
+			"id": "padding_block",
+			"label": "Padding",
+			"placeholder": "0px 0px",
+			"info": "Ex: 0px 0px 0px 0px and use desktop only"
+		},
+		{
+			"type": "text",
+			"id": "margin_block",
+			"label": "Margin",
+			"placeholder": "0px 0px",
+			"default": "0 0 30px",
+			"info": "Ex: 0px 0px 30px 0px"
+		},
+		{
+			"type": "checkbox",
+			"id": "bgimage",
+			"label": "Use background image"
+		},
+		{
+			"type": "image_picker",
+			"id": "image",
+			"label": "Background image default",
+			"info": "Default size: 1920x480 pixels"
+		},
+		{
+			"type": "text",
+			"id": "breadcrumb_title",
+			"label": "Heading"
+		},
+		{
+			"type": "select",
+			"id": "enable_title",
+			"label": "Show breadcrumb title",
+			"default": "none",
+			"options" : [
+				{
+					"label": "None",
+					"value": "none"
+				},
+				{
+					"label": "Alwary",
+					"value": "alwary"
+				},
+				{
+					"label": "Desktop only",
+					"value": "desktop"
+				}
+			]
+		},
+		{
+			"type": "color",
+			"id": "breadcrumb_bg",
+			"label": "Background color",
+			"default": "rgba(0,0,0,0)"
+		},
+		{
+			"type": "color",
+			"id": "breadcrumb_color_heading",
+			"label": "Heading Color",
+			"default": "rgba(0,0,0,0)"
+		},
+		{
+			"type": "color",
+			"id": "breadcrumb_color",
+			"label": "Color",
+			"default": "rgba(0,0,0,0)"
+		},
+		{
+			"type": "color",
+			"id": "breadcrumb_color_link",
+			"label": "Color Link",
+			"default": "rgba(0,0,0,0)"
+		},
+		{
+			"type": "text",
+			"id": "breadcrumb-height",
+			"label": "Height",
+			"default": "300px",
+			"info": "Use for desktop ex: 300px"
+		},
+		{
+			"type": "text",
+			"id": "breadcrumb-mheight",
+			"label": "Height",
+			"default": "200px",
+			"info": "Use for mobile ex: 200px"
+		},
+		{
+			"type": "select",
+			"id": "text-align",
+			"label": "Text align",
+			"default": "center",
+			"options" : [
+				{
+					"label": "Left",
+					"value": "start"
+				},
+				{
+					"label": "Center",
+					"value": "center"
+				},
+				{
+					"label": "Right",
+					"value": "end"
+				},
+				{
+					"label": "Justify",
+					"value": "justify"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

@@ -1,0 +1,63 @@
+
+{%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+	{%- capture bgColor -%}
+		background-color: {{ section.settings.color_bg }};
+	{%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.padding_block != blank -%}
+	{%- capture paddingblock -%}
+		padding: {{section.settings.padding_block}};
+	{%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.margin_block != blank -%}
+	{%- capture marginblock -%}
+		margin: {{section.settings.margin_block}};
+	{%- endcapture -%}
+{%- endif -%}
+<div class="vela-page" style="{{ bgColor}} {{ paddingblock }} {{ marginblock }}">
+	<div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+		<h1 class="page-title">
+			{{ page.title | escape }}
+		</h1>
+		<div class="rte">
+			{{ page.content }}
+		</div>
+	</div>
+</div>
+{% schema %}
+{
+	"name": "Page",
+	"settings":[
+		{
+			"type": "header",
+			"content": "Settings"
+		},
+		{
+			"type": "checkbox",
+			"id": "full_with",
+			"label": "Enabel Full Width?"
+		},
+		{
+			"type": "color",
+			"id": "color_bg",
+			"label": "Background Color",
+			"default": "rgba(0,0,0,0)"
+		},
+		{
+			"type": "text",
+			"id": "padding_block",
+			"label": "Padding",
+			"placeholder": "0px 0px",
+			"info": "Ex: 0px 0px 0px 0px and use desktop only"
+		},
+		{
+			"type": "text",
+			"id": "margin_block",
+			"label": "Margin",
+			"placeholder": "0px 0px",
+			"default": "0 0 30px",
+			"info": "Ex: 0px 0px 30px 0px"
+		}
+	]
+}
+{% endschema %}

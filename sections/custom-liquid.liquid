@@ -1,0 +1,73 @@
+{%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+    {%- capture bgColor -%}
+        background-color: {{ section.settings.color_bg }};
+    {%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.padding_block != blank -%}
+    {%- capture paddingblock -%}
+        padding: {{section.settings.padding_block}};
+    {%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.margin_block != blank -%}
+    {%- capture marginblock -%}
+        margin: {{section.settings.margin_block}};
+    {%- endcapture -%}
+{%- endif -%}
+
+<div class="vela-section custom-liquid overflow-hidden" style="{{ bgColor}}{{ paddingblock }}{{ marginblock }}">
+    <div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+		{{ section.settings.custom_liquid }}
+	</div>
+</div>
+
+{% schema %}
+{
+	"name": "Custom Liquid",
+	"settings": [
+		{
+			"type": "header",
+			"content": "Design Section"
+		},
+		{
+			"type": "checkbox",
+			"id": "full_with",
+			"label": "Enabel Full Width?"
+		},
+		{
+			"type": "color",
+			"id": "color_bg",
+			"label": "Background Color",
+			"default": "rgba(0,0,0,0)"
+		},
+		{
+			"type": "text",
+			"id": "padding_block",
+			"label": "Padding",
+			"placeholder": "0px 0px",
+			"info": "Ex: 0px 0px 0px 0px and use desktop only"
+		},
+		{
+			"type": "text",
+			"id": "margin_block",
+			"label": "Margin",
+			"placeholder": "0px 0px",
+			"info": "Ex: 0px 0px 30px 0px"
+		},
+		{
+			"type": "header",
+			"content": "General Settings"
+		},
+		{
+			"type": "liquid",
+			"id": "custom_liquid",
+			"label": "Custom Liquid",
+			"info": "Add app snippets or other Liquid code to create advanced customizations."
+		}
+	],
+	"presets": [
+		{
+			"name": "Custom Liquid"
+		}
+	]
+}
+{% endschema %}

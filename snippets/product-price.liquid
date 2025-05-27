@@ -1,0 +1,49 @@
+<div class="price-container d-flex align-items-center flex-wrap {% if variant.unit_price_measurement %} price-container--unit-available{% endif %} {{ block_margin }}" data-price-container>
+  <span class="js-product-price product-single__price{% if variant.compare_at_price > variant.price %} on-sale{% endif %}"
+    itemprop="price"
+    content="{{ variant.price | divided_by: 100.00 }}">
+    {{ variant.price | money }}
+  </span>
+  {%- if variant.compare_at_price > variant.price -%}
+    <span class="js-product-price-a11y sr-only invisible">{{ 'products.general.regular_price' | t }}</span>
+    <span class="product-single__price--wrapper ms-1" aria-hidden="false">
+      <span class="js-product-compare-price product-single__price--compare-at">
+        {{ variant.compare_at_price | money }}
+      </span>
+    </span>
+    <span class="js-product-compare-price-a11y sr-only invisible" aria-hidden="false">{{ 'products.general.sale_price' | t }}</span>
+  {%- else -%}
+    <span id="PriceA11y" class="sr-only invisible">{{ 'products.general.regular_price' | t }}</span>
+    <span class="product-single__price--wrapper d-none ms-1" aria-hidden="true">
+      <span class="js-product-compare-price product-single__price--compare-at"></span>
+    </span>
+    <span class="js-product-compare-price-a11y sr-only invisible" aria-hidden="true">{{ 'products.general.sale_price' | t }}</span>
+  {%- endif -%}
+  <div class="product-single__unit ms-1">
+    {%- capture unit_price_separator -%}
+      <span aria-hidden="true">/</span><span class="sr-only invisible">&nbsp;{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+    {%- endcapture -%}
+
+    {%- capture unit_price_base_unit -%}
+      <span data-unit-price-base-unit>
+        {%- if variant.unit_price_measurement -%}
+          {%- if variant.unit_price_measurement.reference_value != 1 -%}
+            {{- variant.unit_price_measurement.reference_value -}}
+          {%- endif -%}
+          {{ variant.unit_price_measurement.reference_unit }}
+        {%- endif -%}
+      </span>
+    {%- endcapture -%}
+    <span class="product-unit-price">
+      <span class="sr-only invisible">{{ 'products.general.unit_price' | t }}</span>
+      <span data-unit-price>{{ variant.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+    </span>
+  </div>
+  
+	{%- if shop.taxes_included -%}
+    <span class="product-single__taxes ms-2 mt-1">
+      {{ 'products.general.include_taxes' | t }}
+    </span>
+	{%- endif -%}
+                            
+</div>

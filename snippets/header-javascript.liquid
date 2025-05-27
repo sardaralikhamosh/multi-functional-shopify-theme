@@ -1,0 +1,42 @@
+<script>
+  window.vela = window.vela || {};
+  vela.strings = {
+    shop_money_with_currency_format: {{ shop.money_with_currency_format | strip_html | json }},
+    shop_money_format: {{ shop.money_format | strip_html | json }},
+    currency: {{ shop.currency | json }},
+    moneyFormat: {{ shop.money_format | json }},
+    zoomClose: {{ 'products.zoom.close' | t | json }},
+    zoomPrev: {{ 'products.zoom.prev' | t | json }},
+    zoomNext: {{ 'products.zoom.next' | t | json }},
+    productSlideLabel: {{ 'products.product.slide_label' | t: slide_number: '[slide_number]', slide_max: '[slide_max]' | json }},
+    countdownDays: {{ 'general.countdown.days' | t | json }},
+    countdownHours: {{ 'general.countdown.hours' | t | json }},
+    countdownMinutes: {{ 'general.countdown.minutes' | t | json }},
+    countdownSeconds: {{ 'general.countdown.seconds' | t | json }},
+    countdownFinish: {{ 'general.countdown.finish' | t | json }},
+    addToCart: {{ 'products.product.add_to_cart' | t | json }},
+    soldOut: {{ 'products.product.sold_out' | t | json }},
+    unavailable: {{ 'products.product.unavailable' | t | json }},
+    inStock: {{ 'products.product.in_stock' | t | json }},
+    outStock: {{ 'products.product.out_stock' | t | json }},
+    cartEmpty: {{ 'sections.cart.empty' | t | json }},
+    cartCookies: {{ 'sections.cart.cookies_required' | t | json }},
+    newsletterSuccess: {{ 'newsletter.newsletter_confirmation' | t | json }}
+  };
+  vela.settings = {
+    currencies: {{ settings.show_multiple_currencies | json }},
+    cartType: {{ settings.cart_type | json }},
+    enableReview: {{ settings.product_reviews_enable | json }},
+    enablePreLoading: {{ settings.preloading | json }},
+    enableQuickView: {{ settings.quickview_enable | json }},
+    quickViewVariantType: {{ settings.quickview_variant_selector | json }},
+    quickViewColorSwatch: {{ settings.quickview_variant_color_enable | json }},
+    quickViewImageSwatch: {{ settings.quickview_variant_image_enable | json }},
+    fileURL: "{{ '' | file_url | split: '?' | first }}"
+  };
+  vela.loading = '<div class="vela-loading"><div class="vela-loading__icon"><span></span><span></span><span></span><span></span></div></div>';
+</script>
+{%- if request.page_type contains 'customers/' -%}
+  {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+{%- endif -%}
+{{ 'vendor.js' | asset_url | script_tag }}

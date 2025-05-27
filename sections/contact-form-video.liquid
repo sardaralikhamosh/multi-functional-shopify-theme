@@ -1,0 +1,250 @@
+{%- capture section_style -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        background-color: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+        padding: {{section.settings.padding_block}};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        margin: {{section.settings.margin_block}};
+    {%- endif -%}
+{%- endcapture -%}
+<div class="vela-section form-video overflow-hidden" {% if section_style %}style="{{ section_style }}"{% endif%}>
+    <div class="container{% if section.settings.full_with %}-full{% endif %}">
+        <div class="vela-section__inner">
+            <div class="row g-0">
+                <div class="form-video__video video-section col-12 col-lg-6">		
+									
+                    <deferred-media class="video-section__media overflow-hidden d-block w-100 h-100" data-media-id="{{ section.settings.video_url.id }}"
+                        {% if section.settings.cover_image != blank %} style="background-image: url({{ section.settings.cover_image | img_url: 'master'}});"{% endif %}
+                        >
+                            <button
+                            id="Deferred-Poster-Modal-{{ section.settings.video_url.id }}"
+                            class="video-section__poster media deferred-media__poster media--landscape"
+                            type="button"
+                            >
+                                {%- unless section.settings.cover_image != blank -%}
+                                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+                                {%- endunless -%}
+                                <span class="deferred-media__poster-button d-flex align-items-center justify-content-center video-btn--play position-absolute p-0 top-50 start-50 translate-middle rounded-circle">
+                                    {%- render 'icons', icon: 'play', class: 'icon icon-play ms-1' -%}
+        
+                                </span>
+                            </button>
+                            <template>
+                            {%- if section.settings.video_url.type == 'youtube' -%}
+                                <iframe src="https://www.youtube.com/embed/{{ section.settings.video_url.id }}?enablejsapi=1" class="js-youtube" allow="autoplay; encrypted-media" allowfullscreen title="{{ section.settings.description | escape }}"></iframe>
+                            {%- else -%}
+                                <iframe src="https://player.vimeo.com/video/{{ section.settings.video_url.id }}" class="js-vimeo" allow="autoplay; encrypted-media" allowfullscreen title="{{ section.settings.description | escape }}"></iframe>
+                            {%- endif -%}
+                            </template>
+                    </deferred-media>
+                </div>
+                <div class="col-12 col-lg-6">
+                    {%- capture form_style -%}
+                        {%- if section.settings.form_bg_color != '' -%}
+                            background-color: {{ section.settings.form_bg_color }};
+                        {%- endif -%}
+                        {%- if section.settings.form_bg_image != blank -%}
+                            background-image: url({{ section.settings.form_bg_image | img_url: 'master' }});
+                            background-size: cover;
+                        {%- endif -%}
+                    {%- endcapture -%}
+                    <div class="form-video__form p-lg-2 p-xl-4" {% if form_style %}style="{{ form_style }}"{% endif %}>
+                        <div class="form-video__form--inner p-5">
+                            {%- if section.settings.heading != blank -%}
+                                <div class="heading-group mb-0 pt-lg-4">
+                                    <h2 class="heading mb-1">
+                                        <span class="text-white">{{ section.settings.heading }}</span>
+                                    </h2>
+                                </div>
+                            {%- endif -%}
+                            <div class="contact-form__content">
+                                {%- form 'contact', id: 'ContactForm' -%}
+                                    {%- if form.posted_successfully? -%}
+                                        <div class="alert-success alert alert-success" autofocus>
+                                            {{ 'templates.contact.form.post_success' | t }}
+                                        </div>
+                                    {%- elsif form.errors -%}
+                                        <div class="alert-error alert alert-danger alert-dismissible fade show" autofocus>
+                                            {{ form.errors | default_errors }}
+                                            <button type="button" data-dismiss="alert" aria-hidden="true" data-bs-dismiss="alert" aria-label="Close" class="btn-close"></button>
+                                        </div>
+                                    {%- endif -%}
+                                    <div class="row g-3 g-md-4 mb-3 mb-md-4">
+                                        <div class="col">
+                                            <label class="form__label mb-2 d-none" for="ContactForm-name">{{ 'templates.contact.form.name' | t }}<span class="text-danger" aria-hidden="true">*</span></label>
+                                            <input class="form-control" placeholder="{{ 'templates.contact.form.name' | t }}" type="text" id="{{ formId }}-name" name="contact[{{ 'templates.contact.form.name' | t }}]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}" required>
+                                        </div>
+                                        <div class="col">
+                                            <label class="form__label mb-2 d-none" for="ContactForm-email">{{ 'templates.contact.form.email' | t }} <span class="text-danger" aria-hidden="true">*</span></label>
+                                            <input class="form-control"
+                                                placeholder="{{ 'templates.contact.form.email' | t }}"
+                                                type="email"
+                                                id="{{ formId }}-email"
+                                                name="contact[email]"
+                                                autocorrect="off"
+                                                autocapitalize="off"
+                                                value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                                                aria-required="true"
+                                                required
+                                                >
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 g-md-4 mb-3 mb-md-4">
+                                        <div class="col">
+                                            <label class="form__label mb-2 d-none" for="ContactForm-phone">{{ 'templates.contact.form.phone' | t }}</label>
+                                            <input class="form-control" placeholder="{{ 'templates.contact.form.phone' | t }}" type="tel" id="ContactForm-phone" class="field__input" autocomplete="tel" name="contact[{{ 'templates.contact.form.phone' | t }}]" pattern="[0-9\-]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}">                          
+                                        </div>
+                                        {%- if section.blocks.size > 0 -%}
+                                            <div class="col">
+                                                <select class="form-select" id="request-type" name="contact[{{ 'templates.contact.form.class' | t }}]">
+                                                    <option>{{ 'templates.contact.form.class' | t }}</option>
+                                                    {% for block in section.blocks %}
+                                                        <option>{{ block.settings.text }}</option>
+                                                    {%- endfor -%}
+                                                </select>
+                                            </div>
+                                        {%- endif -%}
+                                    </div>
+                                    <div class="row g-3 g-md-4 mb-3 mb-md-4">
+                                        <div class="col">
+                                            <input class="form-control" placeholder="{{ 'templates.contact.form.address' | t }}" type="text" id="{{ formId }}-name" name="contact[{{ 'templates.contact.form.address' | t }}]" value="{% if form[address] %}{{ form[address] }}{% elsif customer %}{{ customer.address }}{% endif %}" required >
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col">
+                                            <label class="form__label mb-2 d-none" for="ContactForm-body">{{ 'templates.contact.form.comment' | t }}<span class="text-danger" aria-hidden="true">*</span></label>
+                                            <textarea class="form-control" placeholder="{{ 'templates.contact.form.comment' | t }}" rows="8" id="{{ formId }}-message" name="contact[{{ 'templates.contact.form.comment' | t }}]" required>{% if form.body %}{{ form.body }}{% endif %}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-default"><span>{{ 'templates.contact.form.book_now' | t }}</span></button>
+                                    </div>
+                                {% endform %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+    </div>
+</div>
+{% schema %}
+  	{
+        "name": "Contact form - video ",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Design Section"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "Enabel Full Width?"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "Background Color",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "Padding",
+                "placeholder": "0px 0px",
+                "info": "Ex: 0px 0px 0px 0px and use desktop only"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "Margin",
+                "placeholder": "0px 0px",
+                "default": "0 0 30px",
+                "info": "Ex: 0px 0px 30px 0px"
+            },
+            {
+                "type": "header",
+                "content": "Video"
+            },
+            {
+                "type": "image_picker",
+                "id": "cover_image",
+                "label": "Cover image"
+            },
+            {
+                "type": "video_url",
+                "id": "video_url",
+                "accept": [
+                    "youtube",
+                    "vimeo"
+                ],
+                "default": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+                "label": "Link",
+                "placeholder": "Paste a link",
+                "info": "Videos play in a pop-up if the section contains other blocks"
+            },
+            {
+                "type": "text",
+                "id": "description",
+                "default": "Describe the video for customers using screen readers",
+                "label": "Video alt text"
+            },
+            {
+                "type": "header",
+                "content": "Contact form"
+            },
+			{
+				"type": "color",
+				"id": "form_bg_color",
+				"label": "Background color",
+                "default": "#e791b7"
+			},
+            {
+				"type": "image_picker",
+				"id": "form_bg_image",
+				"label": "Background image"
+			},
+			{
+				"type": "text",
+				"id": "heading",
+				"default": "Contact form",
+				"label": "Heading"
+			}
+		],
+        "blocks": [
+            {
+                "type": "class_name",
+                "name": "Add class name",
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "text",
+                        "label": "Class name",
+                        "default": "7h-9h PM"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Contact form - video ",
+                "blocks": [
+                    {
+                        "type":"class_name"
+                    },
+                    {
+                        "type":"class_name"
+                    },
+					{
+                        "type":"class_name"
+                    },
+					{
+                        "type":"class_name"
+                    }
+                ]
+            }
+        ]
+  	}
+{% endschema %}

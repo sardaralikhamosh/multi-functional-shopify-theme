@@ -1,0 +1,11 @@
+
+
+{%- if settings.font_icon -%}
+    {{ 'font-awesome.min.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if settings.predictive_search_enabled -%}
+    <link rel="stylesheet" href="{{ 'component-predictive-search.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- endif -%}
+{{ 'bootstrap.css' | asset_url | stylesheet_tag }}
+{{ 'theme.css' | asset_url | stylesheet_tag }}	
+{{ 'vendor.min.css' | asset_url | stylesheet_tag }}

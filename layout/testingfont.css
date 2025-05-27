@@ -1,0 +1,12 @@
+@font-face
+font-family: 'futura-t-light';
+src:url('{{ 'futura-t-light.eot' | asset_url }}');
+src:url('{{ 'futura-t-light.eot'
+url('{{ 'futura-t-light.woff'
+url('{{ 'futura-t-light.woff2' | asset_url}}') format ('woff2'),
+url('{{ 'futura-t-light.ttf' | asset_url }}') format('truetype'),
+url('{{ 'futura-t-light.svg' | asset_url }}') format('svg');
+font-weight: 300;
+font-style: normal;
+| asset_url }}') format('embedded-opentype'),
+| asset_url }}') format('woff'),

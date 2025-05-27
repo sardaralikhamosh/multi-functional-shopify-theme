@@ -1,0 +1,51 @@
+
+<div id="searchTop" class="search-modal collapse">
+	<div class="search-modal__content" tabindex="-1">
+		{%- if settings.predictive_search_enabled -%}
+			<predictive-search class="search-modal__form w-100" data-loading-text="{{ 'accessibility.loading' | t }}">
+		{%- endif -%}
+			<form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form position-relative pe-5">
+			
+			<input class="search__input form-control search-input border-0"
+			id="Search-In-Modal-1"
+			type="search"
+			name="q"
+			value=""
+			placeholder="{{ 'general.search.search_placeholder' | t }}"
+			{%- if settings.predictive_search_enabled -%}
+				role="combobox"
+				aria-expanded="false"
+				aria-owns="predictive-search-results-list"
+				aria-controls="predictive-search-results-list"
+				aria-haspopup="listbox"
+				aria-autocomplete="list"
+				autocorrect="off"
+				autocomplete="off"
+				autocapitalize="off"
+				spellcheck="false"
+			{%- endif -%}
+			>
+			<label class="d-none" for="Search-In-Modal">{{ 'general.search.search_placeholder' | t }}</label>
+			<input type="hidden" name="type" value="product" />
+			<input type="hidden" name="options[sort_by]" value="price-descending" />
+			<button class="search__button btn btn-link p-2" aria-label="{{ 'general.search.search_placeholder' | t }}">
+				{% render 'icons', icon: 'search', class: 'icon icon-search' %}
+			</button>
+
+			{%- if settings.predictive_search_enabled -%}
+				<div class="predictive-search predictive-search--header position-absolute bg-white overflow-auto" tabindex="-1" data-predictive-search>
+					<div class="predictive-search__loading-state d-none">
+						<svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+						<circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+						</svg>
+					</div>
+				</div>
+
+				<span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+			{%- endif -%}
+			</form>
+		{%- if settings.predictive_search_enabled -%}
+			</predictive-search>
+		{%- endif -%}
+	</div>
+</div>

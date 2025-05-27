@@ -1,0 +1,9 @@
+
+
+{%- render 'icons' with icon: 'shopping-cart', class: 'icon icon-cart', attr: 'width="17" height="17"' -%}
+<span class="header-cart__span d-none">{{ 'general.cart.cart_title' | t }}</span>
+<span class="header-cart__count cart-count-bubble rounded-circle" data-cart-count>{{ cart.item_count }}</span>
+<span class="header-cart__span d-none">{{ 'general.cart.cart_items_count' | t:count:cart.item_count }}</span>
+<span class="header-cart__span d-none" data-cart-cost>{{ cart.total_price | money }}</span>
+
+

@@ -1,0 +1,12 @@
+<button
+  aria-label="{{ 'products.product.view_in_space_label' | t }}"
+  class="product-single__view-in-space{% if multi %} product-single__view-in-space--multi{% endif %}"
+  data-shopify-xr
+  {% unless multi %}data-shopify-xr-single{% endunless %}
+  data-shopify-model3d-id="{{ model_id }}"
+  data-shopify-title="{{ product.title | escape }}"
+  data-shopify-xr-hidden
+>
+  {% include 'svg-definitions' with 'model-xr' %}
+  <span class='product-single__view-in-space-text'>{{ 'products.product.view_in_space' | t }}</span>
+</button>

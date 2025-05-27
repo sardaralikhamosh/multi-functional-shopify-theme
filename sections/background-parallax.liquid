@@ -1,0 +1,411 @@
+
+{%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+    {%- capture bgColor -%}
+        background-color: {{ section.settings.color_bg }};
+    {%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.padding_block != blank -%}
+    {%- capture paddingblock -%}
+        padding: {{section.settings.padding_block}};
+    {%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.margin_block != blank -%}
+    {%- capture marginblock -%}
+        margin: {{section.settings.margin_block}};
+    {%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.image_bg != blank -%}
+    {%- capture bgImage -%}
+        background-image: url({{ section.settings.image_bg | img_url: 'master' }});background-attachment: fixed;background-position: center center;background-size: cover;background-repeat: no-repeat;
+    {%- endcapture -%}
+{%- endif -%}
+<style>
+    {%- for block in section.blocks -%}
+        {%- case block.type -%}
+            {%- when 'text' -%}
+                {%- if block.settings.text != blank -%}
+                    #background-parallax-{{section.id}} .background-parallax__text--{{ forloop.index}} {
+                        color: {{ block.settings.text_color_mobile }};
+                        font-size: {{ block.settings.text_font_size_mobile }}px;
+                        {%- if block.settings.margin_mobile != blank -%}
+                            margin: {{ block.settings.margin_mobile }};
+                        {%- endif -%}
+                    }
+                    @media(min-width: 768px) {
+                        #background-parallax-{{section.id}} .background-parallax__text--{{ forloop.index}} {
+                            color: {{ block.settings.text_color_tablet }};
+                            font-size: {{ block.settings.text_font_size_tablet }}px;
+                            {%- if block.settings.margin_tablet != blank -%}
+                                margin: {{ block.settings.margin_tablet }};
+                            {%- endif -%}
+                        }
+                    }
+                    @media(min-width: 1200px) {
+                        #background-parallax-{{section.id}} .background-parallax__text--{{ forloop.index}} {
+                            color: {{ block.settings.text_color_desktop }};
+                            font-size: {{ block.settings.text_font_size_desktop }}px;
+                            {%- if block.settings.margin_desktop != blank -%}
+                                margin: {{ block.settings.margin_desktop }};
+                            {%- endif -%}
+                        }
+                    }
+                {%- endif -%}
+            {%- when 'button' -%}
+                {%- if block.settings.button != blank -%}
+                    #background-parallax-{{section.id}} .background-parallax__btn--{{ forloop.index}} {
+                        font-size: {{ block.settings.button_font_size }}px;
+                        color: {{ block.settings.button_color }};
+                        {%- if block.settings.button_padding != blank -%}
+                            padding: {{ block.settings.button_padding }};
+                        {%- endif -%}
+                        {%- if block.settings.margin != blank -%}margin: {{ block.settings.margin }};{%- endif -%}
+                        border-color: {{ block.settings.button_color_border }};
+                        background-color: {{ block.settings.button_color_bg }}
+                    }
+                    #background-parallax-{{section.id}} .background-parallax__btn--{{ forloop.index}}:hover {
+                        color: {{ block.settings.button_color_hover }};
+                        border-color: {{ block.settings.button_color_border_hover }};
+                        background-color: {{ block.settings.button_color_bg_hover }};
+                    }
+                    @media(max-width: 768px) {
+                        #background-parallax-{{section.id}} .background-parallax__btn--{{ forloop.index}} {
+                            font-size: {{ block.settings.button_font_size_mobile }}px;
+                            {%- if block.settings.button_padding_mobile != blank -%}
+                                padding: {{ block.settings.button_padding_mobile }};
+                            {%- endif -%}
+                        }
+                    }
+                {%- endif -%}
+        {%- endcase-%}
+    {%- endfor -%}
+</style>
+<div id="background-parallax-{{section.id}}" class="vela-section background-parallax overflow-hidden" style="{{ bgColor}}{{ paddingblock }}{{ marginblock }}{{bgImage}}">                                  
+    <div class="container{% if section.settings.full_with %}-full{% endif %}">
+        <div class="background-parallax__inner py-5 my-3 text-{{ section.settings.text_align}}">
+            {%- for block in section.blocks -%}
+                {%- case block.type -%}
+                    {%- when 'text' -%}
+                        {%- if block.settings.text != blank -%}
+                            <div class="background-parallax__text--{{ forloop.index}} {{ block.settings.text_style }} {% unless block.settings.text_style == 'text'%}lh-1{%endunless%}">{{ block.settings.text }}</div>
+                        {%- endif -%}
+                    {%- when 'button'-%}
+                        {%- if block.settings.button != blank -%}
+                            <a class="btn radius-30 background-parallax__btn--{{ forloop.index}}" href="{{ block.settings.link }}">{{ block.settings.button }}</a>                 
+                        {%- endif -%}
+                    {%- when 'image'-%}
+                        {%- if block.settings.image != blank -%}
+                            <div class="background-parallax__image" {% if block.settings.margin != blank %}style="margin: {{ block.settings.margin }};"{% endif %}>
+                                <span class="d-inline-block" style="max-width: {{ block.settings. width}}%;"><img class="img-fluid lazyload" data-sizes="auto" data-aspectratio="{{ block.settings.image.ratio }}" data-src={{ block.settings.image | img_url: 'master' }} /></span>
+                            </div>                 
+                        {%- endif -%}
+                {%- endcase -%}
+            {%- endfor -%}
+        </div>
+    </div>
+</div>
+{% schema %}
+{
+    "name": "Background Parallax",
+    "class": "velaFramework",
+    "settings":[
+        {
+            "type": "header",
+            "content": "Design Section"
+        },
+        {
+            "type": "checkbox",
+            "id": "full_with",
+            "label": "Enabel Full Width?"
+        },
+        {
+            "type": "color",
+            "id": "color_bg",
+            "label": "Background Color",
+            "default": "rgba(0,0,0,0)"
+        },
+        {
+            "type": "image_picker",
+            "id": "image_bg",
+            "label": "Background Image"
+        },
+        {
+            "type": "text",
+            "id": "padding_block",
+            "label": "Padding",
+            "placeholder": "0px 0px",
+            "info": "Ex: 0px 0px 0px 0px and use desktop only"
+        },
+        {
+            "type": "text",
+            "id": "margin_block",
+            "label": "Margin",
+            "placeholder": "0px 0px",
+            "default": "0 0 30px",
+            "info": "Ex: 0px 0px 30px 0px"
+        },
+        {
+            "type": "select",
+            "id": "text_align",
+            "label": "Text Alignment",
+            "default": "start",
+            "options": [
+                {
+                    "value": "start",
+                    "label": "Left"
+                },
+                {
+                    "value": "center",
+                    "label": "Center"
+                },
+                {
+                    "value": "end",
+                    "label": "Right"
+                }
+            ]
+        }
+    ],
+      "blocks": [
+        {
+            "type": "image",
+            "name": "Image",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "image"
+                }, 
+                {
+                    "type": "range",
+                    "id": "width",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "label": "Max Width",
+                    "default": 50
+                },                   
+                {
+                    "type": "text",
+                    "id": "margin",
+                    "label": "Margin",
+                    "info": "Ex: 10px 10px 10px 10px"
+                }
+            ]
+        },
+        {
+            "type": "text",
+            "name": "Text",
+            "settings": [
+                {
+                    "type": "html",
+                    "id": "text",
+                    "label": "Text",
+                    "default": "<div><p>Use HTML to format your text so it can be easily read.<br/>This text can be used to share information about your brand with customers.</p></div>"
+                },
+                {
+                    "type": "select",
+                    "id": "text_style",
+                    "label": "Text style",
+                    "default": "text",
+                    "options": [
+                        {
+                            "value": "text",
+                            "label": "Text"
+                        },
+                        {
+                            "value": "h3",
+                            "label": "Heading"
+                        },
+                        {
+                            "value": "ff-special",
+                            "label": "Special"
+                        }
+                    ]
+                },
+                {
+                    "type": "header",
+                    "content": "Config for desktop"
+                },
+                {
+                    "type": "color",
+                    "id": "text_color_desktop",
+                    "label": "Color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "range",
+                    "id": "text_font_size_desktop",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "px",
+                    "label": "Font Size",
+                    "default": 16
+                },
+                {
+                    "type": "text",
+                    "id": "margin_desktop",
+                    "label": "Margin",
+                    "info": "Ex: 10px 10px 10px 10px"
+                },
+                {
+                    "type": "header",
+                    "content": "Config for Tablets"
+                },
+                {
+                    "type": "color",
+                    "id": "text_color_tablet",
+                    "label": "Color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "range",
+                    "id": "text_font_size_tablet",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "px",
+                    "label": "Font Size",
+                    "default": 16
+                },
+                {
+                    "type": "text",
+                    "id": "margin_tablet",
+                    "label": "Margin",
+                    "info": "Ex: 10px 10px 10px 10px"
+                },
+                {
+                    "type": "header",
+                    "content": "Config for Mobile"
+                },
+                {
+                    "type": "color",
+                    "id": "text_color_mobile",
+                    "label": "Color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "range",
+                    "id": "text_font_size_mobile",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "px",
+                    "label": "Font Size",
+                    "default": 16
+                },
+                {
+                    "type": "text",
+                    "id": "margin_mobile",
+                    "label": "Margin",
+                    "info": "Ex: 10px 10px 10px 10px"
+                }
+            ]
+        },
+        {
+            "type": "button",
+            "name": "Button",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "button",
+                    "label": "Text Button",
+                    "default": "Read More"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Link"
+                },
+                {
+                    "type": "range",
+                    "id": "button_font_size",
+                    "min": 10,
+                    "max": 30,
+                    "step": 1,
+                    "unit": "px",
+                    "label": "button Font Size",
+                    "default": 14
+                },
+                {
+                    "type": "text",
+                    "id": "button_padding",
+                    "label": "Padding",
+                    "placeholder": "6px 20px",
+                    "info": "Ex: 10px 10px 10px 10px"
+                },              
+                {
+                    "type": "text",
+                    "id": "margin",
+                    "label": "Margin",
+                    "info": "Ex: 10px 10px 10px 10px"
+                },
+                {
+                    "type": "color",
+                    "id": "button_color",
+                    "label": "Button color",
+                    "default": "#ffffff"
+                },
+                {
+                    "type": "color",
+                    "id": "button_color_border",
+                    "label": "Button border color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "color",
+                    "id": "button_color_bg",
+                    "label": "Button background color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "color",
+                    "id": "button_color_hover",
+                    "label": "Button color hover",
+                    "default": "#ffffff"
+                },
+                {
+                    "type": "color",
+                    "id": "button_color_border_hover",
+                    "label": "Button border color hover",
+                    "default": "#000000"
+                },
+                {
+                    "type": "color",
+                    "id": "button_color_bg_hover",
+                    "label": "Button background color hover",
+                    "default": "#000000"
+                },
+                {
+                    "type": "header",
+                    "content": "Config for mobile"
+                },
+                {
+                    "type": "range",
+                    "id": "button_font_size_mobile",
+                    "min": 10,
+                    "max": 30,
+                    "step": 1,
+                    "unit": "px",
+                    "label": "button Font Size",
+                    "default": 14
+                },
+                {
+                    "type": "text",
+                    "id": "button_padding_mobile",
+                    "label": "Padding",
+                    "placeholder": "6px 20px",
+                    "info": "Ex: 10px 10px 10px 10px"
+                }
+            ]
+        }
+        
+    ],
+    "presets": [
+        {
+            "name": "Background Parallax",
+            "category": "3. Images"
+        }
+    ]
+}
+{% endschema %}

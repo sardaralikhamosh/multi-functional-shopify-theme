@@ -1,0 +1,87 @@
+{% style %}
+      {{ settings.type_body_font | font_face: font_display: 'swap' }}
+      {{ body_font_medium | font_face: font_display: 'swap' }}
+      {{ body_font_light | font_face: font_display: 'swap' }}
+      {{ settings.type_header_font | font_face: font_display: 'swap' }}
+      {{ header_font_bold | font_face: font_display: 'swap' }}
+      {{ header_font_normal | font_face: font_display: 'swap' }}
+      :root {
+        --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+        --font-body-style: {{ settings.type_body_font.style }};
+        --font-body-weight: {{ settings.type_body_font.weight }};
+
+        --font-heading-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
+        --font-heading-style: {{ settings.type_header_font.style }};
+        --font-heading-weight: {{ settings.type_header_font.weight }};
+
+        {%- if settings.type_special_font != blank -%}
+          	--font-special-family:    {{ settings.type_special_font }};
+		{%- else -%}
+			--font-special-family:    var(--font-heading-family);
+        {%- endif -%}
+
+		--font-size-heading: {{ settings.type_header_base_size }}px;
+		--font-size-heading-mobile: {{ settings.type_header_base_size | times: 1 | times: 0.8 | floor }}px;;
+
+		--font-size-base: {{ settings.type_base_size }}px;
+		--primary: {{ settings.color_primary }};
+		--primary-light: {{ settings.color_primary | color_modify: 'alpha', 0.7 }};
+		--secondary: {{ settings.color_secondary }};
+		--body-color: {{ settings.color_body_text }};
+		--body-color-light: {{ settings.color_text_light }};
+		
+		--body-bg: {{ settings.color_body_bg }};
+		--heading-color: {{ settings.color_headings }};
+		--color-link: {{ settings.color_headings }};
+		--color-link-hover: var(--primary);
+		--border-color: {{ settings.color_border }};
+    	--shadow: 0px 6px 15px rgba(0, 0, 0, .12);
+		--button-border-radius: 30px;
+		--header-color: {{ settings.color_header_text }};
+		--header-bg: {{ settings.color_header_bg }};
+		--footer-heading-color: {{ settings.color_footer_heading }};
+		--footer-color: {{ settings.color_footer_text }};
+		--footer-link: {{ settings.color_footer_link}};
+		--footer-link-hover: {{ settings.color_footer_link_hover}};
+		--footer-bg: {{ settings.color_footer_bg }};
+		--color-copyright-bg: {{ settings.color_copyright_bg }};
+		--color-copyright: {{ settings.color_copyright }};
+	
+		--menu-font-size: {{ settings.type_menu_size }}px;
+		--menu-dropdown-font-size: {{ settings.tyep_menu_dropdown_size }}px;
+		--menu-bg: {{ settings.color_menu_bg }};
+		--menu-color: {{ settings.color_menu_text }};
+		--menu-hover-color: {{ settings.color_menu_text_hover }};
+		--menu-dropdown-bg: {{ settings.color_submenu_bg }};
+		--menu-dropdown-color: {{ settings.color_submenu_text }};
+		--menu-dropdown-hover-color: {{ settings.color_submenu_text_hover }};
+
+		--breadcrumb-bg: var(--body-bg);
+		--breadcrumb-heading-color: var(--heading-color);
+		--breadcrumb-color: var(--heading-color);
+		--breadcrumb-color-link: var(--heading-color);
+
+		--btn-default-color: {{ settings.color_btn }};
+		--btn-default-border-color: {{ settings.color_btn_border }};
+		--btn-default-bg-color: {{ settings.color_btn_bg }};
+		--btn-default-hover-color: {{ settings.color_btn_hover }};
+		--btn-default-hover-border-color: {{ settings.color_btn_hover_border }};
+		--btn-default-hover-bg-color: {{ settings.color_btn_hover_bg }};
+
+		--image-border: url({{ 'img_border.png' | asset_img_url: 'master' }});
+		
+		--product-name-color: var(--heading-color);
+		--product-name-hover-color: var(--primary);
+
+		{% comment %} override bootstrap {% endcomment %}
+		--bs-body-font-family: var(--font-body-family);
+		--bs-body-font-size: var(--font-size-base);
+		--bs-body-color: {{ settings.color_body_text }};
+		--bs-body-bg: {{ settings.color_body_bg }};
+		--bs-primary: {{ settings.color_primary}};
+		--bs-primary-rgb: {{ settings.color_primary | color_to_rgb | remove: 'rgb(' | remove: ')' }}
+	
+}
+
+	  	
+    {% endstyle %}

@@ -1,0 +1,66 @@
+{%- if section.blocks.size > 0 -%}
+	<div class="collection-hero">
+		<div class="container">
+			<div class="collection-hero__inner">
+				{%- for block in section.blocks -%}
+					{%- case block.type -%}
+						{%- when 'heading' -%}
+							<h1 class="collection-hero__title mb-4">
+								<span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
+								{{- collection.title | escape -}}
+							</h1>
+						{%- when 'image' -%}
+							{%- if collection.image -%}
+								<div class="collection-hero__image-container media mb-3">
+									<img class="collection-hero__image lazyload"
+									src="{{ collection.image | img_url: '300x' }}"
+									data-src="{{ img_url }}"
+									data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048, 4472]"
+									data-aspectratio="{{ collection.image.aspect_ratio }}"
+									data-sizes="auto"
+									data-parent-fit="cover"
+									alt="{{ collection.image.alt | escape }}">
+								</div>
+							{%- endif -%}
+						{%- when 'description' -%}
+							{%- if collection.description != blank -%}
+								<div class="collection-hero__desc mb-3">
+									<div class="vela-rte">
+									{{ collection.description }}
+									</div>
+								</div>
+							{%- endif -%}
+					{%- endcase -%}
+				{%- endfor-%}
+			</div>
+		</div>
+	</div>
+{%- endif -%}
+{% schema %}
+{
+	"name": "Collection banner",
+	"settings": [
+		{
+			"type": "paragraph",
+			"content": "To change collection descriptions or collection images,[edit your collections](\/admin\/collections)"
+		}
+	],
+	"blocks": [
+		{
+			"type": "heading",
+			"name": "Heading",
+			"limit": 1
+		},
+		{
+			"type": "description",
+			"name": "Description",
+			"limit": 1
+		},
+		{
+			"type": "image",
+			"name": "Image",
+			"limit": 1
+		}
+	]
+}
+{% endschema %}

@@ -1,0 +1,15 @@
+
+  <script src="{{ 'bootstrap.min.js' | asset_url }}"></script>
+  <script src="{{ 'lazysizes.min.js' | asset_url }}" async="async"></script>
+  
+  {{ 'vela.js' | asset_url | script_tag }}
+  {%- if template contains 'collection' -%}
+    <script src="{{ 'collection-filters-form.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+  {%- if template contains 'product' -%}
+  {{ 'vela-product.js' | asset_url | script_tag }}
+  {%- endif -%}
+  {{ 'magnific-popup.min.js' | asset_url | script_tag }}
+{%- if settings.predictive_search_enabled -%}
+  <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}

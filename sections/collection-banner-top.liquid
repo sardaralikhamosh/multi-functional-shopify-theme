@@ -1,0 +1,103 @@
+{%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+    {%- capture bgColor -%}
+        background-color: {{ section.settings.color_bg }};
+    {%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.padding_block != blank -%}
+    {%- capture paddingblock -%}
+        padding: {{section.settings.padding_block}};
+    {%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.margin_block != blank -%}
+    {%- capture marginblock -%}
+        margin: {{section.settings.margin_block}};
+    {%- endcapture -%}
+{%- endif -%}
+{%- assign image_crop = nil -%}
+{%- if section.settings.crop -%}
+    {%- assign image_crop = 'center' -%}
+{%- endif -%} 
+<div class="vela-section collection-banner-top overflow-hidden" style="{{ bgColor}} {{ paddingblock }} {{ marginblock }}">
+    <div class="container{% if section.settings.full_with %}-full{% endif %}">
+        <div class="vela-section__inner">
+            <div class="vela-section__content">
+                {%- assign image_url = section.settings.image -%}
+                {%- for block in section.blocks -%}
+                    {%- if block.settings.collection == collection.handle and block.settings.image != blank -%}
+                        {%- assign image_url = block.settings.image -%}
+                        {%- break -%}
+                    {%- endif -%}
+                {%- endfor -%}
+                {%- if image_url != blank  -%}
+                    <div class="collection-banner-top">
+                        <div class="collection-banner-top__image">
+                            {% include 'img-global', image: image_url  %}
+                        </div>
+                    </div>
+                {%- endif -%}
+                </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Banner Top",
+        "class": "velaFramework",
+		"max_blocks": 18,
+        "settings":[
+            {
+                "type": "header",
+                "content": "Design Section"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "Enabel Full Width?"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "Background Color",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "Padding",
+                "placeholder": "0px 0px",
+                "info": "Ex: 0px 0px 0px 0px and use desktop only"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "Margin",
+                "placeholder": "0px 0px",
+                "default": "0 0 30px",
+                "info": "Ex: 0px 0px 30px 0px"
+            },
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Banner default"
+            }
+        ],
+		"blocks": [
+			{
+                "type": "image",
+                "name": "Image item",
+                "settings": [
+                    {
+                        "type": "collection",
+                        "id": "collection",
+                        "label": "Collection"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "image"
+                    }
+                ]
+            }
+		]
+    }
+{% endschema %}

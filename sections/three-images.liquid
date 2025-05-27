@@ -1,0 +1,133 @@
+{%- capture section_style -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        background-color: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+        padding: {{section.settings.padding_block}};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        margin: {{section.settings.margin_block}};
+    {%- endif -%}
+{%- endcapture -%}
+<div class="vela-section three-images" {% if section_style%}style="{{ section_style }}"{% endif%}>
+    <div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+        <div class="vela-section__inner">
+            <div class="vela-section__content overflow-hidden">
+                <div class="row g-4 row-cols-1 row-cols-md-3">
+                    <div class="three-image__item col">
+                        <a  href="{{ section.settings.url1 }}" title="" >
+                            {% if section.settings.single_images1 != blank %}
+                                {% include 'img-global' with image: section.settings.single_images1 %}
+                            {% else %}
+                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="three-image__item col">
+                        <a  href="{{ section.settings.url2 }}" title="" >
+                            {% if section.settings.single_images2 != blank %}
+                                {% include 'img-global' with image: section.settings.single_images2 %}
+                            {% else %}
+                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="three-image__item col">
+                        <a  href="{{ section.settings.url3 }}" title="" >
+                            {% if section.settings.single_images3 != blank %}
+                                {% include 'img-global' with image: section.settings.single_images3 %}
+                            {% else %}
+                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                            {% endif %}
+                        </a>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Three images",
+        "class": "velaFramework",
+        "settings": [
+            {
+              "type": "header",
+              "content": "Design Block"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "Enabel Full Width?"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "Background Color",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "Padding",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "Margin",
+                "placeholder": "0px 0px",
+                "default": "0 0 30px",
+                "info": "Ex: 0px 0px 30px 0px"
+            },
+            {
+               "type": "header",
+               "content": "Item"
+            },
+            {
+                "type": "image_picker",
+                "id": "single_images1",
+                "label": "Banner"
+            },
+            {
+                "type": "url",
+                "id": "url1",
+                "label": "Url"
+            },
+            {
+                "type": "header",
+                "content": "Item"
+            },            
+            {
+                "type": "image_picker",
+                "id": "single_images2",
+                "label": "Banner"
+            },
+            {
+                "type": "url",
+                "id": "url2",
+                "label": "Url"
+            },
+            {
+                "type": "header",
+                "content": "Item"
+            },           
+            {
+                "type": "image_picker",
+                "id": "single_images3",
+                "label": "Banner"
+            },
+            {
+                "type": "url",
+                "id": "url3",
+                "label": "Url"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Three images",
+                "category": "3. Images"
+            }
+        ]
+    }
+{% endschema %}

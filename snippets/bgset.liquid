@@ -1,0 +1,73 @@
+{%- if image != blank -%}
+{%- unless max_width_image -%}
+    {%- assign max_width_image = image.width -%} 
+{%- endunless -%}
+{%- unless crop -%}
+    {%- assign crop = '' -%} 
+{%- endunless -%}
+{%- unless images_size -%}
+    {%- assign images_size = "master" -%} 
+{%- endunless -%}
+    {%- if image_ratio == 'square' -%}
+        {%- if max_width_image > 180 -%}{{ image | img_url: '180x180' , crop: crop }} 180w ,{%- endif -%}
+        {%- if max_width_image > 360 -%}{{ image | img_url: '360x360' , crop: crop }} 360w ,{%- endif -%}
+        {%- if max_width_image > 540 -%}{{ image | img_url: '540x540' , crop: crop }} 540w ,{%- endif -%}
+        {%- if max_width_image > 720 -%}{{ image | img_url: '720x720' , crop: crop }} 720w ,{%- endif -%}
+        {%- if max_width_image > 900 -%}{{ image | img_url: '900x900' , crop: crop }} 900w ,{%- endif -%}
+        {%- if max_width_image > 1080 -%}{{ image | img_url: '1080x1080' , crop: crop }} 1080w ,{%- endif -%}
+        {%- if max_width_image > 1296 -%}{{ image | img_url: '1296x1296' , crop: crop }} 1296w ,{%- endif -%}
+        {%- if max_width_image > 1512 -%}{{ image | img_url: '1512x1512' , crop: crop }} 1512w ,{%- endif -%}
+        {%- if max_width_image > 1728 -%}{{ image | img_url: '1728x1728' , crop: crop }} 1728w ,{%- endif -%}
+        {%- if max_width_image > 1950 -%}{{ image | img_url: '1950x1950' , crop: crop }} 1950w ,{%- endif -%}
+        {%- if max_width_image > 2100 -%}{{ image | img_url: '2100x2100' , crop: crop }} 2100w ,{%- endif -%}
+        {%- if max_width_image > 2260 -%}{{ image | img_url: '2260x2260' , crop: crop }} 2260w ,{%- endif -%}
+        {%- if max_width_image > 2450 -%}{{ image | img_url: '2450x2450' , crop: crop }} 2450w ,{%- endif -%}
+        {%- if max_width_image > 2700 -%}{{ image | img_url: '2700x2700' , crop: crop }} 2700w ,{%- endif -%}
+        {%- if max_width_image > 3000 -%}{{ image | img_url: '3000x3000' , crop: crop }} 3000w ,{%- endif -%}
+        {%- if max_width_image > 3350 -%}{{ image | img_url: '3350x3350' , crop: crop }} 3350w ,{%- endif -%}
+        {%- if max_width_image > 3750 -%}{{ image | img_url: '3750x3750' , crop: crop }} 3750w ,{%- endif -%}
+        {%- if max_width_image > 4100 -%}{{ image | img_url: '4100x4100' , crop: crop }} 4100w ,{% endif -%}
+        {{ image | img_url: images_size , crop: crop }} {{ max_width_image }}w 
+    {%- elsif image_ratio == 'portrait'  -%}
+        {%- if max_width_image > 180 -%}{{ image | img_url: '180x240' , crop: crop }} 180w ,{%- endif -%}
+        {%- if max_width_image > 360 -%}{{ image | img_url: '360x480' , crop: crop }} 360w ,{%- endif -%}
+        {%- if max_width_image > 540 -%}{{ image | img_url: '540x720' , crop: crop }} 540w ,{%- endif -%}
+        {%- if max_width_image > 720 -%}{{ image | img_url: '720x960' , crop: crop }} 720w ,{%- endif -%}
+        {%- if max_width_image > 900 -%}{{ image | img_url: '900x1200' , crop: crop }} 900w ,{%- endif -%}
+        {%- if max_width_image > 1080 -%}{{ image | img_url: '1080x1440' , crop: crop }} 1080w ,{%- endif -%}
+        {%- if max_width_image > 1296 -%}{{ image | img_url: '1296x1728' , crop: crop }} 1296w ,{%- endif -%}
+        {%- if max_width_image > 1512 -%}{{ image | img_url: '1512x2016' , crop: crop }} 1512w ,{%- endif -%}
+        {%- if max_width_image > 1728 -%}{{ image | img_url: '1728x2304' , crop: crop }} 1728w ,{%- endif -%}
+        {%- if max_width_image > 1950 -%}{{ image | img_url: '1950x2600' , crop: crop }} 1950w ,{%- endif -%}
+        {%- if max_width_image > 2100 -%}{{ image | img_url: '2100x2800' , crop: crop }} 2100w ,{%- endif -%}
+        {%- if max_width_image > 2260 -%}{{ image | img_url: '2260x3013' , crop: crop }} 2260w ,{%- endif -%}
+        {%- if max_width_image > 2450 -%}{{ image | img_url: '2450x3266' , crop: crop }} 2450w ,{%- endif -%}
+        {%- if max_width_image > 2700 -%}{{ image | img_url: '2700x3600' , crop: crop }} 2700w ,{%- endif -%}
+        {%- if max_width_image > 3000 -%}{{ image | img_url: '3000x4000' , crop: crop }} 3000w ,{%- endif -%}
+        {%- if max_width_image > 3350 -%}{{ image | img_url: '3350x4467' , crop: crop }} 3350w ,{%- endif -%}
+        {%- if max_width_image > 3750 -%}{{ image | img_url: '3750x5000' , crop: crop }} 3750w ,{%- endif -%}
+        {%- if max_width_image > 4100 -%}{{ image | img_url: '4100x5467' , crop: crop }} 4100w ,{% endif -%}
+        {{ image | img_url: images_size , crop: crop }} {{ max_width_image }}w 
+    {%- else -%}
+        {%- if max_width_image > 180 -%}{{ image | img_url: '180x' }} 180w ,{%- endif -%}
+        {%- if max_width_image > 360 -%}{{ image | img_url: '360x' }} 360w ,{%- endif -%}
+        {%- if max_width_image > 540 -%}{{ image | img_url: '540x' }} 540w ,{%- endif -%}
+        {%- if max_width_image > 720 -%}{{ image | img_url: '720x' }} 720w ,{%- endif -%}
+        {%- if max_width_image > 900 -%}{{ image | img_url: '900x' }} 900w ,{%- endif -%}
+        {%- if max_width_image > 1080 -%}{{ image | img_url: '1080x' }} 1080w ,{%- endif -%}
+        {%- if max_width_image > 1296 -%}{{ image | img_url: '1296x' }} 1296w ,{%- endif -%}
+        {%- if max_width_image > 1512 -%}{{ image | img_url: '1512x' }} 1512w ,{%- endif -%}
+        {%- if max_width_image > 1728 -%}{{ image | img_url: '1728x' }} 1728w ,{%- endif -%}
+        {%- if max_width_image > 1950 -%}{{ image | img_url: '1950x' }} 1950w ,{%- endif -%}
+        {%- if max_width_image > 2100 -%}{{ image | img_url: '2100x' }} 2100w ,{%- endif -%}
+        {%- if max_width_image > 2260 -%}{{ image | img_url: '2260x' }} 2260w ,{%- endif -%}
+        {%- if max_width_image > 2450 -%}{{ image | img_url: '2450x' }} 2450w ,{%- endif -%}
+        {%- if max_width_image > 2700 -%}{{ image | img_url: '2700x' }} 2700w ,{%- endif -%}
+        {%- if max_width_image > 3000 -%}{{ image | img_url: '3000x' }} 3000w ,{%- endif -%}
+        {%- if max_width_image > 3350 -%}{{ image | img_url: '3350x' }} 3350w ,{%- endif -%}
+        {%- if max_width_image > 3750 -%}{{ image | img_url: '3750x' }} 3750w ,{%- endif -%}
+        {%- if max_width_image > 4100 -%}{{ image | img_url: '4100x' }} 4100w ,{% endif -%}
+        {{ image | img_url: images_size }} {{ max_width_image }}w 
+    {%- endif -%}
+
+{%- endif -%}

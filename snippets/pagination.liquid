@@ -1,0 +1,30 @@
+
+{%- if paginate.parts.size > 0 -%}
+	<div class="{{ class | default: 'pagination-wrapper' }}">
+		<nav class="navigation" aria-label="{{ 'general.pagination.label' | t }}">
+			<ul class="list-unstyled pagination">
+				{%- if paginate.previous -%}
+					<li class="page-item">
+						<a href="{{ paginate.previous.url }}{{ anchor }}" class=" pagination__item pagination__item--next pagination__item-arrow page-link motion-reduce" aria-label="{{ 'general.pagination.previous' | t }}">
+							{%- render 'icons', icon:'caret', attr: 'width="15" height="15" style="transform: rotate(90deg);"' -%}
+						</a>
+					</li>
+				{%- endif -%}
+
+				{%- for part in paginate.parts -%}
+					<li class="page-item {% if part.title == paginate.current_page %}active{% endif %}" {% if part.title == paginate.current_page %}aria-current="page"{% endif %}>
+						<a href="{{ part.url }}{{ anchor }}" class="pagination__item page-link" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</a>
+					</li>
+				{%- endfor -%}
+
+				{%- if paginate.next -%}
+					<li class="page-item">
+						<a href="{{ paginate.next.url }}{{ anchor }}" class="pagination__item pagination__item--prev pagination__item-arrow page-link motion-reduce" aria-label="{{ 'general.pagination.next' | t }}" >
+							{%- render 'icons', icon:'caret', attr: 'width="15" height="15" style="transform: rotate(-90deg);"' -%}
+						</a>
+					</li>
+				{%- endif -%}
+			</ul>
+		</nav>
+	</div>
+{%- endif -%}

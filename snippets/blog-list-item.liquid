@@ -1,0 +1,56 @@
+<article class="article blog__{{ section.settings.blog_style }} pb-2">
+    <div class="row g-3 g-xl-4">
+        <div class="col-12 col-md-4 mb-3 mb-md-0">
+            {% unless article.image == blank %}
+                <div class="article__image">
+                    <a class="article__featured-image-link" href="{{ article.url }}">
+                        {% include 'img-global', image: article.image, image_ratio: section.settings.image_ratio, crop: image_crop %}
+                    </a>
+                </div>
+            {% endunless %}
+        </div>   
+        <div class="col-12 col-md-8"> 
+            <div class="article__content">
+                <h5 class="article__title text-uppercase mb-1 pb-1">
+                    <a href="{{ article.url }}" title="{{ article.title }}">{{ article.title }}</a>
+                </h5>
+                <div class="article__meta fst-italic d-flex flex-wrap align-items-center mb-2 mb-md-3">
+                    {%- if section.settings.blog_tags and article.tags.size > 0 -%}
+                        <div class="blog-tags">
+                            {% for tag in article.tags limit: 2 %}
+                                <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="tags__item">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+                            {% endfor %}
+                        </div>
+                    {%- endif -%}
+                    {%- if section.settings.blog_date -%}
+                        {%- capture post_date -%}{{ article.published_at | date: format: 'date_month_year' }}{%- endcapture -%}
+                        <div class="article__meta-date"><time datetime="{{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}" class="date fst-italic heading-color">{{ 'blogs.article.date_html' | t: date: post_date }}</time></div>
+                    {%- endif -%}
+                    {%- if section.settings.blog_author -%}
+                        {%- capture author -%}{{ article.author }}{%- endcapture -%}
+                        <div class="article__meta-author">{{ 'blogs.article.author_html' | t:author:author  }}</div>
+                    {%- endif -%}
+                    {%- if article.comments_enabled? and section.settings.blog_comment -%}
+                        {%- assign number_of_comments = article.comments_count -%}
+                        <div class="article__meta-comment">
+                            {%- if number_of_comments > 1 -%}
+                                {{'blogs.article.comments.other' | t:count:number_of_comments }}
+                            {%- else -%}
+                                {{'blogs.article.comments.one' | t:count:number_of_comments }}
+                            {%- endif -%}
+                        </div>
+                    {%- endif -%}
+                </div>
+                {%- if section.settings.blog_excerp -%}
+                    {%- if noowlColumn1 == 12 -%} {%- assign words_count = 140 -%} {%- else -%}{%- assign words_count = 100 -%}{% endif %}
+                    <div class="rte article__excerpt">
+                        {{ article_content | strip_html | truncate: words_count }}
+                    </div>
+                {%- endif -%}
+                <div class="d-flex justify-content-end pt-2 ">
+                    <a class="article__read-more text-uppercase p-0 btn" href="{{ article.url }}">{{ 'blogs.article.read_more' | t }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

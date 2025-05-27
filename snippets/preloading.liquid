@@ -1,0 +1,5 @@
+<div {% unless preload_class %}id="pre-loading"{% endunless %} class="pre-loading {{ preload_class }}">
+    <span class="pre-loading__bar"></span>
+    <div class="vela-loading__icon"><span></span><span></span><span></span><span></span></div>
+</div>
+{%- assign preload_class = nil -%}

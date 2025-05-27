@@ -1,0 +1,15 @@
+.collection-list__item .collection-title {
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase; }
+
+.collection-list__item .collection-count {
+  font-size: calc(var(--font-size-base) - 2px);
+  margin-bottom: 15px; }
+
+.collection-list__item .collection-desc {
+  font-size: calc(var(--font-size-base) - 1px); }
+
+.collection-list__item .btn-default-outline {
+  letter-spacing: 2px;
+  font-weight: 600; }

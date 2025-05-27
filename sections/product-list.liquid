@@ -1,0 +1,276 @@
+
+{%- assign nav = section.settings.navigation -%}
+{%- assign pagination = section.settings.pagination -%}
+{%- assign infinite = section.settings.infinite -%}
+{%- assign autoplay = section.settings.autoplay -%}
+{%- assign autoplay_speed = section.settings.autoplay_speed | escape -%}
+{%- assign proCollection = section.settings.collection_handle -%}
+{%- assign owlColumn1 = section.settings.column1 | plus:0 -%}
+{%- assign owlColumn2 = section.settings.column2 | plus:0 -%}
+{%- assign owlColumn3 = section.settings.column3 | plus:0 -%}
+{%- assign owlColumn4 = section.settings.column4 | plus:0 -%}
+{%- capture section_style -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        background-color: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+        padding: {{section.settings.padding_block}};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        margin: {{section.settings.margin_block}};
+    {%- endif -%}
+{%- endcapture -%}
+{%- assign proLimit = section.settings.limit -%}
+<section class="vela-section overflow-hidden" {% if section_style%}style="{{ section_style }}"{% endif%}>
+    <div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+        <div class="vela-section__inner">
+            {%- if section.settings.heading != blank -%}
+                <div class="heading-group mb-xl-2 pb-4">
+                    <h2 class="heading mb-1">
+                        <span>{{ section.settings.heading }}</span>
+                    </h2>
+                    {%- if section.settings.sub_heading != blank -%}
+                        <div class="sub-heading">
+                            {{ section.settings.sub_heading }}
+                        </div>
+                    {%- endif -%}
+                </div>
+            {%- endif -%}
+            <div class="vela-section__content"> 
+                {%- if section.settings.slide_enable -%}
+                    <div class="js-carousel slick-carousel row g-3 g-md-4"
+                    data-nav="{{ nav }}"
+                    data-dots="{{ pagination }}"
+                    data-infinite="{{ infinite }}"
+                    data-autoplay="{{ autoplay }}"
+                    data-autoplayspeed="{{ autoplay_speed }}"
+                    data-columnone="{{ owlColumn1 }}" 
+                    data-columntwo="{{ owlColumn2 }}" 
+                    data-columnthree="{{ owlColumn3 }}" 
+                    data-columnfour="{{ owlColumn4 }}">
+                        {%- if proCollection == blank or collections[proCollection] == empty or collections[proCollection].products_count == 0 -%}
+                            {% include 'onboarding-featured-products', product_style: section.settings.product_style %}
+                        {%- else -%}
+                            {%- for product in collections[proCollection].products limit: proLimit -%}
+                                <div class="slick-carousel__item">
+                                    {%- if section.settings.product_style == "list" -%}
+                                        {% include 'product-list-style' with rating: 'show' %}
+                                    {%- else -%}
+                                        {% include 'product-grid-item' %}
+                                    {%- endif -%}
+                                </div>
+                            {%- endfor -%}
+                        {%- endif -%}
+                    </div>
+                {%- else -%}
+                    {%- capture strGridItem -%}
+                        col
+                    {%- endcapture -%}
+                    <div class="row g-3 g-md-4 row-cols-{{owlColumn4}} row-cols-ms-{{owlColumn3}} row-cols-md-{{owlColumn2}} row-cols-lg-{{owlColumn1}}">
+                        {%- if proCollection == blank or collections[proCollection] == empty or collections[proCollection].products_count == 0 -%}
+                            {% include 'onboarding-featured-products', strGridItem: strGridItem, product_style: section.settings.product_style  %}
+                        {%- else -%}
+                            {% for product in collections[proCollection].products limit: proLimit %}
+                                <div class="{{ strGridItem }}">
+                                    {%- if section.settings.product_style == "list" -%}
+                                        {% include 'product-list-style' with rating: 'show' %}
+                                    {%- else -%}
+                                        {% include 'product-grid-item' %}
+                                    {%- endif -%}
+                                </div>
+                            {% endfor %}
+                        {%- endif -%}
+                    </div>
+                {%- endif -%}
+                {%- if section.settings.button_text != blank -%}
+                    <div class="text-center pt-5 mt-md-3">
+                        <a class="btn btn--viewall btn-default" href="{{ collections[proCollection].url }}" title="{{ section.settings.button_text }}"><span>{{ section.settings.button_text }}</span></a>
+                    </div>
+                {%- endif -%}
+            </div>
+        </div>
+    </div>
+</section>
+{%- assign prostyle = nil -%}
+{% schema %}
+    {
+        "name": "Product List",
+        "class": "velaFramework",
+        "settings":[
+            {
+                "type": "header",
+                "content": "Design Section"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "Enabel Full Width?"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "Background Color",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "Padding",
+                "placeholder": "0px 0px",
+                "info": "Ex: 0px 0px 0px 0px and use desktop only"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "Margin",
+                "placeholder": "0px 0px",
+                "default": "0 0 30px",
+                "info": "Ex: 0px 0px 30px 0px"
+            },
+            {
+                "type": "header",
+                "content": "General Settings"
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Heading"
+            },
+            {
+                "type": "text",
+                "id": "sub_heading",
+                "label": "Sub heading",
+                "default": "Sub heading"
+            },
+            {
+                "type": "collection",
+                "id": "collection_handle",
+                "label": "Collection"
+            },
+			{
+                "type": "range",
+                "id": "limit",
+                "min": 1,
+                "max": 12,
+                "step": 1,
+                "label": "Maximum products to show",
+                "default": 8
+            },
+            {
+                "type": "select",
+                "id": "product_style",
+                "label": "Product layout",
+                "default": "grid",
+                "options": [
+                    {
+                        "value": "grid",
+                        "label": "Grid"
+                    },
+                    {
+                        "value": "list",
+                        "label": "List"
+                    }
+                ]
+            },
+            {
+                "type": "text",
+                "id": "button_text",
+                "label": "Button read more",
+                "default": "View all",
+                "info": "Hidden, if it's blank"
+            },
+            {
+                "type": "header",
+                "content": "Carousel Settings"
+            },
+            {
+                "type": "checkbox",
+                "id": "slide_enable",
+                "label": "Enable Slide",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "navigation",
+                "label": "Show navigation",
+                "default": true
+            },
+            {
+				"type": "checkbox",
+				"id": "pagination",
+				"label": "Show dot indicators",
+				"default": false
+			},
+            {
+                "type": "checkbox",
+                "id": "infinite",
+                "label": "Infinite loop sliding",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "autoplay",
+                "label": "Enable autoplay",
+                "default": false
+            },
+            {
+                "type": "text",
+                "id": "autoplay_speed",
+                "label": "Autoplay speed",
+                "info": "Autoplay speed in milliseconds. Type: int(ms)",
+                "default": "10000"
+            },
+            {
+                "type": "range",
+                "id": "column1",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "#Column 1",
+                "default": 4,
+                "info": "Large desktops"
+            },
+            {
+                "type": "range",
+                "id": "column2",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 2",
+                "default": 3,
+                "info": "Desktops & Tablets landscape"
+            },
+            {
+                "type": "range",
+                "id": "column3",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 3",
+                "default": 2,
+                "info": "Mobile phone landscape"
+            },
+            {
+                "type": "range",
+                "id": "column4",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 4",
+                "default": 2,
+                "info": "Mobile phone"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Product List",
+                "category": "2. Products",
+                "settings": {
+                    "heading": "Product List",
+                    "collection_handle": "frontpage"
+                }
+            }
+        ]
+    }
+{% endschema %}

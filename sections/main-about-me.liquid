@@ -1,0 +1,97 @@
+{%- if section.settings.bgimage != blank -%}
+    {%- capture bgImage -%}style="background-image: url({{ section.settings.bgimage | img_url: 'master' }});"{%- endcapture -%}
+{%- else -%}
+    {%- capture bgImage -%}style="background-image: url(//cdn.shopify.com/s/files/1/0071/1190/1231/files/aboutme.jpg?v=1620814294);"{%- endcapture -%}
+{%- endif -%}
+<section class="aboutMePage">
+    <div class="aboutMe row g-0">
+        <div class="aboutMeBanner col-12 col-lg-6" {{ bgImage }}>
+        </div>
+        <div class="aboutMeInner col-12 col-lg-6">
+            <div class="aboutMewrap">
+                <div class="aboutMeContent">
+                    <h1 class="aboutMeTitle">{{ section.settings.header }}</h1>
+                    {%- if section.settings.desc != blank -%}
+                        <div class="desc mb-5">{{ section.settings.desc}}</div>
+                    {%- endif -%}
+                    {%- if section.settings.text_info != blank -%}
+                        <div class="textInfo mb-4">{{ section.settings.text_info}}</div>
+                    {%- endif -%}
+                    {%- if section.settings.social_link != blank -%}
+                    <div class="velaAboutSocial">
+                        {{ section.settings.social_link}}
+                    </div>
+                    {%- endif -%}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="aboutCopyRight d-flex justify-content-between">
+        <div class="text">{{ section.settings.copyright_text }}</div>
+        <div class="quickLink">
+            <ul class="list-unstyled justify-content-center mb-0 d-none d-md-flex">
+                {% for velaLink in linklists[section.settings.quicklink].links %}
+                    <li class="{% if velaLink.active %}active{% endif %}">
+                        <a href="{{ velaLink.url }}" title="">{{ velaLink.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+{% schema %}
+    {
+        "name": "Vela About Me Page",
+        "settings": [
+            {
+                "type": "header",
+                "content": "General Settings"
+            },
+            {
+                "type": "image_picker",
+                "id": "bgimage",
+                "label": "Banner"
+            },
+            {
+                "type": "text",
+                "id": "header",
+                "label": "Heading"
+            },
+            {
+                "type": "textarea",
+                "id": "desc",
+                "label": "Description"
+            },
+            {
+		        "type": "textarea",
+		        "id": "text_info",
+		        "label": "Text"
+		    },
+            {
+                "type": "header",
+                "content": "Social Link"
+            },
+            {
+                "type": "textarea",
+                "id": "social_link",
+                "label": "Social Link"
+            },
+            {   
+                "type": "header",
+                "content": "Copyright"
+
+            },
+            {
+                "type": "text",
+                "id": "copyright_text",
+                "label": "Copyright Text"
+            },
+            {
+                "type": "link_list",
+                "id": "quicklink",
+                "label": "Quick Link",
+                "info": "[Create a navigation](\/admin\/menus)"
+            }
+        ]
+    }
+{% endschema %}

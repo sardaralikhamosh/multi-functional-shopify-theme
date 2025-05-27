@@ -1,0 +1,559 @@
+
+{%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+	{%- capture bgColor -%}
+		background-color: {{ section.settings.color_bg }};
+	{%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.padding_block != blank -%}
+	{%- capture paddingblock -%}
+		padding: {{section.settings.padding_block}};
+	{%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.margin_block != blank -%}
+	{%- capture marginblock -%}
+		margin: {{section.settings.margin_block}};
+	{%- endcapture -%}
+{%- endif -%}
+<section class="vela-section overflow-hidden vela-section--slideshow" style="{{ bgColor}} {{ paddingblock }} {{ marginblock }}">
+	<div class="container{% if section.settings.full_with %}-full{% endif %}">
+		<div class="vela-slideshow__inner">
+			<div class="js-vela-slideshow vela-slideshow"
+				data-autoplay="{{ section.settings.autoplay }}"
+				data-autoplayinterval="{{ section.settings.autoplay_speed }}"
+				data-navigation="{{ section.settings.navigation }}"
+				data-pagination="{{ section.settings.pagination }}"
+				data-fade="{{ section.settings.fade }}">
+				{%- if section.blocks.size > 0 -%}
+					{%- for block in section.blocks -%}
+						<div class="vela-slideshow__item">
+							{%- if block.settings.link != blank -%}
+								<a href="{{ block.settings.link }}" class="vela-slideshow__item-link">
+							{%- endif -%}
+								{%- if block.settings.image == blank -%}
+									<div class="placeholder-background">
+									{%- capture current -%}{% cycle 1, 2 %}{%- endcapture -%}
+									{{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+									</div>
+								{%- else -%}
+									<div class="slide--image">
+										{%- if block.settings.image != blank -%}
+											<div class="{% if block.settings.image_mobile != blank %}d-none d-md-block{% else %}d-block{% endif %}">
+												{% include 'img-global', image: block.settings.image %}
+											</div>
+											{%- if block.settings.image_mobile != blank -%}
+												<div class="d-block d-md-none">
+													{% include 'img-global', image: block.settings.image_mobile %}
+												</div>
+											{%- endif -%}
+										{%- else -%}
+											<div class="placeholder-background">
+												{%- capture current -%}{% cycle 1, 2, 3 %}{%- endcapture -%}
+												{{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+											</div>
+										{%- endif -%}
+									</div>
+								{%- endif -%}
+							{%- if block.settings.link != blank -%}
+								</a>
+							{%- endif -%}
+							<div class="slideshow-caption {% unless block.settings.position_content %}captionPosition{% endunless %} {% if block.settings.subheading == blank and block.settings.title == blank and block.settings.title2 == blank and block.settings.desc == blank and block.settings.btn_text == blank %} noCaption{% endif %}" style="background-color: {{ block.settings.content_color }}">
+								<div class="container-fluid captionWrap">
+									<div class="slideshow-caption__inner {{ block.settings.alignment }} {% unless section.settings.full_with %}px-sm-2 px-md-3 px-lg-4 px-xl-5{% endunless %}">
+										<div class="slideshow-caption__content text-{{ block.settings.text-alignment }} ">
+											{%- unless block.settings.subheading == blank -%}
+												<div class="slideshow-caption__subheading mb-1 {{ block.settings.subheading_font_family}} {{ block.settings.slides_effect }}-1" style="color:{{ block.settings.subheading_color }}; font-size: {{ block.settings.subheading_font_size}}px; font-family:Dubiel !important;">
+													{{ block.settings.subheading }}
+												</div>
+											{%- endunless -%}
+											{%- unless block.settings.title == blank -%}
+												<div class="slideshow-caption__heading {{ block.settings.title_font_family}} {{ block.settings.slides_effect }}-2" style="color:#1b4699; font-size: {{ block.settings.title_font_size}}px; font-family:Dubiel !important;">
+													{{ block.settings.title }}
+                                            <div style="width 50%; min height: 200px; background: red;">
+                                               <img src="https://cdn.shopify.com/s/files/1/0836/8137/8601/files/test1.png?v=1701894158"/>
+                                            </div>
+												</div>
+											{%- endunless -%}
+											{%- unless block.settings.title2 == blank -%}
+												<div class="slideshow-caption__heading--small {{ block.settings.title2_font_family}} {{ block.settings.slides_effect }}-3" style="color:#1b4699; font-size: {{ block.settings.title2_font_size}}px;  font-family:Dubiel !important;">
+													{{ block.settings.title2 }}
+												</div>
+											{%- endunless -%}
+											{%- unless block.settings.desc == blank -%}
+												<div class="slideshow-caption__desc mb-0 {{ block.settings.desc_font_family}} {{ block.settings.slides_effect }}-4" style="color:{{ block.settings.desc_color }}; font-size: 31px; font-family: Futura, sans-serif  !important;">
+													{{ block.settings.desc }}
+												</div>
+											{%- endunless -%}
+											{%- unless block.settings.btn_text == blank -%}
+												<div>
+													<a class="slideshow-caption__btn btn {{ block.settings.slides_effect }}-5" href="{{ block.settings.btn_link }}" style="border-color: {{ block.settings.btn_border_color }}; background-color: {{ block.settings.btn_bg_color }};color: {{ block.settings.btn_text_color }};font-size: {{ block.settings.btn_font_size}}px;{% if block.settings.btn_padding != blank %}padding: {{ block.settings.btn_padding }}; {% endif %}">
+														<span>{{ block.settings.btn_text }}</span>
+													</a>
+												</div>
+											{%- endunless -%}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					{%- endfor -%}
+				{%- endif -%}		
+			</div>
+		</div>
+	</div>
+</section>
+{% schema %}
+	{
+		"name": "Slideshow",
+		"class": "velaFramework",
+		"settings": [
+			{
+				"type": "header",
+				"content": "Design Section"
+			},
+			{
+				"type": "checkbox",
+				"id": "full_with",
+				"label": "Enabel Full Width?"
+			},
+			{
+				"type": "color",
+				"id": "color_bg",
+				"label": "Background Color",
+				"default": "rgba(0,0,0,0)"
+			},
+			{
+				"type": "text",
+				"id": "padding_block",
+				"label": "Padding",
+				"placeholder": "0px 0px",
+				"info": "Ex: 0px 0px 0px 0px and use desktop only"
+			},
+			{
+				"type": "text",
+				"id": "margin_block",
+				"label": "Margin",
+				"placeholder": "0px 0px",
+				"default": "0 0 30px",
+				"info": "Ex: 0px 0px 30px 0px"
+			},
+			{
+				"type": "header",
+				"content": "General Settings"
+			},
+			{
+				"type": "checkbox",
+				"id": "navigation",
+				"label": "Show Prev/Next arrows",
+				"default": true
+			},
+			{
+				"type": "checkbox",
+				"id": "pagination",
+				"label": "Show dot indicators",
+				"default": true
+			},
+			{
+				"type": "checkbox",
+				"id": "fade",
+				"label": "Fade effect",
+				"default": true
+			},
+			{
+				"type": "checkbox",
+				"id": "autoplay",
+				"label": "Autoplay",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "autoplay_speed",
+				"label": "Change slides every",
+				"info": "Required field number. Ex: 8000",
+				"default": "8000"
+			}
+		],
+		"blocks": [
+			{
+				"type": "image",
+				"name": "Image slide",
+				"settings": [
+					{
+						"type": "color",
+						"id": "content_color",
+						"label": "Background color",
+						"default": "rgba(0,0,0,0)",
+						"info": "Only mobile"
+					},
+					{
+						"type": "checkbox",
+						"id": "position_content",
+						"label": "Text Over Image",
+						"default": true,
+						"info": "Only mobile"
+					},
+					{
+						"type": "image_picker",
+						"id": "image",
+						"label": "Image Desktop",
+						"info": "Recommend image size: 1920x690"
+					},
+					{
+						"type": "image_picker",
+						"id": "image_mobile",
+						"label": "Image mobile",
+						"info": "default image desktop.Recommend image size: 768x500"
+					},
+					{
+						"type": "url",
+						"id": "link",
+						"label": "Slide URL"
+					},
+					{
+						"type": "header",
+						"content": "Caption"
+					},
+					{
+						"type": "select",
+						"id": "alignment",
+						"label": "Caption alignment",
+						"default": "text-start align-top",
+						"options": [
+						{
+							"value": "text-start align-top",
+							"label": "Top Left"
+						},
+						{
+							"value": "text-center align-top",
+							"label": "Top Center"
+						},
+						{
+							"value": "text-end align-top",
+							"label": "Top Right"
+						},
+						{
+							"value": "text-start align-middle",
+							"label": "Middle Left"
+						},
+						{
+							"value": "text-center align-middle",
+							"label": "Middle Center"
+						},
+						{
+							"value": "text-end align-middle",
+							"label": "Middle Right"
+						},
+						{
+							"value": "text-start align-bottom",
+							"label": "Bottom Left"
+						},
+						{
+							"value": "text-center align-bottom",
+							"label": "Bottom Center"
+						},
+						{
+							"value": "text-end align-bottom",
+							"label": "Bottom Right"
+						}
+						]
+					},
+					{
+						"type": "select",
+						"id": "text-alignment",
+						"label": "Text alignment",
+						"default": "center",
+						"options": [
+							{
+								"value": "center",
+								"label": "Center"
+							},
+							{
+								"value": "start",
+								"label": "Left"
+							},
+							{
+								"value": "end",
+								"label": "Right"
+							}
+						]
+					},
+					{
+						"type": "select",
+						"id": "slides_effect",
+						"label": "Caption effect",
+						"options": [
+							{
+								"value": "default",
+								"label": "Default"
+							},
+							{
+								"value": "leftright",
+								"label": "Left to Right"
+							},
+							{
+								"value": "rightleft",
+								"label": "Right to Left"
+							},
+							{
+								"value": "topbottom",
+								"label": "Top to Bottom"
+							},
+							{
+								"value": "bottomtop",
+								"label": "Bottom to Top"
+							}
+						],
+						"default": "leftright"
+					},
+					{
+						"type": "header",
+						"content": "Subheading"
+					},
+					{
+						"type": "text",
+						"id": "subheading",
+						"label": "Subheading"
+					},
+					{
+						"type": "color",
+						"id": "subheading_color",
+						"label": "Subheading color",
+						"default": "#000"
+					},
+					{
+						"type": "select",
+						"id": "subheading_font_family",
+						"label": "Font family",
+						"default": "text",
+						"options": [
+							{
+								"value": "text",
+								"label": "Text"
+							},
+							{
+								"value": "h3",
+								"label": "Heading"
+							},
+							{
+								"value": "ff-special",
+								"label": "Special"
+							}
+						]
+					},
+					{
+						"type": "range",
+						"id": "subheading_font_size",
+						"min": 10,
+						"max": 100,
+						"step": 1,
+						"unit": "px",
+						"label": "Font Size",
+						"default": 18
+					},
+					{
+							"type": "header",
+							"content": "Heading 1"
+						},
+						{
+							"type": "text",
+							"id": "title",
+							"label": "Heading 1",
+							"default": "Slideshow"
+						},
+						{
+							"type": "color",
+							"id": "title_color",
+							"label": "Heading 1 color",
+							"default": "#000"
+					},
+					{
+						"type": "select",
+						"id": "title_font_family",
+						"label": "Font family",
+						"default": "ff-special",
+						"options": [
+							{
+								"value": "text",
+								"label": "Text"
+							},
+							{
+								"value": "h3",
+								"label": "Heading"
+							},
+							{
+								"value": "ff-special",
+								"label": "Special"
+							}
+						]
+					},
+					{
+						"type": "range",
+						"id": "title_font_size",
+						"min": 10,
+						"max": 100,
+						"step": 1,
+						"unit": "px",
+						"label": "Font Size",
+						"default": 60
+					},
+					{
+						"type": "header",
+						"content": "Heading 2"
+					},
+					{
+						"type": "text",
+						"id": "title2",
+						"label": "Heading 2",
+						"default": "Slideshow"
+					},
+					{
+						"type": "color",
+						"id": "title2_color",
+						"label": "Heading 2 color",
+						"default": "#000"
+					},
+					{
+						"type": "select",
+						"id": "title2_font_family",
+						"label": "Font family",
+						"default": "text",
+						"options": [
+							{
+								"value": "text",
+								"label": "Text"
+							},
+							{
+								"value": "h3",
+								"label": "Heading"
+							},
+							{
+								"value": "ff-special",
+								"label": "Special"
+							}
+						]
+					},
+					{
+						"type": "range",
+						"id": "title2_font_size",
+						"min": 50,
+						"max": 150,
+						"step": 1,
+						"unit": "px",
+						"label": "Font Size",
+						"default": 149
+					},
+					{
+						"type": "header",
+						"content": "Description"
+					},
+					{
+						"type": "html",
+						"id": "desc",
+						"label": "Description",
+						"info": "Text or HTML code"
+					},
+					{
+						"type": "color",
+						"id": "desc_color",
+						"label": "Description color",
+						"default": "#000"
+					},
+					{
+						"type": "select",
+						"id": "desc_font_family",
+						"label": "Font family",
+						"default": "text",
+						"options": [
+							{
+								"value": "text",
+								"label": "Text"
+							},
+							{
+								"value": "h3",
+								"label": "Heading"
+							},
+							{
+								"value": "ff-special",
+								"label": "Special"
+							}
+						]
+					},
+					{
+						"type": "range",
+						"id": "desc_font_size",
+						"min": 10,
+						"max": 50,
+						"step": 1,
+						"unit": "px",
+						"label": "Font Size",
+						"default": 18
+					},
+					{
+						"type": "header",
+						"content": "Button"
+					},
+					{
+						"type": "text",
+						"id": "btn_text",
+						"label": "Button text"
+					},
+					{
+						"type": "range",
+						"id": "btn_font_size",
+						"min": 10,
+						"max": 50,
+						"step": 1,
+						"unit": "px",
+						"label": "Font Size",
+						"default": 14
+					},
+					{
+						"type": "url",
+						"id": "btn_link",
+						"label": "Button URL"
+					},
+					{
+						"type": "text",
+						"id": "btn_padding",
+						"label": "Button padding",
+						"placeholder": "10px 30px",
+						"default": "10px 30px"
+					},
+					{
+						"type": "color",
+						"id": "btn_text_color",
+						"label": "Button text color",
+						"default": "#fff"
+					},                
+					{
+						"type": "color",
+						"id": "btn_border_color",
+						"label": "Button border color",
+						"default": "#000"
+					},                
+					{
+						"type": "color",
+						"id": "btn_bg_color",
+						"label": "Button background color",
+						"default": "#000"
+					}
+				]
+			}
+		],
+    "presets": [
+        {
+            "name": "Slideshow",
+            "blocks": [
+                {
+                    "type": "image"
+                },
+                {
+                    "type": "image"
+                },
+                {
+                    "type": "image"
+                }
+            ]
+        }
+    ]
+}
+	{% endschema %}

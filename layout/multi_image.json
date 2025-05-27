@@ -1,0 +1,622 @@
+{
+  "sections": {
+    "162566980471ae6442": {
+      "type": "slideshow",
+      "blocks": {
+        "cdb8181e-e404-4b9d-a53b-46b4a7406435": {
+          "type": "image",
+          "settings": {
+            "content_color": "#ffffff",
+            "position_content": true,
+            "image": "shopify:\/\/shop_images\/Main_banner_final.jpg",
+            "image_mobile": "shopify:\/\/shop_images\/Main_banner_final.jpg",
+            "link": "shopify:\/\/collections\/all",
+            "alignment": "text-start align-middle",
+            "text-alignment": "start",
+            "slides_effect": "leftright",
+            "subheading": "",
+            "subheading_color": "#1f1f1f",
+            "subheading_font_family": "text",
+            "subheading_font_size": 16,
+            "title": "Simplify Prep,",
+            "title_color": "#222222",
+            "title_font_family": "text",
+            "title_font_size": 80,
+            "title2": "Elevate Extractions.",
+            "title2_color": "#222222",
+            "title2_font_family": "h3",
+            "title2_font_size": 70,
+            "desc": "ESTI'S BESTIE: YOUR EXPERT<br> PREP FOR FLAWLESS SKIN",
+            "desc_color": "#222222",
+            "desc_font_family": "text",
+            "desc_font_size": 18,
+            "btn_text": "TELL ME MORE",
+            "btn_font_size": 14,
+            "btn_link": "shopify:\/\/collections\/new-products",
+            "btn_padding": "18px 40px 16px",
+            "btn_text_color": "#222222",
+            "btn_border_color": "#222222",
+            "btn_bg_color": "rgba(0,0,0,0)"
+          }
+        }
+      },
+      "block_order": [
+        "cdb8181e-e404-4b9d-a53b-46b4a7406435"
+      ],
+      "custom_css": [
+        ".slideshow-caption__content div {fonnt-family: Dubiel !important;}",
+        "a.slideshow-caption__btn.btn.leftright-5 {margin: -38px 0 0 0;}",
+        "@media (max-width: 767px) {img {width: 100px; }}"
+      ],
+      "settings": {
+        "full_with": true,
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "",
+        "margin_block": "0 0 20px",
+        "navigation": true,
+        "pagination": true,
+        "fade": true,
+        "autoplay": true,
+        "autoplay_speed": "8000"
+      }
+    },
+    "164307378492842e70": {
+      "type": "multi-image-with-text",
+      "blocks": {
+        "16430737844209a302-0": {
+          "type": "feature_item",
+          "settings": {
+            "width": "col-12 col-lg-4",
+            "banner": "shopify:\/\/shop_images\/DETAIL_01.jpg",
+            "button_url": "shopify:\/\/collections\/beauty",
+            "subtitle": "<span class=\"text-uppercase fw-semibold\">New arrivals<\/span>",
+            "heading_subcolor": "#222222",
+            "heading_sub_size": 14,
+            "title": "<span class=\"text-uppercase fw-bold\">Total body wash<\/span>",
+            "heading_color": "#222222",
+            "heading_size": 24,
+            "content": "<i>Top Quality Item Skincare<\/i>",
+            "text_color": "#222222",
+            "text_size": 20,
+            "button": "explore now",
+            "button_color": "#222222",
+            "button_border_color": "#222222",
+            "text_align": "start",
+            "banner_position": "over"
+          }
+        },
+        
+        "16430737844209a302-1": {
+          "type": "feature_item",
+          "settings": {
+            "width": "col-12 col-lg-4",
+            "banner": "shopify:\/\/shop_images\/inbetween_product.png",
+            "button_url": "shopify:\/\/collections\/new-products",
+            "subtitle": "<span class=\"d-none d-lg-block mb-4 d-flex justify-content-center\"><img width=\"90\" height=\"90\" src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0071\/1190\/1231\/files\/icon-11.png?v=1620553785\" alt><\/span><span class=\"text-uppercase fw-semibold\">Black friday<\/span>",
+            "heading_subcolor": "#ffffff",
+            "heading_sub_size": 14,
+            "title": "<span class=\"text-uppercase\">discount Mask & Cream<\/span>",
+            "heading_color": "#ffffff",
+            "heading_size": 24,
+            "content": "<i>Accusamus et iusto odgnissimos ducimusblanditiis praesentium.<\/i>",
+            "text_color": "#ffffff",
+            "text_size": 20,
+            "button": "explore now",
+            "button_color": "#ffffff",
+            "button_padding": 0,
+            "button_margin": 0,
+            "button_border_color": "#ffffff",
+            "text_align": "center",
+            "banner_position": "over"
+            
+          }
+        },
+        "74d3aaea-38da-4ef9-9765-1011bb1a7110": {
+          "type": "feature_item",
+          "settings": {
+            "width": "col-12 col-lg-4",
+            "banner": "shopify:\/\/shop_images\/DETAIL_02.jpg",
+            "button_url": "shopify:\/\/collections\/make-up",
+            "subtitle": "<span class=\"text-uppercase fw-semibold\">Bestseller item<\/span>",
+            "heading_subcolor": "#222222",
+            "heading_sub_size": 14,
+            "title": "<span class=\"text-uppercase fw-bold\">Facial Cream<\/span>",
+            "heading_color": "#222222",
+            "heading_size": 24,
+            "content": "<i>Top Quality Item Skincare<\/i>",
+            "text_color": "#222222",
+            "text_size": 20,
+            "button": "explore now",
+            "button_color": "#222222",
+            "button_border_color": "#222222",
+            "text_align": "start",
+            "banner_position": "over"
+          }
+        }
+      },
+      "block_order": [
+        "16430737844209a302-0",
+        "16430737844209a302-1",
+        "74d3aaea-38da-4ef9-9765-1011bb1a7110"
+      ],
+      "custom_css": [
+
+      ],
+      "settings": {
+        "full_with": true,
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "0 0 20px",
+        "margin_block": "0 0 40px",
+        "heading": "",
+        "sub_heading": "",
+        "space_between": "3"
+      }
+    },
+    "1662221334cee13b3a": {
+      "type": "heading",
+      "custom_css": [
+        ".fst-italic {font-style: normal !important;}"
+      ],
+      "settings": {
+        "full_with": false,
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "0 0 10px",
+        "margin_block": "0 0 10px",
+        "caption": "",
+        "heading": "Top Selling Products",
+        "sub_heading": "Commodo sociosqu venenatis cras dolor sagittis integer luctus sem primis eget maecenas.",
+        "text_alignment": "center"
+      }
+    },
+    "1643043758ec2c692d": {
+      "type": "product-list",
+      "custom_css": [
+        ".d-flex {display: initial !important; text-align: center;}",
+        ".product-price {font-size: 1rem;}",
+        ".product-card__name {text-align: center;}"
+      ],
+      "settings": {
+        "full_with": false,
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "0 0 20px",
+        "margin_block": "0 0 60px",
+        "heading": "",
+        "sub_heading": "",
+        "collection_handle": "frontpage",
+        "limit": 8,
+        "product_style": "grid",
+        "button_text": "Show All Products",
+        "slide_enable": false,
+        "navigation": false,
+        "pagination": false,
+        "infinite": false,
+        "autoplay": false,
+        "autoplay_speed": "10000",
+        "column1": 4,
+        "column2": 2,
+        "column3": 2,
+        "column4": 2
+      }
+    },
+    "1658915910fa8081ac": {
+      "type": "feature-text",
+      "custom_css": [
+        ".rounded-circle {border-radius: 0 !important;}",
+        ".feature-text__desc i {font-style: normal !important; color: #666666 !important;}",
+        ".fw-bold {font-weight: 400 !important;}"
+      ],
+      "settings": {
+        "full_with": true,
+        "imge_bg": "shopify:\/\/shop_images\/Offer_image_home_page_031685f9-1eba-453d-b4a3-432e4195c363.jpg",
+        "color_bg": "#ffffff",
+        "padding_block": "60px 0",
+        "margin_block": "0 0 60px",
+        "featureicon": "shopify:\/\/shop_images\/Stacked_Logo_latest.png",
+        "sub_heading": "New arrivals",
+        "heading": "Body cream organic",
+        "desc": "<i>At vero eos et accusamus et iusto odi odgnissimos ducimusblanditiis praesentium volup.<\/i>",
+        "button_text": "",
+        "button_url": "shopify:\/\/collections\/new-products"
+      }
+    },
+    "16626936658818a255": {
+      "type": "heading",
+      "custom_css": [
+        ".fst-italic {font-style: normal !important;}"
+      ],
+      "settings": {
+        "full_with": false,
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "20px 0 10px",
+        "margin_block": "0 0 10px",
+        "caption": "Explore The blog",
+        "heading": "Latest Blog Posts",
+        "sub_heading": "Commodo sociosqu venenatis cras dolor sagittis integer luctus sem primis eget maecenas.",
+        "text_alignment": "center"
+      }
+    },
+    "164256418835253c35": {
+      "type": "blog-posts",
+      "disabled": true,
+      "settings": {
+        "full_with": false,
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "0 0 20px",
+        "margin_block": "0  0 60px",
+        "heading": "",
+        "sub_heading": "",
+        "blog_handle": "news",
+        "limit": 5,
+        "blog_image": true,
+        "blog_tags": true,
+        "blog_date": true,
+        "blog_author": true,
+        "blog_excerp": true,
+        "blog_readmore": true,
+        "image_ratio": "adapt",
+        "crop": false,
+        "blog_style": "grid",
+        "navigation": true,
+        "pagination": false,
+        "infinite": false,
+        "autoplay": false,
+        "autoplay_speed": "10000",
+        "column1": 3,
+        "column2": 2,
+        "column3": 1,
+        "column4": 1
+      }
+    },
+    "9b1b875e-c85d-4d4e-9994-c5458039ec0a": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "settings": {
+        "full_with": false,
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "",
+        "margin_block": "",
+        "custom_liquid": "<script src=\"https:\/\/static.elfsight.com\/platform\/platform.js\" data-use-service-core defer><\/script>\n<div class=\"elfsight-app-1e25cd39-2c3f-49f5-b3b6-b044988e8a81\" data-elfsight-app-lazy><\/div>"
+      }
+    },
+    "a4413c44-0270-4d7a-8877-c67e3e848b27": {
+      "type": "video",
+      "settings": {
+        "full_with": false,
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "",
+        "margin_block": "0 0 0px",
+        "video_background": true,
+        "cover_image": "shopify:\/\/shop_images\/Video_Thumbnail.jpg",
+        "video_url": "https:\/\/vimeo.com\/891198040",
+        "description": "",
+        "aspect_ratios": "ratio-21x9",
+        "show_overlay": false,
+        "overlay_color": "#000000",
+        "opacity": 1
+      }
+    },
+    "1658922293a102383d": {
+      "type": "six-image",
+      "settings": {
+        "full_with": false,
+        "color_bg": "#f6f6f6",
+        "padding_block": "20px 0",
+        "margin_block": "",
+        "heading": "@althskincare<br>on Instagram",
+        "image1": "shopify:\/\/shop_images\/instagram_image_1.jpg",
+        "image1_url": "https:\/\/www.instagram.com\/",
+        "image2": "shopify:\/\/shop_images\/instagram_image_7.jpg",
+        "image2_url": "https:\/\/www.instagram.com\/",
+        "image3": "shopify:\/\/shop_images\/instagram_image_5.jpg",
+        "image3_url": "https:\/\/www.instagram.com\/p\/CywF3MRviHK\/",
+        "image4": "shopify:\/\/shop_images\/instagram_image_6.jpg",
+        "image4_url": "https:\/\/www.instagram.com\/p\/Cy1y1zbvgEQ\/",
+        "image5": "shopify:\/\/shop_images\/instagram_image_2.jpg",
+        "image5_url": "https:\/\/www.instagram.com\/",
+        "image6": "shopify:\/\/shop_images\/instagram_image_4.jpg",
+        "image6_url": "https:\/\/www.instagram.com\/"
+      }
+    },
+    "164251888061f08632": {
+      "type": "testimonial",
+      "blocks": {
+        "b96ed099-d74c-451b-bef4-9317226a3c24": {
+          "type": "item",
+          "settings": {
+            "name": "Mason Robinson",
+            "position": "Marketing Company Director",
+            "review": "“ Congue condimentum et non eu arcu sociis aenean vivamus quisque. Porta purus urna. \nMassa id blandit enim cursus ante. Nec consectetuer imperdiet ipsum. Magnis rutrum tristique rutrum lobortis nulla nec hendrerit convallis suspendisse... ”"
+          }
+        },
+        "471cf814-b436-4821-b721-a3560a4f30af": {
+          "type": "item",
+          "settings": {
+            "name": "Mason Robinson",
+            "position": "Marketing Company Director",
+            "review": "“ Congue condimentum et non eu arcu sociis aenean vivamus quisque. Porta purus urna. \nMassa id blandit enim cursus ante. Nec consectetuer imperdiet ipsum. Magnis rutrum tristique rutrum lobortis nulla nec hendrerit convallis suspendisse... ”"
+          }
+        }
+      },
+      "block_order": [
+        "b96ed099-d74c-451b-bef4-9317226a3c24",
+        "471cf814-b436-4821-b721-a3560a4f30af"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_with": false,
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "40px 0",
+        "margin_block": "0 0 70px",
+        "heading": "",
+        "sub_heading": "",
+        "size": "70x70",
+        "star_enable": true,
+        "slide_enable": true,
+        "navigation": true,
+        "pagination": false,
+        "infinite": true,
+        "autoplay": false,
+        "autoplay_speed": "10000",
+        "column1": 1,
+        "column2": 1,
+        "column3": 1,
+        "column4": 1
+      }
+    },
+    "1643106707f8a692c1": {
+      "type": "gallery-image",
+      "blocks": {
+        "8ab415b5-4c59-4f21-a06d-242684882fa3": {
+          "type": "item",
+          "settings": {
+            "link": "https:\/\/instagram.com"
+          }
+        },
+        "aedb8003-1d9d-47cf-8871-1d63419185c5": {
+          "type": "item",
+          "settings": {
+            "link": "https:\/\/instagram.com"
+          }
+        },
+        "7025c9d8-89d4-4328-9152-362646176e05": {
+          "type": "item",
+          "settings": {
+            "link": "https:\/\/instagram.com"
+          }
+        },
+        "40023165-2027-474f-948d-0bd694324587": {
+          "type": "item",
+          "settings": {
+            "link": "https:\/\/instagram.com"
+          }
+        },
+        "c5728cc2-f789-4d43-bcc9-9ccac7463ba0": {
+          "type": "item",
+          "settings": {
+            "link": "https:\/\/instagram.com"
+          }
+        },
+        "8e5884f4-220c-4b21-a5ba-23b6c5a056de": {
+          "type": "item",
+          "settings": {
+            "link": "https:\/\/instagram.com"
+          }
+        }
+      },
+      "block_order": [
+        "8ab415b5-4c59-4f21-a06d-242684882fa3",
+        "aedb8003-1d9d-47cf-8871-1d63419185c5",
+        "7025c9d8-89d4-4328-9152-362646176e05",
+        "40023165-2027-474f-948d-0bd694324587",
+        "c5728cc2-f789-4d43-bcc9-9ccac7463ba0",
+        "8e5884f4-220c-4b21-a5ba-23b6c5a056de"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_with": true,
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "0 10px 10px",
+        "margin_block": "",
+        "heading": "",
+        "sub_heading": "",
+        "image_ratio": "adapt",
+        "crop": false,
+        "popup": false,
+        "space_between": "2",
+        "slide_enable": false,
+        "navigation": true,
+        "infinite": true,
+        "autoplay": false,
+        "autoplay_speed": "10000",
+        "column1": 6,
+        "column2": 6,
+        "column3": 3,
+        "column4": 3
+      }
+    },
+    "165591511898c71969": {
+      "type": "product-load-more",
+      "disabled": true,
+      "settings": {
+        "full_with": false,
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "",
+        "margin_block": "0 0 30px",
+        "heading": "Trending Products",
+        "sub_heading": "Top view in this week",
+        "collection_handle": "spa",
+        "display": 8,
+        "btn_loadmore": "Load More",
+        "column1": 4,
+        "column4": 2
+      }
+    },
+    "1660386135c5abc7ec": {
+      "type": "three-images",
+      "disabled": true,
+      "settings": {
+        "full_with": false,
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "",
+        "margin_block": "0 0 30px",
+        "url1": "",
+        "url2": "",
+        "url3": ""
+      }
+    },
+    "16601235483f477f8d": {
+      "type": "logo-list",
+      "blocks": {
+        "16601235473d744fec-0": {
+          "type": "image",
+          "settings": {
+            "link": "shopify:\/\/collections\/new-products"
+          }
+        },
+        "16601235473d744fec-1": {
+          "type": "image",
+          "settings": {
+            "link": "shopify:\/\/collections\/beauty"
+          }
+        },
+        "16601235473d744fec-2": {
+          "type": "image",
+          "settings": {
+            "link": "shopify:\/\/collections\/make-up"
+          }
+        },
+        "16601235473d744fec-3": {
+          "type": "image",
+          "settings": {
+            "link": "shopify:\/\/collections\/skin-care"
+          }
+        },
+        "16601235473d744fec-4": {
+          "type": "image",
+          "settings": {
+            "link": "shopify:\/\/collections\/spa"
+          }
+        }
+      },
+      "block_order": [
+        "16601235473d744fec-0",
+        "16601235473d744fec-1",
+        "16601235473d744fec-2",
+        "16601235473d744fec-3",
+        "16601235473d744fec-4"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_with": false,
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "",
+        "margin_block": "0 0 30px",
+        "heading": "",
+        "sub_heading": "",
+        "logo_size": "210x120",
+        "image_ratio": "adapt",
+        "crop": false,
+        "slide_enable": true,
+        "navigation": true,
+        "infinite": true,
+        "autoplay": false,
+        "autoplay_speed": "10000",
+        "column1": 5,
+        "column2": 4,
+        "column3": 2,
+        "column4": 2
+      }
+    },
+    "1660386237748d2f9b": {
+      "type": "video-background",
+      "blocks": {
+        "3a9c91df-73ac-466c-8bca-3e5c9c24f863": {
+          "type": "button",
+          "settings": {
+            "button": "Read More",
+            "link": "shopify:\/\/blogs\/news\/bringing-led-lighting-into-your-home-shouldnt-be-complicated-5",
+            "button_font_size": 14,
+            "button_padding": "",
+            "button_color": "#ffffff",
+            "button_color_border": "#b97a4f",
+            "button_color_bg": "#b97a4f",
+            "button_margin": ""
+          }
+        }
+      },
+      "block_order": [
+        "3a9c91df-73ac-466c-8bca-3e5c9c24f863"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_with": true,
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "",
+        "margin_block": "",
+        "video_url": "https:\/\/cdn.shopify.com\/s\/files\/1\/0071\/1190\/1231\/files\/videobackground.mp4?v=1621048139",
+        "muted": false,
+        "aspect_ratios": "ratio-16x9",
+        "overlay_color": "#ffffff",
+        "opacity": 89,
+        "box_width": "470"
+      }
+    },
+    "166046515684cb3e45": {
+      "type": "collection-three",
+      "disabled": true,
+      "settings": {
+        "full_with": false,
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "",
+        "margin_block": "0 0 30px",
+        "collection_count": true,
+        "title1": "Beauty",
+        "collection_handle1": "beauty",
+        "title2": "Spa",
+        "collection_handle2": "spa",
+        "title3": "Make Up",
+        "collection_handle3": "make-up"
+      }
+    },
+    "17006771831b46e18a": {
+      "type": "apps",
+      "blocks": {
+        "35d59dcf-44cd-4de7-9a97-8cc0d79f55eb": {
+          "type": "shopify:\/\/apps\/instafeed\/blocks\/app-block\/c447db20-095d-4a10-9725-b5977662c9d5",
+          "disabled": true,
+          "settings": {
+            "title_color": "",
+            "alignment": "center",
+            "html_area": ""
+          }
+        }
+      },
+      "block_order": [
+        "35d59dcf-44cd-4de7-9a97-8cc0d79f55eb"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "162566980471ae6442",
+    "164307378492842e70",
+    "1662221334cee13b3a",
+    "1643043758ec2c692d",
+    "1658915910fa8081ac",
+    "16626936658818a255",
+    "164256418835253c35",
+    "9b1b875e-c85d-4d4e-9994-c5458039ec0a",
+    "a4413c44-0270-4d7a-8877-c67e3e848b27",
+    "1658922293a102383d",
+    "164251888061f08632",
+    "1643106707f8a692c1",
+    "165591511898c71969",
+    "1660386135c5abc7ec",
+    "16601235483f477f8d",
+    "1660386237748d2f9b",
+    "166046515684cb3e45",
+    "17006771831b46e18a"
+  ]
+}

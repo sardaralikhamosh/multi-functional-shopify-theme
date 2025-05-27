@@ -1,0 +1,149 @@
+{%- capture section_style -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        background-color: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+        padding: {{section.settings.padding_block}};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        margin: {{section.settings.margin_block}};
+    {%- endif -%}
+    {%- if section.settings.bgimage != blank -%}
+            background-image: url({{ section.settings.bgimage | img_url:'master' }});
+    {%- endif -%}
+{%- endcapture -%}
+<div class="vela-section section-flash-sale overflow-hidden" {% if section_style%}style="{{ section_style }}"{% endif%}>
+  	<div class="container{% if section.settings.full %}-full{% endif %}">
+        <div class="vela-section__inner {% if section.settings.bgimage != blank %} py-5 my-3{% endif %}">
+            <div class="row">
+                <div class="col-12 col-md-8 col-xl-7 col-xxl-5">
+                    {%- if section.settings.subtitle != blank -%}
+                        <div class="flash-sale__subTitle h6 text-uppercase text-primary">{{ section.settings.subtitle }}</div>
+                    {%- endif -%}
+                    {%- if section.settings.title != blank -%}
+                        <h3 class="flash-sale__title fw-normal mb-3 mb-md-4">
+                            {{ section.settings.title }}
+                        </h3>
+                    {%- endif -%}
+                    {%- if section.settings.desc != blank -%}
+                        <span class="flash-sale_desc">{{ section.settings.desc }}</span>
+                    {%- endif -%}
+                    
+                    <div class="flash-sale__content border-top mt-4 mt-md-5 pt-4 pt-md-5"> 
+                        <div class="d-md-flex align-items-end"> 
+                            {%- if section.settings.countdown_title -%}
+                                <h5 class="flash-sale__countdown--title text-primary">{{ section.settings.countdown_title }}</h5>
+                            {%- endif -%}
+                            {% assign countdownTime = section.settings.countdown_timeend %}
+                            <div class="flash-sale__countdown d-flex ff-heading text-uppercase" data-countdown="{{ countdownTime }}"></div>
+                        </div>
+                    </div>
+                    {%- if section.settings.btntext != blank -%}
+                        <a href="{{ section.settings.btnurl }}" class="btn btn-default mt-3 px-5" title="{{ section.settings.btntext }}"> {{ section.settings.btntext }}</a>
+                    {%- endif -%}
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+{% schema %}
+    {
+        "name": "Flash sale",
+        "class": "velaFramework",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Design Section"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "Enable Full Width?"
+            },
+            {
+		        "type": "image_picker",
+		        "id": "bgimage",
+		        "label": "Background Image"
+		    },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "Background Color",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "Padding",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "Margin",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "header",
+                "content": "Flash sale"
+            },
+            {
+                "type": "text",
+                "id": "subtitle",
+                "label": "subTitle"
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Title"
+            },
+            {
+                "type": "textarea",
+                "id": "desc",
+                "label": "Description"
+            },
+            {
+                "type": "text",
+                "id": "btntext",
+                "label": "Button text"
+            },
+            {
+                "type": "url",
+                "id": "btnurl",
+                "label": "Link"
+            },
+            {
+                "type": "header",
+                "content": "Count down"
+            },
+            {
+		        "type": "text",
+		        "id": "countdown_title",
+		        "label": "Countdown title",
+		        "default": "Hurry Up! Offer ends in:"
+		    },
+		    {
+		        "type": "text",
+		        "id": "countdown_timeend",
+		        "label": "Time End",
+		        "placeholder": "YYYY\/MM\/DD"
+		    },
+		    {
+		        "type": "paragraph",
+		        "content": "Format: 'Year\/Month\/Day'"
+		    },
+		    {
+		        "type": "paragraph",
+		        "content": "Example: '2022\/12\/30'"
+		    }
+        ],
+		"presets": [
+            {
+                "name": "Flash sale",
+                "settings": {
+                    "countdown_timeend": "2022/12/30"
+                }
+            }
+        ]
+    }
+{% endschema %}

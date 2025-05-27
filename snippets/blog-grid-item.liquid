@@ -1,0 +1,51 @@
+<article class="article blog__{{ section.settings.blog_style }}">
+    {% unless article.image == blank %}
+        <div class="article__image mb-3 mb-lg-4">
+            <a class="article__featured-image-link" href="{{ article.url }}">
+                {% include 'img-global', image: article.image, image_ratio: section.settings.image_ratio, crop: image_crop %}
+            </a>
+        </div>
+    {% endunless %}
+
+    <div class="article__content pt-1">
+        <h5 class="article__title mb-1 pb-1 text-uppercase">
+            <a href="{{ article.url }}" title="{{ article.title }}">{{ article.title }}</a>
+        </h5>
+        <div class="article__meta d-flex flex-wrap align-items-center mb-2 mb-md-3 fst-italic">
+            {%- if section.settings.blog_tags and article.tags.size > 0 -%}
+                <div class="blog-tags">
+                    {% for tag in article.tags limit: 2 %}
+                        <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="tags__item">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+                    {% endfor %}
+                </div>
+            {%- endif -%}
+            {%- if section.settings.blog_author -%}
+                {%- capture author -%}{{ article.author }}{%- endcapture -%}
+                <div class="article__meta-author">{{ 'blogs.article.author_html' | t:author:author  }}</div>
+            {%- endif -%}
+            {%- if article.comments_enabled? and section.settings.blog_comment -%}
+                {%- assign number_of_comments = article.comments_count -%}
+                <div class="article__meta-comment">
+                    {%- if number_of_comments > 1 -%}
+                        {{'blogs.article.comments.other' | t:count:number_of_comments }}
+                    {%- else -%}
+                        {{'blogs.article.comments.one' | t:count:number_of_comments }}
+                    {%- endif -%}
+                </div>
+            {%- endif -%}
+        </div>
+        {%- if section.settings.blog_excerp -%}
+            {%- if noowlColumn1 == 12 -%} {%- assign words_count = 140 -%} {%- else -%}{%- assign words_count = 100 -%}{% endif %}
+            <div class="rte article__excerpt">
+                {{ article_content | strip_html | truncate: words_count }}
+            </div>
+        {%- endif -%}
+        <div class="d-flex justify-content-between align-items-center pt-2 mt-2 border-top">
+            <a class="article__read-more text-uppercase p-0 btn" href="{{ article.url }}">{{ 'blogs.article.read_more' | t }}</a>
+            {%- if section.settings.blog_date -%}
+                {%- capture post_date -%}{{ article.published_at | date: format: 'date_month_year' }}{%- endcapture -%}
+                    <div class="article__meta-date"><time datetime="{{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}" class="date fst-italic heading-color">{{ 'blogs.article.date_html' | t: date: post_date }}</time></div>
+            {%- endif -%}
+        </div>
+    </div>
+</article>

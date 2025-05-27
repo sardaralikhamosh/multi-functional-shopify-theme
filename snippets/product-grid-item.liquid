@@ -1,0 +1,159 @@
+{%- assign on_sale = false -%}
+{%- if product.compare_at_price > product.price -%}
+{%- assign on_sale = true -%}
+{%- endif -%}
+{%- assign sold_out = true -%}
+{%- if product.available -%}
+{%- assign sold_out = false -%}
+{%- endif -%}
+
+{%- assign variant = product.selected_or_first_available_variant -%}
+
+{%- if product.metafields.custom.shortdescription != blank  -%}
+    {%- assign shortDescription = product.metafields.custom.shortdescription -%}
+{%- else -%}
+    {%- assign shortDescription = product.description | strip_html | truncate: 200 -%}
+{%- endif -%}
+{%- assign image_crop = nil -%}
+{%- if settings.crop -%}
+    {%- assign image_crop = 'center' -%}
+{%- endif -%}
+
+{% assign date_created = product.created_at | date:'%s' %}
+{% assign     date_now = 'now' | date:'%s' %}
+{% assign   difference = date_now | minus: date_created %}
+
+<div class="product-card product-grid">
+    <div class="product-card__image-wrapper">
+        <a class="product-card__image-link" href="{{ product.url }}">
+            <span {% if product.media[1] != nil and settings.show_secondary_image %} class="img-primary"{% endif %}>
+                {% include 'img-global', image: product.featured_media, image_ratio: settings.image_ratio, crop: image_crop  %}
+            </span>
+            {%- if product.media[1] != nil and settings.show_secondary_image -%}
+                <span class="img-secondary position-absolute">
+                    {% include 'img-global', image: product.media[1], image_ratio: settings.image_ratio, crop: image_crop %}
+                </span>
+            {%- endif -%}
+        </a>
+        <div class="product-card__label position-absolute">
+            {%- if difference < 2592000 and settings.product_card_new -%}
+                <span class="label-new position-relative"><span class="d-block overflow-hidden position-relative">{{ 'products.general.label_new' | t }}</span></span>
+            {%- endif -%}
+            {%- if sold_out and settings.product_card_available -%}
+                <span class="label-sold-out position-relative bg-warning heading-color"><span class="d-block overflow-hidden position-relative">{{ 'products.general.out_stock' | t }}</span></span>
+            {%- elsif on_sale and settings.product_card_sale -%}
+                {%- capture saved_amount -%}{{ product.compare_at_price | minus: product.price | times: 100 | divided_by : product.compare_at_price  }}{%- endcapture -%}
+                <span class="label-on-sale position-relative"><span class="d-block overflow-hidden position-relative">{{ 'products.general.sale_price' | t }}</span></span>        
+            {%- endif -%}
+        </div>
+        <div class="product-card__buttons position-absolute w-100 d-flex justify-content-center start-0 top-50 translate-middle-y">
+            {%- if settings.product_card_addtocart -%}
+                <div class="product-card__form">
+                    {%- assign variant_count = product.variants | size -%}
+                    <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="form-addtocart" data-product-form>
+                    <input type="hidden" name="id" value="{{ variant.id }}" />
+                    {%- unless sold_out -%}
+                        {%- if variant_count > 1 -%}
+                        <a class="btn btn-default btn--add-to-cart mx-1" href="{{ product.url }}"  title="{{ 'products.product.select_options' | t }}">
+                            <span class="d-none">{{ 'products.product.select_options' | t }}</span>
+                            {% render 'icons', icon: 'external-link', class: 'icon-cart', attr: 'width="18" height="18"' %}
+                        </a>
+                        {%- else -%}
+                        <button class="js-btn-addtocart btn btn-default btn--add-to-cart mx-1" type="submit" value="Submit" title="{{ 'products.product.add_to_cart' | t }}">
+                            {% include 'icons', icon: 'shopping-cart', class: 'icon-cart', attr: 'width="18" height="18"' %}
+                            <span class="d-none">{{ 'products.product.add_to_cart' | t }}</span>
+                        </button>
+                        {%- endif -%}
+                    {%- endunless -%}
+                    </form>
+                </div>
+            {%- endif -%}
+            {%- if settings.quickview_enable -%}
+                <a class="js-btn-quickview btn btn-default btn--quickview mx-1" href="javascript:void(0);"  data-handle="{{ product.handle }}" title="{{ 'products.product.quickview' | t }}">
+                    {% include 'icons', icon: 'eye', attr: 'width="18" height="18"' %}
+                    <span class="d-none">{{ 'products.product.quickview' | t }}</span>
+                    <div class="d-none proShortDesc">
+                        {{ shortDescription }}
+                    </div>
+                </a>
+            {%- endif -%}
+        </div>
+    </div>
+    <div class="product-card__content pt-1">
+        <div class="product-card__content--inner position-relative mt-3">
+            {%- if settings.product_vendor_enable -%}
+                <p class="product-card__vendor">{{ product.vendor }}</p>
+            {%- endif -%}
+            {%- if settings.product_reviews_enable and settings.product_card_review -%}
+                <div class="product-card__review product-review">
+                    <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                </div>
+            {%- endif -%}
+            <h6 class="product-card__name mb-1 fw-normal text-uppercase">
+                <a href="{{ product.url }}">{{ product.title }}</a>
+            </h6>
+            <div class="product-group-price d-flex align-items-center">
+                <div class="product-price">{{ product.price | money }}</div>
+                {%- if on_sale -%}
+                    <div class="product-price product-price--regular ms-1">{{ product.compare_at_price | money }}</div>
+                {%- endif -%}
+                {%- if product.price_varies == false and variant.unit_price_measurement -%}
+                    {%- capture unit_price_separator -%}
+                        <span>/</span><span class="d-none">&nbsp;{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+                    {%- endcapture -%}
+                    {%- capture unit_price_base_unit -%}
+                        <span>
+                        {%- if variant.unit_price_measurement.reference_value != 1 -%}
+                            {{- variant.unit_price_measurement.reference_value -}}
+                        {%- endif -%}
+                        {{ variant.unit_price_measurement.reference_unit }}
+                        </span>
+                    {%- endcapture -%}
+                    <span class="product-unit-price">
+                        <span class="d-none">{{ 'products.general.unit_price' | t }}</span>
+                        <span>{{ variant.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+                    </span>
+                {%- endif -%}
+                {%- if shop.taxes_included and settings.product_card_tax -%}
+                    <span class="ms-2">
+                        {{ 'products.general.include_taxes' | t }}
+                    </span>
+                {%- endif -%}
+            </div>
+            {%- if shortDescription != blank and settings.product_card_shortdesc -%}
+                <div class="product-card__summary">{{ shortDescription }}</div>
+            {%- endif -%}
+            {%- if settings.product_card_swatch -%}
+                {%- unless product.has_only_default_variant -%}
+                    <div class="product-card__swatch mt-2">
+                        {% for option in product.options %}
+                            {%- if option == 'Color' or option == 'color' -%}
+                                {%- assign optionIndex = forloop.index0 -%}
+                                {%- assign valueList = '' -%}
+                                {%- assign value = '' -%}
+                                {%- if product.variants.size > 1 -%}
+                                    <ul class="product-card__swatch--list d-flex flex-wrap list-unstyled mb-1">
+                                        {% for variant in product.variants %}
+                                            {%- assign value = variant.options[optionIndex] -%}
+                                            {%- unless valueList contains value -%}
+                                                <li class="border rounded-circle overflow-hidden">
+                                                    <label class="d-block rounded-circle overflow-hidden" style="background-color: {{ value | split: ' ' | last | handle }}; background-image: url({% if variant.image.src != blank %}{{ variant.image.src | product_img_url:'small', crop: 'center' }}{% else %}{{ value | handle | append: '.png' | file_url }}{% endif %})"></label>
+                                                    <div class="hidden">
+                                                        <a href="{% if variant.image.src != blank %}{{ variant.image.src | product_img_url:'large' }}{% else %}#{% endif %}"></a>
+                                                    </div>
+                                                </li>
+                                                {%- assign valueList = valueList | join: ',' -%}
+                                                {%- assign valueList = valueList | append: ',' | append: value -%} 
+                                                {%- assign valueList = valueList | split: ',' -%}
+                                            {%- endunless -%}
+                                        {% endfor %}
+                                    </ul>
+                                {%- endif -%}
+                            {%- endif -%}
+                        {% endfor %}
+                    </div>
+                {%- endunless -%}
+            {%- endif -%}
+        </div>
+    </div>
+</div>

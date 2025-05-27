@@ -1,0 +1,131 @@
+{%- capture section_style -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        background-color: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+        padding: {{section.settings.padding_block}};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        margin: {{section.settings.margin_block}};
+    {%- endif -%}
+    {%- if section.settings.imge_bg != blank -%}
+        background-image: url({{section.settings.imge_bg | img_url: 'master' }});
+        background-size: cover;
+    {%- endif -%}
+{%- endcapture -%}
+<div class="vela-section feature-text overflow-hidden" {% if section_style%}style="{{ section_style }}"{% endif%}>
+    <div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+        <div class="vela-section__inner{% if section.settings.imge_bg != blank %} py-5 my-4{% endif %}">
+            <div class="vela-section__content d-flex justify-content-center">
+                <div class="feature-text__box py-5 bg-white w-100">
+                    <div class="feature-text__box-inner text-center p-md-4 p-3">
+                        <div class="feature-text__icon mb-3">
+                            <div class="p-relative overflow-hidden rounded-circle d-inline-block" style="width: 175px; height: 175px;">
+                                {%- if section.settings.featureicon != blank -%}
+                                    <img class="img-fluid" src="{{ section.settings.featureicon | img_url: '175x175' }}" alt="" />
+                                {%- else -%}
+                                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                {%- endif -%}
+                            </div>
+                        </div>
+                        {%- if section.settings.sub_heading != blank -%}
+                            <h6 class="feature-text__subTitle text-uppercase mb-1">{{ section.settings.sub_heading }}</h6>
+                        {%- endif -%}
+                        {%- if section.settings.heading != blank -%}
+                            <h3 class="feature-text__title text-uppercase fw-bold">{{ section.settings.heading }}</h3>
+                        {%- endif -%}
+                        {%- if section.settings.desc != blank -%}
+                            <div class="feature-text__desc pb-md-2"> {{ section.settings.desc }}</div>
+                        {%- endif -%}
+                        {%- if section.settings.button_text != blank -%}
+                            <a class="feature-text__url btn btn-default mt-4" href="{{ section.settings.button_url}}" title="{{ section.settings.button_text }}"> {{- section.settings.button_text -}}</a>
+                        {%- endif -%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Feature text",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Design Section"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "Enable Full Width?"
+            },
+            {
+                "type": "image_picker",
+                "id": "imge_bg",
+                "label": "Background Image"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "Background Color",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "Padding",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "Margin",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "header",
+                "content": "General Settings"
+            },
+            {
+                "type": "image_picker",
+                "id": "featureicon",
+                "label": "Image",
+                "info": "Image size: 175x175(px)"
+            },
+            {
+                "type": "text",
+                "id": "sub_heading",
+                "label": "Sub heading",
+                "default": "sub heading"
+            },
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Heading"
+            },
+            {
+                "type": "html",
+                "id": "desc",
+                "label": "Description",
+                "default": "<div style='text-align:center;'><h2>Use HTML to format your text so it can be easily read.</h2>This text can be used to share information about your brand with customers.</div>"
+            },
+            {
+                "type": "text",
+                "id": "button_text",
+                "label": "Button text",
+                "default": "Discover now"
+            },
+            {
+                "type": "url",
+                "id": "button_url",
+                "label": "Url"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Feature text"
+            }
+        ]
+    }
+{% endschema %}

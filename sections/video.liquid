@@ -1,0 +1,360 @@
+
+{%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+{%- capture bgColor -%}
+    background-color: {{ section.settings.color_bg }};
+{%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.padding_block != blank -%}
+{%- capture paddingblock -%}
+    padding: {{section.settings.padding_block}};
+{%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.margin_block != blank -%}
+{%- capture marginblock -%}
+    margin: {{section.settings.margin_block}};
+{%- endcapture -%}
+{%- endif -%}
+<div class="vela-section video-section overflow-hidden" style="{{ bgColor}}{{ paddingblock }}{{ marginblock }}">
+    <div class="container{% if section.settings.full_with %}-full{% endif %}">
+		<div class="vela-section__inner">
+            <div class="vela-section__content">
+                <deferred-media class="deferred-media position-relative ratio overflow-hidden d-block w-100 {{ section.settings.aspect_ratios}}" data-media-id="{{ section.settings.video_url.id }}"
+                    {% if section.settings.cover_image != blank %} style="--bs-aspect-ratio: {{ 1 | divided_by: section.settings.cover_image.aspect_ratio | times: 100 }}%;"{% endif %}
+                >
+                    <div class="video-section-thumbnail">
+                        {%- if section.settings.cover_image != blank -%}
+                            {% include 'img-global', image: section.settings.cover_image %}
+                        {%- else -%}
+                            {{ 'collection-2' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+                        {%- endif -%}
+                    </div>
+                    {%- if section.settings.show_overlay -%}
+                            {% assign opacity = section.settings.opacity | times: 0.01 %}
+                            {% assign overlay = section.settings.overlay_color | color_modify: 'alpha', opacity %}
+                            {%- capture bg_color -%}
+                                style="background-color: {{overlay}};"
+                            {%- endcapture -%}
+                    {%- endif -%}
+                    <div class="media-content position-absolute w-100 h-100 d-flex align-items-center flex-column justify-content-center  text-center" {{bg_color}}>
+                        {%- for block in section.blocks -%}
+                            {%- case block.type -%}
+                                {%- when 'text' -%}
+                                    {%- capture font_size -%}
+                                        font-size: {{ block.settings.text_font_size | append: 'px' }};
+                                    {%- endcapture -%}
+                                    {%- if block.settings.margin != blank -%}
+                                        {%- capture margin -%}
+                                            margin: {{ block.settings.margin }};
+                                        {%- endcapture -%}
+                                    {%- endif -%}
+                                    {%- if block.settings.text_color != "rgba(0,0,0,0)" -%}
+                                        {%- capture text_color -%}
+                                            color: {{ block.settings.text_color }};
+                                        {%- endcapture -%}
+                                    {%- endif -%}
+                                    <div class="image-with-text__text--{{ forloop.index}} {{ block.settings.text_style }} {% if block.settings.text_style == 'ff-special' %}lh-1{% endif %}" style="{{ font_size }}{{ margin }}{{ text_color }}">
+                                        {{ block.settings.text }}
+                                    </div>
+                                {%- when 'button'-%}
+                                    {%- capture font_size -%}
+                                        font-size: {{ block.settings.button_font_size | append: 'px' }};
+                                    {%- endcapture -%}
+                                    {%- if block.settings.button_padding != blank -%}
+                                        {%- capture button_padding -%}
+                                            padding: {{ block.settings.button_padding }};
+                                        {%- endcapture -%}
+                                    {%- endif -%}
+                                    {%- if block.settings.button_margin != blank -%}
+                                        {%- capture button_margin -%}
+                                            margin: {{ block.settings.button_margin }};
+                                        {%- endcapture -%}
+                                    {%- endif -%}
+                                    {%- if block.settings.button_color != "rgba(0,0,0,0)" -%}
+                                        {%- capture button_color -%}
+                                            color: {{ block.settings.button_color }};
+                                        {%- endcapture -%}
+                                    {%- endif -%}
+                                    {%- if block.settings.button_color_border != "rgba(0,0,0,0)" -%}
+                                        {%- capture button_color_border -%}
+                                            border-color: {{ block.settings.button_color_border }};
+                                        {%- endcapture -%}
+                                    {%- endif -%}
+                                    {%- if block.settings.button_color_bg != "rgba(0,0,0,0)" -%}
+                                        {%- capture button_color_bg -%}
+                                            background-color: {{ block.settings.button_color_bg }};
+                                        {%- endcapture -%}
+                                    {%- endif -%}
+                                    <a class="btn radius-30 image-with-text__btn--{{ forloop.index}}" href="{{ block.settings.link }}" style="{{ font_size }}{{ button_padding }}{{ button_color }}{{ button_color_border }}{{ button_color_bg }}{{button_margin}}">
+                                        {{ block.settings.button }}</a>
+                            {%- endcase -%}
+                        {%- endfor -%}
+                        <button class="border-0 p-0 bg-transparent" id="Deferred-Poster-Modal-{{ section.settings.video_url.id }}" type="button">
+                            <span class="deferred-media__poster-button video-btn--play d-block border rounded-circle p-3">
+                                {%- render 'icons', icon: 'play', class: 'icon icon-play' -%}
+
+                            </span>
+                        </button>
+                    </div>
+                    <template>
+                        {%- if section.settings.video_url.type == 'youtube' -%}
+                            <iframe src="https://www.youtube.com/embed/{{ section.settings.video_url.id }}?enablejsapi=1" class="js-youtube" allow="autoplay; encrypted-media" allowfullscreen title="{{ section.settings.description | escape }}"></iframe>
+                        {%- else -%}
+                            <iframe src="https://player.vimeo.com/video/{{ section.settings.video_url.id }}" class="js-vimeo" allow="autoplay; encrypted-media" allowfullscreen title="{{ section.settings.description | escape }}"></iframe>
+                        {%- endif -%}
+                    </template>
+                </deferred-media>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Video",
+    "class": "velaFramework",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Design Section"
+        },
+        {
+            "type": "checkbox",
+            "id": "full_with",
+            "label": "Enabel Full Width?"
+        },
+        {
+            "type": "color",
+            "id": "color_bg",
+            "label": "Background Color",
+            "default": "rgba(0,0,0,0)"
+        },
+        {
+            "type": "text",
+            "id": "padding_block",
+            "label": "Padding",
+            "placeholder": "0px 0px",
+            "info": "Ex: 0px 0px 0px 0px and use desktop only"
+        },
+        {
+            "type": "text",
+            "id": "margin_block",
+            "label": "Margin",
+            "placeholder": "0px 0px",
+            "default": "0 0 30px",
+            "info": "Ex: 0px 0px 30px 0px"
+        },
+        {
+            "type": "header",
+            "content": "General Settings"
+        },
+        {
+            "type": "checkbox",
+            "id": "video_background",
+            "label": "video background?"
+        },
+        {
+            "type": "image_picker",
+            "id": "cover_image",
+            "label": "Cover image"
+        },
+        {
+            "type": "video_url",
+            "id": "video_url",
+            "accept": [
+                "youtube",
+                "vimeo"
+            ],
+            "default": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+            "label": "URL",
+            "placeholder": "Paste a link",
+            "info": "Video plays in the page."
+        },
+        {
+            "type": "text",
+            "id": "description",
+            "label": "Video alt text",
+            "info": "Describe the video to make it accessible for customers using screen readers."
+        },
+        {
+            "type": "select",
+            "id": "aspect_ratios",
+            "label": "Aspect ratios",
+            "default": "ratio-16x9",
+            "options": [
+                {
+                    "value": "ratio-1x1",
+                    "label": "1x1"
+                },
+                {
+                    "value": "ratio-4x3",
+                    "label": "4x3"
+                },
+                {
+                    "value": "ratio-16x9",
+                    "label": "16x9"
+                },
+                {
+                    "value": "ratio-21x9",
+                    "label": "21x9"
+                }
+            ]
+        },
+        {
+            "type": "header",
+            "content": "Overlay"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_overlay",
+            "label": "Show overlay",
+            "default": false
+        },
+        {
+            "type": "color",
+            "id": "overlay_color",
+            "label": "Color",
+            "default": "#000000"
+        },
+        {
+            "type": "range",
+            "id": "opacity",
+            "label": "Opacity",
+            "min": 1,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "default": 50
+        }
+    ],
+    "blocks": [
+        {
+            "type": "text",
+            "name": "Text",
+            "settings": [
+                {
+                    "type": "html",
+                    "id": "text",
+                    "label": "Text",
+                    "default": "<div><p>Use HTML to format your text so it can be easily read.<br/>This text can be used to share information about your brand with customers.</p></div>"
+                },
+                {
+                    "type": "select",
+                    "id": "text_style",
+                    "label": "Text style",
+                    "default": "text",
+                    "options": [
+                        {
+                            "value": "text",
+                            "label": "Text"
+                        },
+                        {
+                            "value": "h3",
+                            "label": "Heading"
+                        },
+                        {
+                            "value": "ff-special",
+                            "label": "Special"
+                        }
+                    ]
+                },
+                {
+                    "type": "color",
+                    "id": "text_color",
+                    "label": "Color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "range",
+                    "id": "text_font_size",
+                    "min": 10,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "px",
+                    "label": "Font Size",
+                    "default": 16
+                },
+                {
+                    "type": "text",
+                    "id": "margin",
+                    "label": "Margin",
+                    "placeholder": "6px 20px",
+                    "info": "Ex: 10px 10px 10px 10px"
+                }
+            ]
+        },
+        {
+            "type": "button",
+            "name": "Button",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "button",
+                    "label": "Text Button",
+                    "default": "Read More"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Link"
+                },
+                {
+                    "type": "range",
+                    "id": "button_font_size",
+                    "min": 10,
+                    "max": 30,
+                    "step": 1,
+                    "unit": "px",
+                    "label": "button Font Size",
+                    "default": 14
+                },
+                {
+                    "type": "text",
+                    "id": "button_padding",
+                    "label": "Padding",
+                    "placeholder": "6px 20px",
+                    "info": "Ex: 10px 10px 10px 10px"
+                }, 
+                {
+                    "type": "color",
+                    "id": "button_color",
+                    "label": "Button color",
+                    "default": "#ffffff"
+                },
+                {
+                    "type": "color",
+                    "id": "button_color_border",
+                    "label": "Button border color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "color",
+                    "id": "button_color_bg",
+                    "label": "Button background color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "text",
+                    "id": "button_margin",
+                    "label": "Margin",
+                    "placeholder": "0px 0px",
+                    "default": "0 0 30px",
+                    "info": "Ex: 0px 0px 30px 0px"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Video",
+            "blocks": [
+                {
+                    "type": "text"
+                },
+                {
+                    "type": "text"
+                }
+            ]
+        }
+    ]
+}
+  {% endschema %}

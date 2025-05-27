@@ -1,0 +1,98 @@
+{%- if product_style == 'list'  -%}
+	{%- for i in (1..4) -%}
+		<div class="product-card product-list-style d-flex {% if strGridItem %}{{ strGridItem }}{% else %}slick-carousel__item{% endif %}">
+			<div class="product-card__image-wrapper">
+				<a class="product-card__image-link" href="/admin/products">
+					{%- capture current -%}{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+					{{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+				</a>
+			</div>
+			<div class="product-card__content position-relative">
+				<div class="product-card__name fw-bold">
+					<a href="/admin/products">Purina Pro Plan Focus Sensitive Skin</a>
+				</div>
+				<div class="product-card__price">
+					<div class="product-group-price">
+						<div class="product-price">$29.99</div>
+					</div>
+				</div>
+				<div class="product-card__buttons d-none">
+					<div class="product-card__form">
+						<a class="btn btn--add-to-cart" href="/admin/products">
+							{% include 'icons', icon: 'shopping-cart' %}
+							<span>{{ 'products.product.add_to_cart' | t }}</span>
+						</a>
+					</div>
+					{%- if settings.quickview_enable -%}
+						<div class="product-card__quickview">
+							<a class="btn btn--quickview" href="/admin/products">
+								{% include 'svg-definitions' with 'search-thin' %}
+								<span>{{ 'products.product.quickview' | t }}</span>
+							</a>
+						</div>
+					{%- endif -%}
+				</div>
+			</div>
+		</div>
+	{%- endfor -%}
+{%- else -%}
+	{%-  assign anumber = number | default: 8 -%}
+	{%- for i in (1..anumber) -%}
+	   	<div class="{% if strGridItem %}{{ strGridItem }}{% else %}slick-carousel__item{% endif %}">
+			<div class="product-card product-grid">
+				<div class="product-card__image-wrapper">
+					<a class="product-card__image-link" href="/admin/products">
+						{%- capture current -%}{% cycle 1, 2, 3, 4, 5, 6 %}{%- endcapture -%}
+						{{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+					</a>
+					<div class="product-card__label position-absolute">
+						{%- if settings.product_card_new -%}
+							<span class="label-new position-relative"><span class="d-block overflow-hidden position-relative">{{ 'products.general.label_new' | t }}</span></span>
+						{%- endif -%}
+						{%- if forloop.index == 2 -%}
+							<span class="label-on-sale position-relative"><span class="d-block overflow-hidden position-relative">{{ 'products.general.sale_price' | t }}</span></span>		
+						{%- endif -%}
+						{%- if forloop.index == 4 -%}
+							<span class="label-sold-out position-relative bg-warning heading-color"><span class="d-block overflow-hidden position-relative">{{ 'products.general.out_stock' | t }}</span></span>		
+						{%- endif -%}
+					</div>
+					<div class="product-card__buttons position-absolute w-100 d-flex justify-content-center start-0 top-50 translate-middle-y">
+						{%- if settings.product_card_addtocart -%}
+							<div class="product-card__form">
+								{%- unless forloop.index == 4 -%}
+									<a class="btn btn-default btn--add-to-cart mx-1" href="/admin/products">
+										{% include 'icons', icon: 'shopping-cart', class: 'icon-cart', attr: 'width="18" height="18"' %}
+									</a>
+								{%- endunless -%}
+							</div>
+						{%- endif -%}
+						{%- if settings.quickview_enable -%}
+							<a class="js-btn-quickview btn btn-default btn--quickview mx-1" href="/admin/products"  title="{{ 'products.product.quickview' | t }}">
+								{% include 'icons', icon: 'eye', attr: 'width="18" height="18"' %}
+								<span class="d-none">{{ 'products.product.quickview' | t }}</span>
+							</a>
+						{%- endif -%}
+					</div>
+				</div>
+				<div class="product-card__content  pt-1">
+					<div class="product-card__content--inner  position-relative mt-3">
+						{%- if settings.product_vendor_enable -%}
+							<p class="product-card__vendor">Demo Vendor</p>
+						{%- endif -%}
+						<h6 class="product-card__name fw-normal text-uppercase">
+							<a href="/admin/products"><span>Massage Body Oil</span></a>
+						</h6>
+						<div class="product-card__price">
+							<div class="product-group-price d-flex align-items-center">
+								<div class="product-price">$29.00</div>
+								{%- if forloop.index == 2 -%}
+									<div class="product-price product-price--regular ms-1"><span class="money">$90.00</span></div>
+								{%- endif -%}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{%- endfor -%}
+{%- endif -%}

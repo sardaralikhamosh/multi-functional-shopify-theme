@@ -1,0 +1,215 @@
+{%- capture section_style -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        background-color: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+        padding: {{section.settings.padding_block}};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        margin: {{section.settings.margin_block}};
+    {%- endif -%}
+{%- endcapture -%}
+<div class="vela-section collection-three overflow-hidden" {% if section_style%}style="{{ section_style }}"{% endif%}>
+    <div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+        <div class="vela-section__inner">
+            <div class="vela-section__content">
+                <div class="row g-4 row-cols-1 row-cols-md-3">
+                    <div class="col">
+                        <div class="collection-three__wrap collection-wrapper position-relative overflow-hidden">
+                            {%- assign proCollection1 = section.settings.collection_handle1 -%}
+                            <div class="collection-three__content text-center position-relative bg-white">
+                                {%- if proCollection1 != blank -%}
+                                    {%- if collections[proCollection1].products_count != blank  -%}
+                                        {%- assign productCount1 = collections[proCollection1].products_count -%}
+                                    {%- else -%}
+                                        {%- assign productCount1 = 0 -%}
+                                    {%- endif -%}
+                                {%- endif -%}
+                                <a class="collection-three__image" href="{% if proCollection1 != blank %}{{ collections[proCollection1].url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" title="{{ section.settings.title1 }}">
+                                    {%- if section.settings.title1 != blank -%}
+                                        <span class="collection-three__title d-block h2 mb-3 mt-4 pt-2 pt-md-5 position-relative">{{- section.settings.title1 -}}
+                                            {%- if section.settings.collection_count -%}
+                                                {% if section.settings.collection_count %}<sup class="text-primary">{{- productCount1 -}}</sup>{% endif %}
+                                            {%- endif -%}
+                                        </span> 
+                                    {%- endif -%}                                                         
+                                    {% if section.settings.single_images1 != blank %}
+                                        {% include 'img-global' with image: section.settings.single_images1 %}
+                                    {% else %}
+                                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                    {% endif %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="collection-three__wrap collection-wrapper special-style position-relative overflow-hidden">
+                            {%- assign proCollection2 = section.settings.collection_handle2 -%}
+                            <div class="collection-three__content text-center position-relative bg-white">
+                                {%- if proCollection2 != blank -%}
+                                    {%- if collections[proCollection2].products_count != blank  -%}
+                                        {%- assign productCount2 = collections[proCollection2].products_count -%}
+                                    {%- else -%}
+                                        {%- assign productCount2 = 0 -%}
+                                    {%- endif -%}
+                                {%- endif -%}
+                                <a class="collection-three__image" href="{% if proCollection2 != blank %}{{ collections[proCollection2].url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" title="{{ section.settings.title2 }}">
+                                    {%- if section.settings.title2 != blank -%}
+                                        <span class="collection-three__title d-block h2 mb-3 mt-4 pt-2 pt-md-5 position-relative">{{- section.settings.title2 -}}
+                                            {%- if section.settings.collection_count -%}
+                                                {% if section.settings.collection_count %}<sup class="text-primary">{{- productCount2 -}}</sup>{% endif %}
+                                            {%- endif -%}
+                                        </span> 
+                                    {%- endif -%}                                                          
+                                    {% if section.settings.single_images2 != blank %}
+                                        {% include 'img-global' with image: section.settings.single_images2 %}
+                                    {% else %}
+                                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                    {% endif %}
+                                </a>
+                            </div>              
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="collection-three__wrap collection-wrapper collection-primary position-relative overflow-hidden">
+                            {%- assign proCollection3 = section.settings.collection_handle3 -%}
+                            <div class="collection-three__content text-center position-relative bg-white">
+                                {%- if proCollection3 != blank -%}
+                                    {%- if collections[proCollection3].products_count != blank  -%}
+                                        {%- assign productCount3 = collections[proCollection3].products_count -%}
+                                    {%- else -%}
+                                        {%- assign productCount3 = 0 -%}
+                                    {%- endif -%}
+                                {%- endif -%}
+                                <a class="collection-three__image" href="{% if proCollection3 != blank %}{{ collections[proCollection3].url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" title="{{ section.settings.title3 }}">
+                                    {%- if section.settings.title3 != blank -%}
+                                        <span class="collection-three__title d-block h2 mb-3 mt-4 pt-2 pt-md-5 position-relative">{{- section.settings.title3 -}}
+                                            {%- if section.settings.collection_count -%}
+                                                {% if section.settings.collection_count %}<sup class="text-primary">{{- productCount3 -}}</sup>{% endif %}
+                                            {%- endif -%}
+                                        </span> 
+                                    {%- endif -%}                                                           
+                                    {% if section.settings.single_images3 != blank %}
+                                        {% include 'img-global' with image: section.settings.single_images3 %}
+                                    {% else %}
+                                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                    {% endif %}
+                                </a>
+                            </div>              
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Three collections",
+        "class": "velaFramework",
+        "settings": [
+            {
+              "type": "header",
+              "content": "Design Block"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "Enabel Full Width?"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "Background Color",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "Padding",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "Margin",
+                "placeholder": "0px 0px",
+                "default": "0 0 30px",
+                "info": "Ex: 0px 0px 30px 0px"
+            },
+            {
+               "type": "header",
+               "content": "General Settings"
+            },
+            {
+                "type": "checkbox",
+                "id": "collection_count",
+                "label": "Show product count?",
+                "default": true
+            },
+            {
+               "type": "header",
+               "content": "Item"
+            },
+            {
+                "type": "text",
+                "id": "title1",
+                "label": "Title"
+            },
+            {
+                "type": "image_picker",
+                "id": "single_images1",
+                "label": "Banner"
+            },
+            {
+                "type": "collection",
+                "id": "collection_handle1",
+                "label": "Collection"
+            },
+            {
+                "type": "header",
+                "content": "Item"
+            },
+            {
+                "type": "text",
+                "id": "title2",
+                "label": "Title"
+            },            
+            {
+                "type": "image_picker",
+                "id": "single_images2",
+                "label": "Banner"
+            },
+            {
+                "type": "collection",
+                "id": "collection_handle2",
+                "label": "Collection"
+            },
+            {
+                "type": "header",
+                "content": "Item"
+            },
+            {
+                "type": "text",
+                "id": "title3",
+                "label": "Title"
+            },            
+            {
+                "type": "image_picker",
+                "id": "single_images3",
+                "label": "Banner"
+            },
+            {
+                "type": "collection",
+                "id": "collection_handle3",
+                "label": "Collection"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Three collections",
+                "category": "3. Images"
+            }
+        ]
+    }
+{% endschema %}

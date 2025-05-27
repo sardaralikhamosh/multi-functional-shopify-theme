@@ -1,0 +1,87 @@
+{%- if predictive_search.performed -%}
+	<div id="predictive-search-results">
+		{%- if predictive_search.resources.products.size > 0 -%} 
+			<div id="predictive-search-products" class="predictive-search__heading  d-none justify-content-between align-items-center border-bottom position-relative mx-3">
+				{{ 'templates.search.products' | t }}
+				<div class="spinner float-end position-relative">
+					{% render 'preloading', preload_class: 'position-absolute' %}
+				</div>
+			</div>
+		{%- endif -%}
+		<ul id="predictive-search-results-list" class="predictive-search__results-list list-unstyled m-0 pt-2" role="listbox" aria-labelledby="predictive-search-products">
+			{%- for product in predictive_search.resources.products -%}
+				<li id="predictive-search-option-{{ forloop.index }}" class="predictive-search__list-item" role="option" aria-selected="false">
+					<a href="{{ product.url }}" class="predictive-search__item predictive-search__item--link link link--text px-3 pb-2 pt-1" tabindex="-1">
+						{%- if product.featured_media != blank -%}
+						<img class="predictive-search__image me-3"
+							src="{{ product.featured_media | img_url: '150x' }}"
+							alt="{{ product.featured_media.alt }}"
+							width="50"
+							height="{{ 50 | divided_by: product.featured_media.preview_image.aspect_ratio }}"
+						>
+						{%- endif -%}
+						<div class="predictive-search__item-content{% unless settings.predictive_search_show_vendor or settings.predictive_search_show_price %} predictive-search__item-content--centered{% endunless %}">
+						{%- if settings.predictive_search_show_vendor -%} 
+							<span class="visually-hidden">{{ 'accessibility.vendor' | t }}</span><div class="predictive-search__item-vendor caption-with-letter-spacing">{{ product.vendor }}</div>
+						{%- endif -%}
+						<div class="predictive-search__item-heading">{{ product.title }}</div> 
+						{%- if settings.predictive_search_show_price -%}
+							<div class="predictive-search__price d-flex align-items-center">
+								{%- assign on_sale = false -%}
+								{%- if product.compare_at_price > product.price -%}
+								{%- assign on_sale = true -%}
+								{%- endif -%}
+								{%- if on_sale -%}
+									<div class="product-price">{{ product.price | money }}</div>
+									<div class="product-price product-price--regular ms-1">{{ product.compare_at_price | money }}</div>
+								{%- else -%}
+									{% if product.price_max > product.price_min %}
+										<div class="product-price">{{ product.price_min | money }} - {{ product.price_max | money }}</div> 
+									{%- else -%}
+										<div class="product-price {% if on_sale %}priceSale{% endif %}">{{ product.price | money }}</div>
+									{%- endif -%} 
+								{%- endif -%}
+								
+								{%- if product.price_varies == false and variant.unit_price_measurement -%}
+								{%- capture unit_price_separator -%}
+									<span>/</span><span class="d-none">&nbsp;{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+								{%- endcapture -%}
+								{%- capture unit_price_base_unit -%}
+									<span>
+									{%- if variant.unit_price_measurement.reference_value != 1 -%}
+										{{- variant.unit_price_measurement.reference_value -}}
+									{%- endif -%}
+									{{ variant.unit_price_measurement.reference_unit }}
+									</span>
+								{%- endcapture -%}
+								<span class="product-unit-price">
+									<span class="d-none">{{ 'products.general.unit_price' | t }}</span>
+									<span>{{ variant.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+								</span>
+								{%- endif -%}
+							</div> 
+						{%- endif -%}
+						</div>
+					</a>
+				</li>
+			{%- endfor -%}
+			<li id="predictive-search-option-search-keywords" class="predictive-search__list-item" role="option">
+				<button class="btn-link border-0 w-100 d-flex justify-content-between align-items-center px-3 px-md-4 py-1 py-md-2 mt-2" tabindex="-1">
+				{{ 'templates.search.more_results_for' | t: terms: predictive_search.terms }}
+				{% render 'icons', icon: 'arrow', class: 'icon-arrow', attr: 'width="16px"' %}
+				</button>
+			</li> 
+		</ul>
+		<div class="predictive-search__loading-state spinner" aria-hidden="true">
+			{% render 'preloading', preload_class: 'position-absolute' %}
+		</div>
+	</div>
+
+	<span class="d-none" data-predictive-search-live-region-count-value>
+		{%- if search.results_count == 0 -%}
+		{{ 'templates.search.no_results' | t: terms: predictive_search.terms }}
+		{%- else -%}
+		{{ 'templates.search.results_with_count' | t: terms: predictive_search.terms, count: predictive_search.resources.products.size }}
+		{%- endif -%}
+	</span>
+{%- endif -%}

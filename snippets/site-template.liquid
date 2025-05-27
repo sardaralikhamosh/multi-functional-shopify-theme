@@ -1,0 +1,409 @@
+<div class="toast ajaxcart-toast fade hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+    <button type="button" class="ajaxcart-toast__close text-white btn-link p-0 border-0 top-0 end-0 position-absolute" data-bs-dismiss="toast" aria-label="Close">
+      {% render 'icons', icon: 'close-bold' %}
+    </button>
+  	<div class="toast-body"></div>
+</div>
+
+{%- if settings.cart_type == 'drawer' -%}
+	<div class="drawer__overlay js-drawer-close"></div>
+	<div class="js-drawer drawer drawer--right drawer--has-fixed-footer">
+		<div class="drawer__header border-bottom border-2 position-relative">
+			<div class="drawer__title">{{ 'sections.cart.title' | t }}</div>
+			<button type="button" class="drawer__close-button js-drawer-close">
+				{% render 'icons', icon: 'close-bold', class: 'icon-close'%}
+			</button>
+		</div>
+		<div class="drawer__inner position-absolute overflow-hidden w-100">
+			<div class="ajaxcart-container" data-cart-container></div>
+		</div>
+	</div>
+{%- endif -%}
+{%- if settings.cookie_consent_enable -%}
+	<div class="cookie-consent" role="dialog" aria-label="cookieconsent"
+		style="background-color: {{ settings.cookie_consent_bg }}; color: {{ settings.cookie_consent_color }};">
+		<div class="cookie-consent__wrapper">
+			<div class="cookie-consent__message">{{ settings.cookie_consent_message }}</div>
+			<div class="cookie-consent__dismiss">
+				<button class="cookie-consent-dismiss btn btn-dismiss" type="button">{{ settings.cookie_consent_button | escape }}</button>
+			</div>
+		</div>
+	</div>
+{%- endif -%}
+{%- if settings.newsletter_popup_enable -%}
+	<div class="js-newsletter-popup newsletter-popup">
+		<div class="js-newsletter-popup-close newsletter-popup__overlay"></div>
+			<div class="newsletter-popup__inner position-relative overflow-hidden">
+        <button class="js-newsletter-popup-close newsletter-popup__close" type="button">
+        {% render 'icons', icon: 'close-bold', class: 'icon-close'%}
+        </button>
+				<div class="newsletter-popup__content row gx-0 h-100 align-items-center" style=" background-color: {{ settings.newsletter_popup_color_bg}};">
+          {%- if settings.newsletter_popup_image -%}
+            <div class="newsletter-popup__image col-auto d-none d-md-block">
+                <img src="{{ settings.newsletter_popup_image | img_url: '440x520', crop: 'center' }}" loading="lazy" class="img-fluid" alt="{{ settings.newsletter_popup_image.alt | default: shop.name | escape }}" />
+            </div>
+          {%- endif -%}
+          <div class="newsletter-popup__content-inner col d-flex justify-content-center align-items-center">
+            <div class="newsletter-popup__wrapper p-4 p-sm-5">
+              {%- if settings.newsletter_popup_form -%}
+                {%- if settings.newsletter_popup_title != blank -%}
+                  <h2 class="newsletter-popup__title mb-2 fw-normal text-center h1" style="color: {{ settings.newsletter_title_color }};">{{ settings.newsletter_popup_title }}</h2>
+                {%- endif -%}
+                {%- if settings.newsletter_popup_html != blank  -%}
+                  <div class="newsletter-popup__desc fst-italic text-center mb-4" {% if settings.newsletter_html_color != rgba(0,0,0,0) %} style="color: {{ settings.newsletter_html_color }};"{% endif %}>
+                    {{ settings.newsletter_popup_html }}
+                  </div>
+                {%- endif -%}
+            
+                {%- assign mailchimp = settings.newsletter_popup_mailchimp -%}
+                {%- assign mailchimp_action = settings.newsletter_popup_form_action | replace: '/post?', '/post-json?' | append: '&amp;c=?' -%}
+                {%- if mailchimp -%}
+                  <form class="js-vela-newsletter" action="{{ mailchimp_action }}" method="post" name="mc-embedded-subscribe-form" target="_blank">
+                    <div class="newsletter-form__wrap">
+                      <input
+                        class="js-input-newsletter form-control newsletter-form__input"
+                        type="email"
+                        name="EMAIL"
+                        value="{% if customer %}{{ customer.email }}{% endif %}"
+                        placeholder="{{ 'newsletter.newsletter_email' | t }}"
+                        required
+                      />
+                      <div class="d-flex justify-content-center">
+                        <button class="btn newsletter-form__submit text-uppercase mt-4" type="submit">
+                          <span>{{ 'newsletter.button_label' | t }}</span>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                {%- else -%}
+                  {% form 'customer' %}
+                    {{ form.errors | default_errors }}
+                    {%- if form.posted_successfully? -%}
+                      <div class="js-newsletter-popup-success alert alert-success">{{ 'newsletter.newsletter_confirmation' | t }}</div>
+                      {%- else -%}
+                      <input type="hidden" name="contact[tags]" value="newsletter">
+                      <div class="newsletter-form__wrap">
+                        <input
+                        value="{% if customer %}{{ customer.email }}{% endif %}"
+                        placeholder="{{ 'newsletter.newsletter_email' | t }}"
+                        name="contact[email]"
+                        class="form-control newsletter-form__input"
+                        type="email" 
+                        autocorrect="off"
+                        autocapitalize="off"/>
+                        <div class="d-flex justify-content-center">
+                          <button class="btn newsletter-form__submit text-uppercase mt-4" type="submit">
+                            <span>{{ 'newsletter.button_label' | t }}</span>
+                          </button>
+                        </div>
+                      </div>
+                    {%- endif -%}
+                  {% endform %}
+                {%- endif -%}
+              {%- endif -%}
+            </div>
+				</div>
+			</div>
+		</div>
+	</div>
+{%- endif -%}
+{%- if settings.scroll_to_top -%}
+		<div class="js-scroll-to-top scroll-to-top">
+			<span>{% render 'icons', icon: 'angle-double-right', attr: 'width="20px"' %}</span>
+		</div>
+	{%- endif -%}
+{%- if settings.quickview_enable -%}
+  <div class="quickview"
+    data-quickview
+    data-stock-show="{{ settings.quickview_availability }}"
+    data-type-show="{{ settings.quickview_protype }}"
+    data-vendor-show="{{ settings.quickview_vendor }}"
+  >
+    <div class="quickview__overlay" data-quickview-close></div>
+    <div class="quickview__content">
+      <button type="button" class="quickview__btn-close" data-quickview-close>
+        {% include 'icons', icon: 'close-bold', attr: 'width="35"' %}
+      </button>
+      <div class="quickview__content__inner" data-quickview-container></div>
+    </div>
+  </div>
+{%- endif -%}
+{%- if settings.cart_type == 'modal' -%}
+  <script id="ajaxcart-header-template" type="text/template">
+  {% raw %}
+    <div class="js-cart-modal cart-modal">
+      <div class="js-cart-modal-close cart-modal__overlay"></div>
+      <div class="cart-modal__inner row gx-0 p-4 m-auto">
+  {% endraw %}
+        <a class="js-cart-modal-close cart-modal__close" href="javascript:void(0)">
+          {% render 'icons', icon: 'close-bold', class: 'icon-close' %}
+        </a>
+  {% raw %}
+		<div class="col-12 col-sm-5">
+			<div class="cart-modal__image overflow-hidden me-sm-3 me-lg-4 position-relative">
+				<img class="img-fluid position-relative" alt="{{name}}" src="{{image}}"/>
+				{% endraw %}
+					{% render "preloading", preload_class: "position-absolute" %}
+				{% raw %}
+			</div>
+		</div>
+        <div class="cart-modal__content col-12 col-sm-7 text-center">
+          <div class="cart-modal__name">{{name}}</div>
+  {% endraw %}
+          <div class="cart-modal__messenger">{{ 'sections.cart.added_to_cart' | t }}</div>
+          <form action="{{ routes.cart_url }}" method="post" novalidate class="ajaxcart">
+            <div class="cart-modal__funcs d-flex justify-content-between">
+              <button class="btn cart-modal__btn cart-modal__btn--viewcart" type="submit">
+                <span>{{ 'sections.cart.viewcart' | t }}</span>
+              </button>
+              <button class="btn cart-modal__btn cart-modal__btn--checkout" type="submit" name="checkout">
+                <span>{{ 'sections.cart.checkout' | t }}</span>
+              </button>
+            </div>
+          </form>
+  {% raw %}
+        </div>
+      </div>
+    </div>
+  {% endraw %}
+  </script>
+{%- endif -%}
+<script id="ajaxcart-template" type="text/template">
+{% raw %}
+  <form action="{% endraw %}{{ routes.cart_url }}{% raw %}" method="post" novalidate class="cart ajaxcart ajaxcart--header">
+    <div class="ajaxcart__inner">
+      {{#items}}
+      <div class="ajaxcart__product" data-line="{{line}}">
+        <div class="ajaxcart__line-item">
+          <div class="ajaxcart__line-item--left">
+            <div class="ajaxcart__product-image-wrapper">
+              <a href="{{url}}" class="ajaxcart__product-image"><img class="img-fluid" src="{{img}}" alt="{{name}}"></a>
+              {% endraw %}{% if settings.cart_notes_enable and settings.cart_type == 'modal' %}{% raw %}
+                <span class="ajaxcart__quantity">{{itemQty}}</span>
+              {% endraw %}{% endif %}{% raw %}
+            </div>
+          </div>
+          <div class="ajaxcart__line-item--right">
+            <div class="ajaxcart__product-description">
+              <div class="ajaxcart__product-name-wrapper">
+                <a href="{{url}}" class="ajaxcart__product-name d-block mb-1">{{{name}}}</a>
+                {{#if variation}}
+                  <span class="ajaxcart__product-meta">{{variation}}</span>
+                {{/if}}
+                {{#properties}}
+                  {{#each this}}
+                    {{#if this}}
+                      <span class="ajaxcart__product-meta">{{@key}}: {{this}}</span>
+                    {{/if}}
+                  {{/each}}
+                {{/properties}}
+                <div class="ajaxcart__product-price-wrapper product-price">
+                  {{#if discountsApplied}}
+                    <del class="ajaxcart__price ajaxcart__price--regular">{{{price}}}</del>
+                    <span class="ajaxcart__price ajaxcart__price--sale">{{{discountedPrice}}}</span>
+                  {{else}}
+                    <span class="ajaxcart__price">{{{price}}}</span>
+                  {{/if}}
+                  {{#if unitPrice}}
+                    <span class="d-none">{% endraw %}{{ 'products.general.unit_price' | t }}{% raw %}</span>
+                    <span class="cart__unit-price">
+                      {% endraw %}
+                        {%- capture unit_price_separator -%}
+                          <span aria-hidden="true">/</span><span class="d-none">&nbsp;{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+                        {%- endcapture -%}
+                      {% raw %}
+                      <span>{{{ unitPrice.price }}}</span>{% endraw %}{{- unit_price_separator -}}{% raw %}{{#if unitPrice.addRefererenceValue }}{{{ unitPrice.reference_value }}}{{/if}}{{{ unitPrice.reference_unit }}}
+                    </span>
+                  {{/if}}
+                </div>
+                {% endraw %}{% if settings.cart_notes_enable and settings.cart_type == 'drawer' %}{% raw %}
+                  <div class="drawer__quantity">
+                    <div class="ajaxcart__qty vela-qty">
+                      <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus vela-qty__adjust vela-qty__adjust--minus" data-id="{{key}}" data-qty="{{itemMinus}}" data-line="{{line}}" aria-label="{% endraw %}{{ 'sections.cart.reduce_quantity' | t }}{% raw %}">
+                        {% endraw %}{% render 'icons', icon: 'minus', class: 'icon-minus' %}{% raw %}
+                      </button>
+                      <input type="text" name="updates[]" class="ajaxcart__qty-num vela-qty__number" value="{{itemQty}}" min="0" data-id="{{key}}" data-line="{{line}}" aria-label="quantity" pattern="[0-9]*">
+                      <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--plus vela-qty__adjust vela-qty__adjust--plus" data-id="{{key}}" data-line="{{line}}" data-qty="{{itemAdd}}" aria-label="{% endraw %}{{ 'sections.cart.increase_quantity' | t }}{% raw %}">                       
+                        {% endraw %}{% render 'icons', icon: 'plus', class: 'icon-plus' %}{% raw %}
+                      </button>
+                    </div>
+                  </div>
+                {% endraw %}{% endif %}{% raw %}
+
+                {{#if discountsApplied}}
+                  <ul class="product-discount product-discount--ajax-cart" aria-label="{% endraw %}{{ 'customer.order.discount' | t }}{% raw %}">
+                    {{#each discounts}}
+                      <li class="product-discount__item">
+                        <span class="fa fa-tag" aria-hidden="true"></span>{{ this.discount_application.title }} (-{{{ this.formattedAmount }}})
+                      </li>
+                    {{/each}}
+                  </ul>
+                {{/if}}
+                <a class="ajaxcart__remove" href="javascript:void(0)" data-line="{{line}}" data-cart-remove>{% endraw %}{% render 'icons', icon: 'close-bold', class: 'icon-close'%}{% raw %}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/items}}
+      {% endraw %}{% if settings.cart_notes_enable and settings.cart_type == 'drawer' %}{% raw %}
+        <div class="ajaxcart__note">
+          <label class="ajaxcart__note-label">{% endraw %}{{ 'sections.cart.note' | t }}{% raw %}</label>
+          <textarea name="note" class="ajaxcart__note-input form-control">{{note}}</textarea>
+        </div>
+      {% endraw %}{% endif %}{% raw %}
+    </div>
+    <div class="ajaxcart__footer">
+      {{#if cartDiscountsApplied}}
+        <div class="ajaxcart__footer-discount">
+          {{#each cartDiscounts}}
+            <div class="order-discount order-discount--ajax-cart">
+              <i class="fa fa-tag" aria-hidden="true"></i>
+              <span class="d-none">{% endraw %}{{ 'customer.order.discount' | t }}{% raw %}:</span> {{ this.title }}
+            </div>
+            <div class="order-discount__value text-right">
+              <span class="ajaxcart__price">-{{{ this.formattedAmount }}}</span>
+            </div>
+          {{/each}}
+        </div>
+      {{/if}}
+      <div class="ajaxcart__footer-price">
+        <span class="ajaxcart__subtotal-name">{% endraw %}{{ 'sections.cart.subtotal' | t }}{% raw %}</span>
+        <span class="ajaxcart__subtotal">{{{totalPrice}}}</span>
+      </div>
+      <p class="ajaxcart__policies">{% endraw %}
+        {%- capture taxes_shipping_checkout -%}
+          {%- if shop.taxes_included and shop.shipping_policy.body != blank -%}
+            {{ 'sections.cart.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+          {%- elsif shop.taxes_included -%}
+            {{ 'sections.cart.taxes_included_but_shipping_at_checkout' | t }}
+          {%- elsif shop.shipping_policy.body != blank -%}
+            {{ 'sections.cart.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
+          {%- else -%}
+            {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
+          {%- endif -%}
+        {%- endcapture -%}
+        {{ taxes_shipping_checkout }}
+      </p>
+      <div class="ajaxcart__footer-buttons d-flex justify-content-between">
+        <button class="btn btn-default cart-modal__btn cart-modal__btn--viewcart" type="submit">
+          <span>{{ 'sections.cart.viewcart' | t }}</span>
+        </button>
+        <button class="btn cart-modal__btn cart-modal__btn--checkout" type="submit" name="checkout">
+          <span>{{ 'sections.cart.checkout' | t }}</span>
+        </button>
+      </div>{% raw %}
+    </div>
+  </form>
+{% endraw %}
+</script>
+<script id="quickview-template" type="text/template">
+  {% raw %}
+    <div class="product-quickview">
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          <div class="product-quickview__images">
+            <div class="quickview-images overflow-hidden">{{{images}}}</div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6 mt-4 mt-lg-1">
+          {% endraw %}
+          {%- if settings.quickview_protype -%}
+            {% raw %}<div class="product__organization__text--type text-uppercase">{{type}}</div>{% endraw %}
+          {%- endif -%}
+          {% raw %}
+          <h4 class="product-quickview__title mb-2">{{title}}</h4>
+          <div class="product-quickview__review mb-2">
+            <div class="shopify-product-reviews-badge" data-id="{{id}}" data-quickview-review></div>
+          </div>
+          {% endraw %}
+          {%- if settings.quickview_proshortdesc -%}
+            {% raw %}
+              <div class="product-quickview__description fst-italic mb-3">{{{shortDescription}}}</div>
+            {% endraw %}
+          {%- endif -%}
+          <div class="d-flex align-items-center mb-3">
+            {% raw %}
+            <div class="product-quickview__price">{{{price}}} </div>
+            {% endraw %}
+            {%- if shop.taxes_included and settings.product_card_tax -%}
+              <span class="ms-2">
+                  {{ 'products.general.include_taxes' | t }}
+              </span>
+            {%- endif -%}
+          </div>
+          {% raw %}
+          <div class="product-quickview__variants">{{{variants}}}</div>
+          {% endraw %}
+            <form class="formQuickview form-ajaxtocart mb-4" action="{{ routes.cart_add_url }}" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
+              {% raw %}
+                <input type="hidden" data-quickview-variant name="id" value="{{variantID}}">
+              {% endraw %}
+              <div class="product-quickview__buttons d-flex row g-2 mb-3">
+                <div class="product-quantity col-auto">
+                  <label class="product-quantity__label d-none">{{ 'products.product.quantity' | t }}</label>
+                  <div class="product-quantity__selector">
+                    {%- if settings.quickview_quantity_selector == 'text' -%}
+                      <div class="vela-qty">
+                        <button type="button" class="js-qty-adjust vela-qty__adjust vela-qty__adjust--minus" aria-label="{{ 'cart.general.reduce_quantity' | t }}">
+                          {% render 'icons', icon: 'minus' %}
+                        </button>
+                        <input type="text" name="quantity" class="js-qty-number vela-qty__number" value="1" min="1" aria-label="quantity" pattern="[0-9]*">
+                        <button type="button" class="js-qty-adjust vela-qty__adjust vela-qty__adjust--plus" aria-label="{{ 'cart.general.increase_quantity' | t }}">
+                          {% render 'icons', icon: 'plus' %}
+                        </button>
+                      </div>
+                    {%- else -%}
+                      <select name="quantity" class="product-quantity__select form-select">
+                        {%- for i in (1..10) -%}
+                          <option {% if forloop.first %}selected="selected"{% endif %} value="{{ i }}">{{ i }}</option>
+                        {%- endfor -%}
+                      </select>
+                    {%- endif -%}
+                  </div>
+                </div>
+                <div class="product-single__add-to-cart product-single__buttons col">
+                  <button class="btn btn--add-to-cart" type="submit" name="add">
+                    {% include 'icons', icon: 'plus' , class: 'icon-cart position-relative', attr: 'width="10" height="10"' %}
+                    <span class="btn__text">{{ 'products.product.add_to_cart' | t }}</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+            <div class="product__organization--wrap mb-3">
+              {%- if settings.quickview_availability -%}
+                <div class="product-quickview__avaiable product__organization position-relative">
+                  <div class="product-avaiable product-avaiable--active product-avaiable--instock">
+                    <div class="product-avaiable__label product__organization__label">{{ 'products.product.availability' | t }}:</div>
+                    <div class="js-product-avaiable-text product-avaiable__text product-avaiable__text--instock">{{'products.product.in_stock' | t }}</div>
+                  </div>
+                  <div class="product-avaiable product-avaiable--outstock">
+                    <div class="product-avaiable__label product__organization__label">{{ 'products.product.availability' | t }}:</div>
+                    <div class="js-product-avaiable-text product-avaiable__text product-avaiable__text--outstock">{{'products.product.out_stock' | t }}</div>
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if settings.quickview_prosku -%}
+                <div class="product__organization product__organization">
+                  <div class="product__organization__label">{{ 'products.product.sku' | t }}</div>
+                  {% raw %}<div class="product__organization__text" data-quickview-sku>{{sku}}</div>{% endraw %}
+                </div>
+              {%- endif -%}
+              {%- if settings.quickview_vendor -%}
+                <div class="product__organization">
+                  <div class="product__organization__label">{{ 'products.product.vendor' | t }}</div>
+                  {% raw %}<div class="product__organization__text">{{vendor}}</div>{% endraw %}
+                </div>
+              {%- endif -%}
+            </div>
+            {%- if settings.quickview_text != blank -%}
+              <div class="quickview__tex mb-3">
+                {{ settings.quickview_text}}
+              </div>
+            {%- endif -%}
+          {% raw %}
+        </div>
+      </div>
+    </div>
+  {% endraw %}
+  </script>

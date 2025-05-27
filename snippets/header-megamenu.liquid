@@ -1,0 +1,123 @@
+<li class="main-menu__nav-item menu-dropdown{% if menu_link.active %} active{% endif %}">
+	<a class="main-menu__link" href="{{ menu_link.url }}" title="{{ menu_link.title | escape }}"><span>{{ menu_link.title }} {% render 'icons', icon: 'caret', class: 'ms-1', attr: 'width="10px" height="15px"' %}</span></a>
+	<div class="menu-dropdown__content menu-dropdown__content--megamenu mx-auto {{ block.settings.menu_align}}" {% if block.settings.menu_width != blank %}style="max-width: {{ block.settings.menu_width }}px"{% endif %}>
+		<div class="menu-row row g-4">
+			{%- if block.settings.menu -%}
+				{%- if menu_link.links != blank -%}
+				<div class="menu-row__col menu-row__col--{{ block.settings.menu_col }}" style="order: {{ block.settings.menu_order}}">
+					<div class="menu-row row g-4">
+					{%- for menu_link1 in menu_link.links -%}
+						<div class="menu-row__col menu-row__col--{{ block.settings.menu_menu_col }} mb-3">
+							<ul class="megamenu-links list-unstyled">
+								<li class="megamenu-links__item megamenu-heading mb-3">
+									<span>{{ menu_link1.title }}</span>
+								</li>
+								{%- for menu_link2 in menu_link1.links -%}
+									<li class="megamenu-links__item{% if menu_link2.active %} active{% endif %}">
+										<a class="megamenu-links__link main-menu__link" href="{{ menu_link2.url }}" title="{{ menu_link2.title | escape }}"><span>{{ menu_link2.title }}</span></a>
+									</li>
+								{%- endfor -%}
+							</ul>
+						</div>
+					{%- endfor -%}
+					</div>
+				</div>
+				{%- endif -%}
+			{%- endif -%}
+			{%- if block.settings.products -%}
+				<div class="menu-row__col menu-row__col--{{ block.settings.products_col }} mb-3" style="order: {{ block.settings.products_order}};">
+				{%- assign block_title = block.settings.products_title -%}
+				{%- assign collection_handle = block.settings.products_collection -%}
+				{%- assign product_limit = block.settings.products_limit -%}
+				<div class="megamenu-products">
+					{%- if block_title != blank -%}
+					<div class="megamenu-products__heading megamenu-heading"><span>{{ block_title }}</span></div>
+					{%- endif -%}
+					<div class="megamenu-products__list pt-3">
+					{%- for product in collections[collection_handle].products limit:product_limit -%}
+						{%- assign on_sale = false -%}
+						{%- if product.compare_at_price > product.price -%}
+						{%- assign on_sale = true -%}
+						{%- endif -%}
+						<div class="product-menu pb-3">
+							<div class="product-menu__image">
+								<a class="product-menu__image-link" href="{{ product.url }}" title="">
+									<img class="img-fluid" src="{{ product.featured_image | product_img_url: '90x100', crop: 'center' }}" alt="{{ product.featured_image.alt }}"/>
+								</a>
+							</div>
+							<div class="product-menu__content">
+								<div class="product-menu__name">
+									<a href="{{ product.url }}" title="{{ product.title | escape }}">{{ product.title }}</a>
+								</div>
+								{%- if settings.product_reviews_enable and settings.product_card_review  -%}
+									<div class="product-card__review product-menu__review mb-1">
+										<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+									</div>
+								{%- endif -%}
+								<div class="product-menu__price">
+									<span class="product-price">{{ product.price | money }}</span>
+									{% if on_sale %}
+										<span class="product-price product-price--regular">{{ product.compare_at_price | money }}</span>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					{%- endfor -%}
+					</div>
+				</div>
+				</div>
+			{%- endif -%}
+			{%- if block.settings.html -%}
+				<div class="menu-row__col menu-row__col--{{ block.settings.html_col }} mb-4" style="order: {{ block.settings.html_order}};">
+				{%- assign block_title = block.settings.html_title -%}
+				{%- assign block_html = block.settings.html_content -%}
+				<div class="megamenu-html">
+					{%- if block_title != blank -%}<div class="megamenu-html__heading megamenu-heading"><span>{{ block_title }}</span></div>{%- endif -%}
+					<div class="megamenu-html__content">{{ block_html }}</div>
+				</div>
+				</div>
+			{%- endif -%}
+			{%- if block.settings.banner -%}
+				<div class="menu-row__col menu-row__col--{{ block.settings.banner_col }} mb-4" style="order: {{ block.settings.banner_order}};">
+					<div class="megamenu-banner">
+						<a href="{{ block.settings.banner_link }}">
+						{%- if block.settings.image -%}
+							<img class="img-fluid" alt="{{ block.settings.image.alt | default: shop.name }}" src="{{ block.settings.image | img_url: 'master' }}" />
+						{%- else -%}
+							{{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+						{%- endif -%}
+						</a>
+					</div>
+				</div>
+			{%- endif -%}
+			{%- if block.settings.collection_enable -%}
+				<div class="megamenu-collection-list menu-row__col menu-row__col--{{ block.settings.colllection_col }}" style="order: {{ block.settings.collection_order}};">
+					<div class="menu-row row g-4">
+						{% if block.settings.collection_title != blank %}
+							<div class="megamenu-heading"><span>{{ block.settings.collection_title }}</span></div>
+						{% endif %}
+						{% for i in (1..10) %}
+							{%- assign imagePlacdhold = "collection-" | append: forloop.index -%}
+							{% assign listcollection = 'velamenu_list_collection' | append: forloop.index %}
+							{% assign collectionTitle = block.settings[listcollection] %}
+							{% if collectionTitle != blank %}
+								<div class="menu-row__col menu-row__col--{{ block.settings.colllection_col_item }} mb-4">
+									<div class="collImage mb-3">
+										<a class="d-block overflow-hidden" href="{{ collections[collectionTitle].url }}">
+											{%- if collections[collectionTitle].image -%}
+												{% include 'img-global', image: collections[collectionTitle].image %}
+											{%- else -%}
+												{{ imagePlacdhold | placeholder_svg_tag }}
+											{%- endif -%}
+										</a>
+									</div>
+									<h5 class="collTitle mb-0 text-center"><a class="position-relative" href="{{ collections[collectionTitle].url }}" title="{{ collections[collectionTitle].title }}"><span class="position-relative">{{ collections[collectionTitle].title }}</span></a></h5>											
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			{%- endif -%}
+		</div>
+	</div>
+</li>

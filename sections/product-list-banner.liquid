@@ -1,0 +1,172 @@
+
+{%- capture section_style -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        background-color: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+        padding: {{section.settings.padding_block}};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        margin: {{section.settings.margin_block}};
+    {%- endif -%}
+{%- endcapture -%}
+{%- assign proCollection = section.settings.collection_handle -%}
+<section class="vela-section section-product-banner overflow-hidden"  {% if section_style%}style="{{ section_style }}"{% endif%}>
+<div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+    <div class="vela-section__inner">
+        {%- if section.settings.heading != blank -%}
+            <div class="heading-group mb-xl-2 pb-4">
+                <h2 class="heading mb-1">
+                    <span>{{ section.settings.heading }}</span>
+                </h2>
+                {%- if section.settings.sub_heading != blank -%}
+                    <div class="sub-heading">
+                        {{ section.settings.sub_heading }}
+                    </div>
+                {%- endif -%}
+            </div>
+        {%- endif -%}
+        <div class="vela-section__content">
+            <div class="row g-3 g-md-4 banner__{{section.settings.banner_position}} {% if section.settings.banner_position =='right' %}flex-row-reverse{% endif %}">
+                <div class="col-12 col-lg-4">
+                    <div class="product-banner__wrap collection-wrapper position-relative overflow-hidden">
+                        <a class="product-banner__image collection-effect__image" href="{% if proCollection != blank %}{{ collections[proCollection].url }}{% else %}#{% endif %}" title="{{ section.settings.banner_title }}">
+                            {% if section.settings.banner != blank %}
+                                {% include 'img-global' with image: section.settings.banner %}
+                            {% else %}
+                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                            {% endif %}
+                        </a>
+                        <div class="product-banner__content position-absolute bottom-0 start-50 translate-middle-x mb-3 mb-sm-4 text-center">
+                            <a class="product-banner__title collection-effect__title d-inline-block h3 mb-0 position-relative"  href="{% if proCollection != blank %}{{ collections[proCollection].url }}{% else %}#{% endif %}" title="{{ section.settings.banner_title }}">{{ section.settings.banner_title }}</a>                                                          
+                            {%- if proCollection != blank -%}
+                                {%- if collections[proCollection].products_count != blank  -%}
+                                    {%- assign productCount = collections[proCollection].products_count -%}
+                                {%- else -%}
+                                    {%- assign productCount = 0 -%}
+                                {%- endif -%}
+                                    <p class="colCount mb-1">{% if productCount > 1 %}{{ 'collections.general.product_count.other' | t:product_count:productCount }}{% else %}{{ 'collections.general.product_count.one' | t:product_count:productCount }}{% endif %}</p>
+                            {%- endif -%}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-8">
+                    {%- capture strGridItem -%}col{%- endcapture -%}
+                    <div class="row g-3 g-md-4 row-cols-2 row-cols-ms-{2 row-cols-md-3 row-cols-lg-3">
+                        {%- if proCollection == blank or collections[proCollection] == empty or collections[proCollection].products_count == 0 -%}
+                            {% include 'onboarding-featured-products', strGridItem: strGridItem, product_style: 'grid', number: '6'  %}
+                        {%- else -%}
+                            {% for product in collections[proCollection].products limit: 6 %}
+                                <div class="{{ strGridItem }}">
+                                    {% include 'product-grid-item' %}
+                                </div>
+                            {% endfor %}
+                        {%- endif -%}
+                    </div> 
+                    </div>    
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+{%- assign prostyle = nil -%}
+{% schema %}
+{
+    "name": "Product with banner",
+    "class": "velaFramework",
+    "settings":[
+        {
+            "type": "header",
+            "content": "Design Section"
+        },
+        {
+            "type": "checkbox",
+            "id": "full_with",
+            "label": "Enabel Full Width?"
+        },
+        {
+            "type": "color",
+            "id": "color_bg",
+            "label": "Background Color",
+            "default": "rgba(0,0,0,0)"
+        },
+        {
+            "type": "text",
+            "id": "padding_block",
+            "label": "Padding",
+            "placeholder": "0px 0px",
+            "info": "Ex: 0px 0px 0px 0px and use desktop only"
+        },
+        {
+            "type": "text",
+            "id": "margin_block",
+            "label": "Margin",
+            "placeholder": "0px 0px",
+            "default": "0 0 30px",
+            "info": "Ex: 0px 0px 30px 0px"
+        },
+        {
+            "type": "header",
+            "content": "General Settings"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Heading"
+        },
+        {
+            "type": "text",
+            "id": "sub_heading",
+            "label": "Sub heading",
+            "default": "Sub heading"
+        },
+        {
+            "type": "header",
+            "content": "Product"
+        },
+        {
+            "type": "collection",
+            "id": "collection_handle",
+            "label": "Collection"
+        },
+        {
+            "type": "header",
+            "content": "Banner"
+        },
+        {
+            "type": "text",
+            "id": "banner_title",
+            "label": "Title"
+        },
+        {
+            "type": "image_picker",
+            "id": "banner",
+            "label": "Banner"
+        },
+        {
+            "type": "select",
+            "id": "banner_position",
+            "label": "Position",
+            "default": "left",
+            "options": [
+                {
+                    "value": "left",
+                    "label": "Left"
+                },
+                {
+                    "value": "right",
+                    "label": "Right"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Product with banner",
+            "category": "2. Products"
+        }
+    ]
+}
+{% endschema %}

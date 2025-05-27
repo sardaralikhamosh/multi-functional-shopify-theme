@@ -1,0 +1,125 @@
+{%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+    {%- capture bgColor -%}
+        background-color: {{ section.settings.color_bg }};
+    {%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.padding_block != blank -%}
+    {%- capture paddingblock -%}
+        padding: {{section.settings.padding_block}};
+    {%- endcapture -%}
+{%- endif -%}
+{%- if section.settings.margin_block != blank -%}
+    {%- capture marginblock -%}
+        margin: {{section.settings.margin_block}};
+    {%- endcapture -%}
+{%- endif -%}
+<section class="vela-section multiple-collapse overflow-hidden" style="{{ bgColor}} {{ paddingblock }} {{ marginblock }}">
+    <div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+        <div class="vela-section__inner {% if section.settings.color_bg != 'rgba(0,0,0,0)' %}py-5{% endif %}">
+            <div id="multiple-collapse">
+                {% for block in section.blocks %}
+                    <div class="multiple-collapse__item {% unless forloop.last %}mb-2{% endunless %}">
+                        <a class="multiple-collapse__heading d-block position-relative collapsed" data-bs-toggle="collapse" href="#collapseItem{{forloop.index}}" role="button" aria-expanded="false" aria-controls="collapseItem{{forloop.index}}">
+                            <span class="">{{ block.settings.title }}</span>
+                        </a>
+                        <div class="collapse multiple-collapse__content" id="collapseItem{{forloop.index}}" data-bs-parent="#multiple-collapse">
+                            <div class="multiple-collapse__wrapper p-3 p-sm-4">
+                                {{ block.settings.content }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>            
+		</div>
+	</div>
+</section>
+{% schema %}
+  	{
+        "name": "Multiple Collapse",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Design Section"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "Enabel Full Width?"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "Background Color",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "Padding",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "Margin",
+                "placeholder": "0px 0px",
+                "info": "Not display on the Moible"
+            }
+		],
+        "blocks": [
+            {
+                "type": "collapse",
+                "name": "Collapse Item",
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Title",
+                        "default": "Heading"
+                    },
+                    {
+                        "type": "textarea",
+                        "id": "content",
+                        "label": "Item content",
+                        "default": "Lorem Khaled Ipsum is a major key to success. They don’t want us to win. Always remember in the jungle there’s a lot of they in there, after you overcome they, you will make it to paradise"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Multiple Collapse",
+                "blocks": [
+                    {
+                        "type":"collapse",
+                        "settings":{
+                            "title": "What does Shopify do?",
+                            "content": "Lorem Khaled Ipsum is a major key to success. They don’t want us to win. Always remember in the jungle there’s a lot of they in there, after you overcome they, you will make it to paradise. Major key, don’t fall for the trap, stay focused. It’s the ones closest to you that want to see you fail. Major key, don’t fall for the trap, stay focused"
+                        }
+                    },
+                    {
+                        "type":"collapse",
+                        "settings":{
+                            "title": "What does Shopify do?",
+                            "content": "Lorem Khaled Ipsum is a major key to success. They don’t want us to win. Always remember in the jungle there’s a lot of they in there, after you overcome they, you will make it to paradise. Major key, don’t fall for the trap, stay focused. It’s the ones closest to you that want to see you fail. Major key, don’t fall for the trap, stay focused"
+                        }
+                    },
+                    {
+                        "type":"collapse",
+                        "settings":{
+                            "title": "What does Shopify do?",
+                            "content": "Lorem Khaled Ipsum is a major key to success. They don’t want us to win. Always remember in the jungle there’s a lot of they in there, after you overcome they, you will make it to paradise. Major key, don’t fall for the trap, stay focused. It’s the ones closest to you that want to see you fail. Major key, don’t fall for the trap, stay focused"
+                        }
+                    },
+                    {
+                        "type":"collapse",
+                        "settings":{
+                            "title": "What does Shopify do?",
+                            "content": "Lorem Khaled Ipsum is a major key to success. They don’t want us to win. Always remember in the jungle there’s a lot of they in there, after you overcome they, you will make it to paradise. Major key, don’t fall for the trap, stay focused. It’s the ones closest to you that want to see you fail. Major key, don’t fall for the trap, stay focused"
+                        }
+                    }
+                ]
+            }
+        ]
+  	}
+{% endschema %}

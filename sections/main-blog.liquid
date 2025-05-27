@@ -1,0 +1,357 @@
+{{ 'component-article-card.css' | asset_url | stylesheet_tag }}
+{{ 'section-main-blog.css' | asset_url | stylesheet_tag }}
+{{ 'section-blog-sidebar.css' | asset_url | stylesheet_tag }}
+
+{%- assign owlColumn1 = section.settings.item-per-row | plus:0 -%}
+{%- assign sidebar = false -%}
+{%- if owlColumn1 == 5 -%}
+	{%- assign noowlColumn1 = '2-4'  -%}
+{%- else -%}
+	{%- assign noowlColumn1 =  12 | divided_by: owlColumn1 | ceil -%}
+{%- endif -%}
+{%- assign image_crop = nil -%}
+{%- if section.settings.crop -%}
+    {%- assign image_crop = 'center' -%}
+{%- endif -%} 
+{%- paginate blog.articles by section.settings.limit -%}
+	<div class="main-blog mb-xl-5">
+		{%- if section.settings.blog_title -%}
+			<div class="page-header">
+				<div class="container">
+					<h1 class="page-title text-center">
+						{% if current_tags %}
+							{{ blog.title | link_to: blog.url }} &mdash; {{ current_tags.first }}
+						{% else %}
+							{{ blog.title }}
+						{% endif %}
+						<a href="{{ shop.url }}{{ blog.url }}.atom">
+							{%- include 'icons', icon: 'rss'-%}
+							<span class="d-none">RSS</span>
+						</a>
+					</h1>
+				</div>
+			</div>
+		{%- endif -%}
+		<div class="main-blog__content">
+			<div class="container">
+				<div class="row {{section.settings.sidebar_template}}">
+					{%- if section.blocks.size > 0  and section.settings.sidebar_template == 'sidebarleft'-%}
+						{% assign sidebar = true %}
+						<div class="col-12 col-xl-3 sidebar-left">
+							<div id="sidebar_left" class="blog-sidebar visible" data-bs-backdrop="false">
+								<a class="d-block d-xl-none btn-sidebar btn-sidebar--open position-absolute"  data-bs-toggle="offcanvas" href="#sidebar_left" role="button" aria-controls="sidebar_left">
+									{% render 'icons', icon: 'caret'%}
+								</a>
+								{% include 'blog-sidebar' , sidebarPosition: "sidebar_left" %}
+							</div>
+						</div>
+					{% endif %}
+					<div class="main-blog__inner col-12 {% unless section.settings.sidebar_template  == 'sidebarnone'  %}col-xl-9{% endunless %}">
+						<div class="article__list">
+							<div class="row g-3 g-md-4">
+								{% for article in blog.articles %}
+									{% if forloop.first %}{%- assign item_primary = true -%}{% else %} {%- assign item_primary = false -%} {%- endif -%}
+									<div class="col-12 col-xl-{{ noowlColumn1 }} pb-3">
+										{%- assign article_content = article.excerpt_or_content -%}
+										{%- if section.settings.image_ratio -%}
+											{%- assign image_ratio = true -%}
+										{%- endif -%}
+										{%- if section.settings.image_crop  and section.settings.image_ratio -%}
+											{%- assign crop = 'center' -%} 
+										{%- endif -%}
+										{%- if section.settings.blog_style == 'grid' -%}
+											{%- include 'blog-grid-item', noowlColumn1: noowlColumn1 -%}
+										{%- else -%}
+											{%- include 'blog-list-item' -%}
+										{%- endif -%}
+									</div>
+								{% endfor %}
+							</div>
+						</div>
+						{%- if paginate.pages > 1 -%}
+							{%- render 'pagination', paginate: paginate, class: 'pagination-wrapper d-flex justify-content-center pt-5  mt-xl-4' -%}
+						{%- endif -%}
+					</div>
+					{%- if section.settings.sidebar_template == 'sidebarright'-%}
+						<div class="col-12 col-xl-3 sidebar-right">
+							<div id="sidebar_right" class="blog-sidebar visible" data-bs-backdrop="false">
+								<a class="d-block d-xl-none btn-sidebar btn-sidebar--open position-absolute"  data-bs-toggle="offcanvas" href="#sidebar_right" role="button" aria-controls="sidebar_right">
+									{% render 'icons', icon: 'caret'%}
+								</a>
+								{% include 'blog-sidebar', sidebarPosition: "sidebar_right" %}
+							</div>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+{%- endpaginate -%}
+{% javascript %}
+	var sideBarLeft = document.getElementById('sidebar_left');
+	var sideBarRight = document.getElementById('sidebar_right');
+	
+	update = () => {
+		if( window.innerWidth > 1199) {
+			if (sideBarLeft != null) 
+				sideBarLeft.classList.remove("offcanvas","offcanvas-start");
+			if (sideBarRight != null) 
+				sideBarRight.classList.remove("offcanvas","offcanvas-end");
+		} else {
+			if (sideBarLeft != null) 
+				sideBarLeft.classList.add("offcanvas","offcanvas-start");
+			if (sideBarRight != null) 
+				sideBarRight.classList.add("offcanvas","offcanvas-end");
+		}
+	}
+	if (sideBarLeft != null || sideBarRight != null) {
+		window.update();
+		window.addEventListener('resize', update);
+	}
+{% endjavascript %}
+{% schema %}
+{
+	"name": "t:sections.main-blog.name",
+	"tag": "section",
+	"settings": [
+		{
+			"type": "header",
+			"content": "Blog Settings"
+		},
+		{
+			"type": "select",
+			"id": "sidebar_template",
+			"label": "Sidebar template",
+			"default": "sidebarleft",
+			"options": [
+				{
+					"label": "No Sidebar",
+					"value": "sidebarnone"
+				},
+				{
+					"label": "Sidebar Right",
+					"value": "sidebarright"
+				},
+				{
+					"label": "Sidebar Left",
+					"value": "sidebarleft"
+				}
+			]
+		},
+		{
+			"type": "range",
+			"id": "limit",
+			"min": 1,
+			"max": 20,
+			"step": 1,
+			"label": "Number of posts in a page",
+			"default": 5
+		},
+		{
+			"type": "range",
+			"id": "item-per-row",
+			"min": 1,
+			"max": 6,
+			"step": 1,
+			"label": "Number per row",
+			"default": 4
+		},
+		{
+			"type": "select",
+			"id": "blog_style",
+			"label": "Blog Style",
+			"default": "grid",
+			"options": [
+				{
+					"label": "Grid",
+					"value": "grid"
+				},
+				{
+					"label": "List",
+					"value": "list"
+				}
+			]
+		},
+		{
+			"type": "checkbox",
+			"id": "blog_title",
+			"label": "Show title",
+			"default": true
+		},
+		{
+			"type": "header",
+			"content": "BLog card"
+		},
+		{
+			"type": "checkbox",
+			"id": "blog_tags",
+			"label": "Show tags",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "blog_date",
+			"label": "Show date",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "blog_author",
+			"label": "Show author",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "blog_comment",
+			"label": "Show comment",
+			"default": true,
+			"info": "[See about it](https:\/\/help.shopify.com\/en\/manual\/online-store\/blogs\/managing-comments)"
+		},
+		{
+			"type": "checkbox",
+			"id": "blog_excerp",
+			"label": "Show Excerp",
+			"default": true
+		},
+		{
+			"type": "select",
+			"id": "image_ratio",
+			"options": [
+			  {
+				"value": "adapt",
+				"label": "Adapt to image"
+			  },
+			  {
+				"value": "portrait",
+				"label": "Portrait"
+			  },
+			  {
+				"value": "square",
+				"label": "Square"
+			  }
+			],
+			"default": "adapt",
+			"label": "Image ratio"
+		},
+		{
+			"type": "checkbox",
+			"id": "crop",
+			"label": "Crop Image",
+			"default": false,
+			"info": "Not use with Adapt to image"
+		}
+  	],
+	"blocks": [
+		{
+			"type": "search",
+			"name": "Blog search",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "text",
+					"id": "search_title",
+					"label": "Title"
+				}
+			]
+		},
+		{
+			"type": "categories",
+			"name": "Blog Categories",
+			"limit": 2,
+			"settings": [
+				{
+					"type": "text",
+					"id": "categories_title",
+					"label": "Title"
+				},
+				{
+					"type": "link_list",
+					"id": "categories_handle",
+					"label": "Category menu",
+					"info": "Choose menu for block. Add new menu: Admin->Navigation->Menu"
+				}
+			]
+		},
+		{
+			"type": "relatedarticles",
+			"name": "Related Articles",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "text",
+					"id": "relatedarticles_title",
+					"label": "Heading",
+					"default": "Related Articles"
+				},
+				{
+					"type": "range",
+					"id": "relatedarticles_limit",
+					"min": 1,
+					"max": 10,
+					"step": 1,
+					"label": "Number of article",
+					"default": 6
+				}
+			]
+		},
+		{
+			"type": "banner",
+			"name": "Banner",
+			"limit": 2,
+			"settings": [
+				{
+					"type": "url",
+					"id": "banner_url",
+					"label": "Banner link"
+				},
+				{
+					"type": "image_picker",
+					"id": "banner_img",
+					"label": "Banner image"
+				}
+			]
+		},
+		{
+			"type": "tags",
+			"name": "Blog Tags",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "text",
+					"id": "tags_title",
+					"label": "Heading",
+					"default": "Articles Tags"
+				},
+				{
+					"type": "range",
+					"id": "tags_limit",
+					"min": 1,
+					"max": 20,
+					"step": 1,
+					"label": "Number of tags",
+					"default": 10
+				}
+			]
+		},
+		{
+			"type": "html",
+			"name": "Custom html",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "text",
+					"id": "html_title",
+					"label": "Heading",
+					"default": "Heading"
+				},
+				{
+					"type": "html",
+					"id": "html_content",
+					"label": "content",
+					"default": "<div style='text-align:center;'><h2>Use HTML to format your text so it can be easily read.</h2>This text can be used to share information about your brand with customers.</div>"
+				}
+			]
+		}
+    ]
+}
+{% endschema %}

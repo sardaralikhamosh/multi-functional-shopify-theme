@@ -1,0 +1,91 @@
+<div class="vela-section velaBorder overflow-hidden" {%- if section.settings.margin_block != blank -%}style="margin: {{section.settings.margin_block}};"{%- endif -%}>
+    <div class="container{% if section.settings.full_with %}-full{% endif %}">
+        <div class="vela-section__inner">
+            <div class="borderStyle" style="border-top: {{ section.settings.border_style }} {{ section.settings.border_width }}px {{section.settings.border_color}}; line-height: 0;">&nbsp;</div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Vela Border",
+        "class": "velaFramework",
+        "settings":[
+            {
+                "type": "header",
+                "content": "Design Section"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "Enabel Full Width?"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "Margin",
+                "default": "0 0 60px",
+                "placeholder": "0px 0px",
+                "default": "0 0 60px",
+                "info": "Ex: 0px 0px 60px 0px"
+            },
+            {
+                "type": "header",
+                "content": "General Settings"
+            },
+            {
+                "type": "select",
+                "id": "border_style",
+                "label": "Border Style",
+                "default": "solid",
+                "options": [
+                    {
+                        "value": "dashed",
+                        "label": "Dashed"
+                    },			  	
+                    {
+                        "value": "dotted",
+                        "label": "Dotted"
+                    },			  	
+                    {
+                        "value": "double",
+                        "label": "Double"
+                    },			  	
+                    {
+                        "value": "solid",
+                        "label": "Solid"
+                    },
+                    {
+                        "value": "groove",
+                        "label": "Groove"
+                    },			  	
+                    {
+                        "value": "ridge",
+                        "label": "Ridge"
+                    }
+                ]
+            },
+            {
+                "type": "range",
+                "id": "border_width",
+                "min": 1,
+                "max": 50,
+                "step": 1,
+                "unit": "px",
+                "label": "Font Size",
+                "default": 1
+            },
+            {
+                "type": "color",
+                "id": "border_color",
+                "label": "Border Color",
+                "default": "#ccc"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Vela Border",
+                "category": "4. element"
+            }
+        ]
+    }
+{% endschema %}
