@@ -203,7 +203,7 @@
           "padding_block": "0",
           "logo": "shopify://shop_images/icon-Logo.png",
           "logo_svg": "",
-          "logo_width": 100,
+          "logo_width": 50,
           "menu": "main-menu",
           "enable_sticky_header": false
         }
