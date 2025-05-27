@@ -4,24 +4,26 @@
 			
 			<div class="header__inner"{% if section.settings.padding_block != blank %} style="padding: {{ section.settings.padding_block }};"{% endif %}>
 				
-				<!-- Top Row: Logo centered, User actions on right -->
-				<div class="row g-2 py-2 align-items-center header-top-row">
-					<!-- Mobile menu toggle - left side on mobile -->
-					<div class="header-menu-mobile d-block d-lg-none col-auto">
-						<div class="d-flex align-items-center">
+				<!-- Top Row: 3-Column Layout - Empty | Logo (Centered) | User Actions -->
+				<div class="row g-0 py-2 align-items-center header-top-row">
+					
+					<!-- Column 1: Left side (Empty on desktop, Mobile menu on mobile) -->
+					<div class="col-4 d-flex align-items-center">
+						<!-- Mobile menu toggle - only visible on mobile -->
+						<div class="header-menu-mobile d-block d-lg-none">
 							{%- if section.settings.menu != blank -%}
 								{%- render 'header-menu-mobile' -%}
 							{%- endif -%}
 						</div>
 					</div>
 					
-					<!-- Logo - centered -->
+					<!-- Column 2: Logo - Always centered -->
 					{%- assign mw_logo = section.settings.logo_width | append: 'px' -%}
-					<div class="header-logo col text-center">
+					<div class="col-4 d-flex justify-content-center align-items-center header-logo-column">
 						{%- if request.page_type == 'index' -%}
-						<h1 class="header__heading mb-0 d-inline-block">
+						<h1 class="header__heading mb-0">
 						{%- endif -%}
-							<a href="{{ routes.root_url }}" class="header__heading-link d-inline-flex justify-content-center" style="max-width: {{ mw_logo }};">
+							<a href="{{ routes.root_url }}" class="header__heading-link d-flex justify-content-center align-items-center" style="max-width: {{ mw_logo }};">
 								{%- assign logo_size = section.settings.logo_width | append: 'x' -%}
 								{%- assign size_rentina = section.settings.logo_width | times: 2 -%}
 								{%- if section.settings.logo_svg != blank -%}
@@ -41,8 +43,8 @@
 						{%- endif -%}
 					</div>
 					
-					<!-- User actions - right side -->
-					<div class="header-actions d-flex align-items-center justify-content-end col-auto">
+					<!-- Column 3: User actions - Right side -->
+					<div class="col-4 d-flex align-items-center justify-content-end header-actions-column">
 						<!-- Sign In / Register -->
 						<div class="header-auth d-none d-sm-flex align-items-center me-3">
 							{%- if shop.customer_accounts_enabled -%}
@@ -107,26 +109,32 @@
 			border-bottom: 1px solid #e5e5e5;
 		}
 		
-		/* Logo centering */
-		.header-logo {
+		/* 3-Column Layout - Equal widths for perfect centering */
+		.header-top-row .col-4 {
+			flex: 0 0 33.333333%;
+			max-width: 33.333333%;
+		}
+		
+		/* Logo column - always centered */
+		.header-logo-column {
 			position: relative;
 		}
 		
-		@media (max-width: 991.98px) {
-			.header-logo {
-				text-align: center !important;
-			}
+		.header-logo-column .header__heading-link {
+			margin: 0 auto;
+		}
+		
+		/* User actions column */
+		.header-actions-column {
+			min-height: 40px;
 		}
 		
 		/* User actions styling */
-		.header-actions {
-			min-width: fit-content;
-		}
-		
 		.header-auth-link {
 			color: #333;
 			font-size: 0.875rem;
 			transition: color 0.3s ease;
+			white-space: nowrap;
 		}
 		
 		.header-auth-link:hover {
@@ -144,28 +152,42 @@
 				display: none !important;
 			}
 			
-			.header-top-row {
-				align-items: center;
+			/* Maintain 3-column layout on mobile */
+			.header-top-row .col-4 {
+				flex: 0 0 33.333333%;
+				max-width: 33.333333%;
 			}
 			
+			/* Mobile menu in first column */
 			.header-menu-mobile {
-				order: 1;
-			}
-			
-			.header-logo {
-				order: 2;
-				flex: 1;
-			}
-			
-			.header-actions {
-				order: 3;
+				display: flex;
+				align-items: center;
+				justify-content: flex-start;
 			}
 		}
 		
-		/* Tablet adjustments */
-		@media (max-width: 767.98px) {
+		/* Small mobile adjustments */
+		@media (max-width: 576px) {
 			.header-auth {
 				display: none !important;
+			}
+			
+			/* Adjust spacing on very small screens */
+			.header__search,
+			.header__icon {
+				margin-left: 0.5rem !important;
+				margin-right: 0.5rem !important;
+			}
+		}
+		
+		/* Extra small screens */
+		@media (max-width: 480px) {
+			.header-actions-column {
+				justify-content: flex-end !important;
+			}
+			
+			.header__search {
+				margin-right: 0.25rem !important;
 			}
 		}
 		
@@ -174,7 +196,7 @@
 			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 		}
 		
-		/* Icon spacing */
+		/* Icon spacing and sizing */
 		.header__icon {
 			display: flex;
 			align-items: center;
@@ -182,6 +204,7 @@
 			width: 40px;
 			height: 40px;
 			transition: opacity 0.3s ease;
+			flex-shrink: 0;
 		}
 		
 		.header__icon:hover {
@@ -194,6 +217,23 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+		}
+		
+		/* Ensure logo stays centered even with different content lengths */
+		.header-logo-column {
+			display: flex !important;
+			justify-content: center !important;
+			align-items: center !important;
+		}
+		
+		/* Force equal column widths */
+		@media (min-width: 1px) {
+			.header-top-row > div:nth-child(1),
+			.header-top-row > div:nth-child(2), 
+			.header-top-row > div:nth-child(3) {
+				width: 33.333333% !important;
+				flex: 0 0 33.333333% !important;
+			}
 		}
 	</style>
 </header>
