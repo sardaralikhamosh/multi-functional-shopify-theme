@@ -6,3 +6,7 @@
   float: right !important;
 }
 }
+
+.displaynone{
+  display: none !important;
+}
