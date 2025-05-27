@@ -47,9 +47,9 @@
         "contactinfo_heading": "Contact.",
         "contactinfo_title": "Find us here.",
         "contactinfo_desc": "GOTO is a premium Templates theme with advanced admin module. It’s extremely customizable, easy to use and fully responsive and retina ready. Vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.",
-        "contactinfo_add": "<label>Address:</label>1234 Heaven Stress, Beverly Hill, Melbourne, USA.",
-        "contactinfo_phone": "<label>Phone Number:</label>(800) 123 456 789, (800) 987 654 321",
-        "contactinfo_email": "<label>Email:</label>Contact@erentheme.com",
+        "contactinfo_add": "Address:1234 Heaven Stress, Beverly Hill, Melbourne, USA.",
+        "contactinfo_phone": "Phone Number:(800) 123 456 789, (800) 987 654 321",
+        "contactinfo_email": "Email:info@healththroughherbs.com.pk",
         "googlemap_iframe": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d19867.311686031117!2d-0.111056!3d51.505621!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x4291f3172409ea92!2slastminute.com%20London%20Eye!5e0!3m2!1sen!2sus!4v1631783144736!5m2!1sen!2sus\" width=\"100%\" height=\"500px\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\"></iframe>"
       }
     }
