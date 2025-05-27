@@ -9,7 +9,7 @@
  */
 {
   "current": {
-    "color_primary": "#b97a4f",
+    "color_primary": "#153825",
     "color_secondary": "#f57e7e",
     "color_body_text": "#666666",
     "color_text_light": "#999999",
@@ -83,7 +83,7 @@
     "newsletter_popup_html": "Subscribe to the Goto Store mailing list to receive  updates on special offers and other discount information.",
     "newsletter_html_color": "#666666",
     "newsletter_popup_form_action": "",
-    "favicon": "shopify://shop_images/favi.png",
+    "favicon": "shopify://shop_images/icon-Logo.png",
     "checkout_logo_image": "shopify://shop_images/logo-outstock.png",
     "checkout_accent_color": "#54504f",
     "checkout_button_color": "#161311",
