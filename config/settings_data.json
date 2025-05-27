@@ -200,6 +200,7 @@
         "settings": {
           "fullwidth": true,
           "padding_block": "15px 0",
+          "logo": "shopify://shop_images/Logo.svg",
           "logo_svg": "",
           "logo_width": 80,
           "menu": "main-menu",
