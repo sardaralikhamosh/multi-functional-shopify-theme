@@ -14,7 +14,7 @@
 						</div>
 					</div>
 					{%- assign mw_logo = section.settings.logo_width | append: 'px' -%}
-					<div class="col-md-6 col-sm-6 col-lg-6">
+					<div class="col-md-6 col-sm-4 col-lg-6">
 						{%- if request.page_type == 'index' -%}
 						<h1 class="header__heading mb-0">
 						{%- endif -%}
@@ -38,7 +38,7 @@
 						{%- endif -%}
 					</div>
 					
-					<div class="col-sm-6 col-lg-6 col-md-6 header-right d-flex align-items-center justify-content-end col">
+					<div class="col-sm-4 col-lg-6 col-md-6 header-right d-flex align-items-center justify-content-end col">
 						{%- include "vela-toplinks" -%}
 						<div class="header__search ms-2 ms-sm-3 ms-xxl-4">
 							<a  class="header__icon header__icon--search modal__toggle" href="#searchTop" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="searchTop">
@@ -55,7 +55,7 @@
 						</a>
 					</div>
 
-					<div class="col-sm-12 col-lg-12 col-md-12 header-center col-auto d-none d-lg-block">
+					<div class="col-sm-4 col-lg-12 col-md-12 header-center col-auto d-none d-lg-block">
 						<center>
 						{%- if section.settings.menu != blank -%}
 							{%- include 'header-menu' -%}
