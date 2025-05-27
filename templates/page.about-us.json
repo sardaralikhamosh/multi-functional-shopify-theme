@@ -146,83 +146,6 @@
         "content_color_bg": "rgba(0,0,0,0)"
       }
     },
-    "16555714348637c9c6": {
-      "type": "image-with-text",
-      "blocks": {
-        "1655571434e7b8713a-0": {
-          "type": "text",
-          "settings": {
-            "text": "YOUR BEST CHOICE",
-            "text_style": "h3",
-            "text_color_desktop": "#e3b17f",
-            "text_font_size_desktop": 16,
-            "margin_desktop": "10px 0 15px",
-            "text_color_tablet": "#e3b17f",
-            "text_font_size_tablet": 16,
-            "margin_tablet": "10px 0 13px",
-            "text_color_mobile": "#e3b17f",
-            "text_font_size_mobile": 16,
-            "margin_mobile": "10px 0 10px"
-          }
-        },
-        "89ee42c9-7d08-4bc3-8b88-6a212a32afec": {
-          "type": "text",
-          "settings": {
-            "text": "Let's start your new<br>dream project",
-            "text_style": "h3",
-            "text_color_desktop": "#ffffff",
-            "text_font_size_desktop": 40,
-            "margin_desktop": "0 0 45px",
-            "text_color_tablet": "#ffffff",
-            "text_font_size_tablet": 36,
-            "margin_tablet": "0 0 42px",
-            "text_color_mobile": "#ffffff",
-            "text_font_size_mobile": 32,
-            "margin_mobile": "0 0 38px"
-          }
-        },
-        "1655571434e7b8713a-1": {
-          "type": "button",
-          "settings": {
-            "button": "GET A QUOTE",
-            "link": "https://velatheme.ticksy.com/",
-            "button_font_size": 14,
-            "button_padding": "12px 30px",
-            "margin": "0 0 30px",
-            "button_color": "#161311",
-            "button_color_border": "#ffffff",
-            "button_color_bg": "#ffffff",
-            "button_color_hover": "#ffffff",
-            "button_color_border_hover": "#e3b17f",
-            "button_color_bg_hover": "#e3b17f",
-            "button_font_size_mobile": 14,
-            "button_padding_mobile": "8px 28px"
-          }
-        }
-      },
-      "block_order": [
-        "1655571434e7b8713a-0",
-        "89ee42c9-7d08-4bc3-8b88-6a212a32afec",
-        "1655571434e7b8713a-1"
-      ],
-      "settings": {
-        "full_with": false,
-        "color_bg": "rgba(0,0,0,0)",
-        "bg_align": "center",
-        "padding_block": "0 0 50px",
-        "margin_block": "0 0 70px",
-        "space_between": "0",
-        "banner_size": 6,
-        "banner_size_ipad": 6,
-        "banner_size_mobile": 12,
-        "banner_position": "left",
-        "text_align": "center",
-        "banner_mobile": "hidden",
-        "banner_url": "",
-        "padding_content": "110px 0",
-        "content_color_bg": "rgba(0,0,0,0)"
-      }
-    },
     "16555731825e7a751b": {
       "type": "heading",
       "settings": {
@@ -350,7 +273,6 @@
     "breadcrumb",
     "main",
     "16555686248290b630",
-    "16555714348637c9c6",
     "16555731825e7a751b",
     "16555727787b67d276",
     "165557522361f15e62",
