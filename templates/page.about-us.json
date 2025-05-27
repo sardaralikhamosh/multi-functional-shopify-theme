@@ -37,101 +37,6 @@
         "margin_block": "0 0 30px"
       }
     },
-    "1655566368f9537314": {
-      "type": "image-with-text",
-      "blocks": {
-        "1655566368781491cc-0": {
-          "type": "text",
-          "settings": {
-            "text": "<span style=\"letter-spacing: 2px;\">ABOUT US</span>",
-            "text_style": "h3",
-            "text_color_desktop": "#e3b17f",
-            "text_font_size_desktop": 16,
-            "margin_desktop": "0 0 15px",
-            "text_color_tablet": "#e3b17f",
-            "text_font_size_tablet": 16,
-            "margin_tablet": "0 0 10px",
-            "text_color_mobile": "#e3b17f",
-            "text_font_size_mobile": 14,
-            "margin_mobile": "0 0 10px"
-          }
-        },
-        "6fc79532-bacf-495b-9cbb-e8898f04e226": {
-          "type": "text",
-          "settings": {
-            "text": "Creative Solutions<br>\nby Professional<br>Designers",
-            "text_style": "h3",
-            "text_color_desktop": "#161311",
-            "text_font_size_desktop": 40,
-            "margin_desktop": "0 0 30px",
-            "text_color_tablet": "#161311",
-            "text_font_size_tablet": 34,
-            "margin_tablet": "0 0 22px",
-            "text_color_mobile": "#000000",
-            "text_font_size_mobile": 30,
-            "margin_mobile": "0 0 20px"
-          }
-        },
-        "59f441aa-1edf-47e6-b8ee-f03fd5673b11": {
-          "type": "text",
-          "settings": {
-            "text": "Your kitchen is an expression of who you are, and its design should match your lifestyle. Whether you have traditional tastes or desire a modern feel, we can design your dream kitchen to suit any purpose.",
-            "text_style": "text",
-            "text_color_desktop": "#54504f",
-            "text_font_size_desktop": 16,
-            "margin_desktop": "0 0 50px",
-            "text_color_tablet": "#54504f",
-            "text_font_size_tablet": 15,
-            "margin_tablet": "0 0 40px",
-            "text_color_mobile": "#54504f",
-            "text_font_size_mobile": 14,
-            "margin_mobile": "0 0 35px"
-          }
-        },
-        "1655566368781491cc-1": {
-          "type": "button",
-          "settings": {
-            "button": "Continue Reading",
-            "link": "shopify://blogs/news/bringing-led-lighting-into-your-home-shouldnt-be-complicated-5",
-            "button_font_size": 16,
-            "button_padding": "12px 30px",
-            "margin": "",
-            "button_color": "#ffffff",
-            "button_color_border": "#161311",
-            "button_color_bg": "#161311",
-            "button_color_hover": "#ffffff",
-            "button_color_border_hover": "#e3b17f",
-            "button_color_bg_hover": "#e3b17f",
-            "button_font_size_mobile": 14,
-            "button_padding_mobile": "8px 25px"
-          }
-        }
-      },
-      "block_order": [
-        "1655566368781491cc-0",
-        "6fc79532-bacf-495b-9cbb-e8898f04e226",
-        "59f441aa-1edf-47e6-b8ee-f03fd5673b11",
-        "1655566368781491cc-1"
-      ],
-      "settings": {
-        "full_with": false,
-        "color_bg": "rgba(0,0,0,0)",
-        "image_bg": "shopify://shop_images/p1_704a8662-d715-4e0f-a589-fc12828b8d9c.jpg",
-        "bg_align": "center",
-        "padding_block": "60px 0 50px",
-        "margin_block": "0 0 70px",
-        "space_between": "5",
-        "banner_size": 6,
-        "banner_size_ipad": 6,
-        "banner_size_mobile": 12,
-        "banner_position": "left",
-        "text_align": "start",
-        "banner_mobile": "always",
-        "banner_url": "shopify://blogs/news/handmade-pieces-that-took-time-to-make",
-        "padding_content": "",
-        "content_color_bg": "rgba(0,0,0,0)"
-      }
-    },
     "16555686248290b630": {
       "type": "image-with-text",
       "blocks": {
@@ -325,8 +230,8 @@
         "color_bg": "rgba(0,0,0,0)",
         "padding_block": "",
         "margin_block": "0 0 30px",
-        "caption": "<span class=\"text-primary\" style=\"letter-spacing: 2px;\">MEET OUR TEAM</span>",
-        "heading": "Creative Minds Always<br>Think Someting.",
+        "caption": "MEET OUR TEAM",
+        "heading": "Creative Minds AlwaysThink Someting.",
         "sub_heading": "",
         "text_alignment": "center"
       }
@@ -337,6 +242,7 @@
         "f0b4bf4d-03a4-431c-bacd-047eea4c1468": {
           "type": "item",
           "settings": {
+            "image": "shopify://shop_images/P2_c5be9942-9a5b-4e1c-96fb-3f1286c4d81b.jpg",
             "title": "john portman",
             "position": "Designer",
             "desc": "",
@@ -349,6 +255,7 @@
         "b6e8a4d1-6426-4627-915f-569664523a3d": {
           "type": "item",
           "settings": {
+            "image": "shopify://shop_images/P5_032540af-f3dc-4f0e-bb77-a77c88fa2ce9.jpg",
             "title": "Alison Clutcher",
             "position": "Photographer",
             "desc": "",
@@ -361,6 +268,7 @@
         "5adc6fc1-c54c-4df7-9605-87d4d9dbe2a5": {
           "type": "item",
           "settings": {
+            "image": "shopify://shop_images/P3_851bb8f0-e62e-4ea4-a9d1-fa060ae1848f.jpg",
             "title": "Peter Jefferson",
             "position": "Project manager",
             "desc": "",
@@ -373,6 +281,7 @@
         "003ae350-c6b1-4379-842f-bba9c4f81fa1": {
           "type": "item",
           "settings": {
+            "image": "shopify://shop_images/P4.jpg",
             "title": "Julie Crawford",
             "position": "Architect",
             "desc": "",
@@ -440,7 +349,6 @@
   "order": [
     "breadcrumb",
     "main",
-    "1655566368f9537314",
     "16555686248290b630",
     "16555714348637c9c6",
     "16555731825e7a751b",
