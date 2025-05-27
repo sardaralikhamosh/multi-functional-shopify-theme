@@ -190,9 +190,11 @@
       "type": "feature-text",
       "settings": {
         "full_with": false,
+        "imge_bg": "shopify://shop_images/bg.jpg",
         "color_bg": "rgba(0,0,0,0)",
         "padding_block": "40px 0",
         "margin_block": "0 0 60px",
+        "featureicon": "shopify://shop_images/Logo.svg",
         "sub_heading": "New arrivals",
         "heading": "Body cream organic",
         "desc": "<i>At vero eos et accusamus et iusto odi odgnissimos ducimusblanditiis praesentium volup.</i>",
