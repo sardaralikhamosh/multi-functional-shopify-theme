@@ -12,7 +12,12 @@
 						<!-- Mobile menu toggle - only visible on mobile -->
 						<div class="header-menu-mobile d-block d-lg-none">
 							{%- if section.settings.menu != blank -%}
-								{%- render 'header-menu-mobile' -%}
+								<!-- Mobile Hamburger Button -->
+								<button class="mobile-menu-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-label="Toggle mobile menu">
+									<span class="hamburger-line"></span>
+									<span class="hamburger-line"></span>
+									<span class="hamburger-line"></span>
+								</button>
 							{%- endif -%}
 						</div>
 					</div>
@@ -73,14 +78,6 @@
 						
 						<!-- Cart -->
 						{%- include 'header-cart' -%}
-						
-						<!-- Contact/Menu toggle -->
-						<!-- <a class="header__icon header__icon--align d-flex flex-wrap justify-content-end collapsed ms-2 ms-sm-3" data-bs-toggle="offcanvas" data-bs-target="#header-contact" role="button" aria-controls="header-contact">
-							<span class="icon-line"></span>
-							<span class="icon-line"></span>
-							<span class="icon-line"></span>
-							<span class="icon-line"></span>
-						</a> -->
 					</div>
 				</div>
 				
@@ -99,6 +96,66 @@
 				{%- render 'header-search' -%}
 				
 			</div>
+		</div>
+	</div>
+	
+	<!-- Mobile Menu Offcanvas -->
+	<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+		<div class="offcanvas-header">
+			<h5 class="offcanvas-title" id="mobileMenuLabel">{{ shop.name }}</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body">
+			{%- if section.settings.menu != blank -%}
+				{%- assign main_menu = linklists[section.settings.menu] -%}
+				<nav class="mobile-nav">
+					<ul class="mobile-nav-list">
+						{%- for link in main_menu.links -%}
+							<li class="mobile-nav-item">
+								{%- if link.links != blank -%}
+									<!-- Dropdown menu item -->
+									<div class="mobile-dropdown">
+										<a href="{{ link.url }}" class="mobile-nav-link d-flex justify-content-between align-items-center">
+											{{ link.title }}
+											<span class="mobile-dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#mobileSubmenu{{ forloop.index }}" aria-expanded="false">
+												<svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+													<path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+												</svg>
+											</span>
+										</a>
+										<div class="collapse mobile-submenu" id="mobileSubmenu{{ forloop.index }}">
+											<ul class="mobile-submenu-list">
+												{%- for child_link in link.links -%}
+													<li class="mobile-submenu-item">
+														<a href="{{ child_link.url }}" class="mobile-submenu-link">{{ child_link.title }}</a>
+													</li>
+												{%- endfor -%}
+											</ul>
+										</div>
+									</div>
+								{%- else -%}
+									<!-- Regular menu item -->
+									<a href="{{ link.url }}" class="mobile-nav-link">{{ link.title }}</a>
+								{%- endif -%}
+							</li>
+						{%- endfor -%}
+					</ul>
+				</nav>
+			{%- endif -%}
+			
+			<!-- Mobile Auth Links -->
+			{%- if shop.customer_accounts_enabled -%}
+				<div class="mobile-auth mt-4 pt-4 border-top">
+					{%- if customer -%}
+						<a href="{{ routes.account_url }}" class="mobile-nav-link">
+							{{ customer.first_name | default: 'My Account' }}
+						</a>
+					{%- else -%}
+						<a href="{{ routes.account_login_url }}" class="mobile-nav-link">Sign In</a>
+						<a href="{{ routes.account_register_url }}" class="mobile-nav-link">Register</a>
+					{%- endif -%}
+				</div>
+			{%- endif -%}
 		</div>
 	</div>
 	
@@ -146,6 +203,105 @@
 			justify-content: center;
 		}
 		
+		/* Mobile Menu Button Styling */
+		.mobile-menu-toggle {
+			background: none;
+			border: none;
+			padding: 8px;
+			cursor: pointer;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			width: 40px;
+			height: 40px;
+			transition: all 0.3s ease;
+		}
+		
+		.hamburger-line {
+			width: 24px;
+			height: 2px;
+			background-color: #333;
+			margin: 2px 0;
+			transition: all 0.3s ease;
+			border-radius: 2px;
+		}
+		
+		.mobile-menu-toggle:hover .hamburger-line {
+			background-color: #007bff;
+		}
+		
+		/* Mobile Menu Offcanvas Styling */
+		.offcanvas {
+			width: 300px;
+		}
+		
+		.mobile-nav-list {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+		
+		.mobile-nav-item {
+			border-bottom: 1px solid #f0f0f0;
+		}
+		
+		.mobile-nav-link {
+			display: block;
+			padding: 15px 0;
+			color: #333;
+			text-decoration: none;
+			font-size: 16px;
+			transition: color 0.3s ease;
+		}
+		
+		.mobile-nav-link:hover {
+			color: #007bff;
+		}
+		
+		.mobile-dropdown-toggle {
+			cursor: pointer;
+			padding: 5px;
+			transition: transform 0.3s ease;
+		}
+		
+		.mobile-dropdown-toggle[aria-expanded="true"] {
+			transform: rotate(180deg);
+		}
+		
+		.mobile-submenu {
+			background-color: #f8f9fa;
+			margin: 0;
+		}
+		
+		.mobile-submenu-list {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+		
+		.mobile-submenu-item {
+			border-bottom: 1px solid #e9ecef;
+		}
+		
+		.mobile-submenu-link {
+			display: block;
+			padding: 12px 20px;
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			transition: color 0.3s ease;
+		}
+		
+		.mobile-submenu-link:hover {
+			color: #007bff;
+			background-color: #fff;
+		}
+		
+		.mobile-auth {
+			border-top: 1px solid #e9ecef;
+		}
+		
 		/* Mobile adjustments */
 		@media (max-width: 991.98px) {
 			.header-nav-row {
@@ -178,6 +334,10 @@
 				margin-left: 0.5rem !important;
 				margin-right: 0.5rem !important;
 			}
+			
+			.offcanvas {
+				width: 280px;
+			}
 		}
 		
 		/* Extra small screens */
@@ -188,6 +348,10 @@
 			
 			.header__search {
 				margin-right: 0.25rem !important;
+			}
+			
+			.offcanvas {
+				width: 100%;
 			}
 		}
 		
@@ -237,624 +401,3 @@
 		}
 	</style>
 </header>
-
-{% schema %}
-{
-  	"name": "Header",
-  	"settings": [
-		{
-			"type": "checkbox",
-			"id": "fullwidth",
-			"label": "Full width?",
-			"default": true
-		},
-		{
-			"type": "text",
-			"id": "padding_block",
-			"label": "Padding",
-			"info": "Ex: 0px 0px 0px 0px"
-		},
-		{
-			"type": "image_picker",
-			"id": "logo",
-			"label": "Logo"
-		},
-		{
-			"type": "text",
-			"id": "logo_svg",
-			"label": "Logo svg",
-			"info": "insert link logo svg"
-		},
-		{
-			"type": "range",
-			"id": "logo_width",
-			"min": 50,
-			"max": 250,
-			"step": 5,
-			"default": 100,
-			"unit": "px",
-			"label": "Custom logo width"
-		},
-		{
-			"type": "link_list",
-			"id": "menu",
-			"default": "main-menu",
-			"label": "Main menu"
-		},
-		{
-			"type": "checkbox",
-			"id": "enable_sticky_header",
-			"default": true,
-			"label": "Enable sticky header",
-			"info": "Header shows on the screen as customers scroll up."
-		}
-  	],
-  	"blocks": [
-    	{
-			"type": "menu",
-			"name": "Megamenu Item",
-			"settings": [
-				{
-					"type": "text",
-					"id": "title",
-					"label": "Menu item name",
-					"info": "Menu item of main-menu. Menu item has dropdown megamenu.[guideline](https:\/\/velatheme.com\/guide\/velatheme-v2\/main_menu.html)"
-				},
-				{
-					"type": "text",
-					"id": "menu_width",
-					"label": "Item max width(px)",
-					"info": "ex: 800"
-				},
-				{
-					"type": "select",
-					"id": "menu_align",
-					"label": "Menu Alignment",
-					"default": "start-0",
-					"options": [
-						{
-							"value": "start-0",
-							"label": "Left"
-						},
-						{
-							"value": "start-0 end-0",
-							"label": "Center"
-						},
-						{
-							"value": "end-0",
-							"label": "Right"
-						}
-					]
-				},
-				{
-					"type": "header",
-					"content": "1. Block navigation",
-					"info": "Admin -> Navigation -> Menu"
-				},
-				{
-					"type": "checkbox",
-					"id": "menu",
-					"label": "Enable"
-				},
-				{
-					"type": "select",
-					"id": "menu_order",
-					"label": "Order",
-					"default": "1",
-					"options": [
-						{
-							"value": "1",
-							"label": "1"
-						},
-						{
-							"value": "2",
-							"label": "2"
-						},
-						{
-							"value": "3",
-							"label": "3"
-						},
-						{
-							"value": "4",
-							"label": "4"
-						},
-						{
-							"value": "5",
-							"label": "5"
-						}
-					]
-				},
-				{
-					"type": "select",
-					"id": "menu_col",
-					"label": "Block width",
-					"options": [
-						{
-							"value": "20",
-							"label": "20%"
-						},
-						{
-							"value": "25",
-							"label": "25%"
-						},
-						{
-							"value": "33",
-							"label": "33%"
-						},
-						{
-							"value": "50",
-							"label": "50%"
-						},
-						{
-							"value": "66",
-							"label": "66%"
-						},
-						{
-							"value": "75",
-							"label": "75%"
-						},
-						{
-							"value": "80",
-							"label": "80%"
-						},
-						{
-							"value": "100",
-							"label": "100%"
-						}
-					]
-				},
-				{
-					"type": "select",
-					"id": "menu_menu_col",
-					"label": "Width of each menu",
-					"options": [
-						{
-							"value": "20",
-							"label": "20%"
-						},
-						{
-							"value": "25",
-							"label": "25%"
-						},
-						{
-							"value": "33",
-							"label": "33%"
-						},
-						{
-							"value": "50",
-							"label": "50%"
-						},
-						{
-							"value": "100",
-							"label": "100%"
-						}
-					]
-				},
-				{
-					"type": "header",
-					"content": "2. Block products"
-				},
-				{
-					"type": "checkbox",
-					"id": "products",
-					"label": "Enable"
-				},
-				{
-					"type": "select",
-					"id": "products_order",
-					"label": "Order",
-					"default": "2",
-					"options": [
-						{
-							"value": "1",
-							"label": "1"
-						},
-						{
-							"value": "2",
-							"label": "2"
-						},
-						{
-							"value": "3",
-							"label": "3"
-						},
-						{
-							"value": "4",
-							"label": "4"
-						},
-						{
-							"value": "5",
-							"label": "5"
-						}
-					]
-				},
-				{
-					"type": "select",
-					"id": "products_col",
-					"label": "Block width",
-					"options": [
-						{
-							"value": "20",
-							"label": "20%"
-						},
-						{
-							"value": "25",
-							"label": "25%"
-						},
-						{
-							"value": "33",
-							"label": "33%"
-						},
-						{
-							"value": "50",
-							"label": "50%"
-						},
-						{
-							"value": "66",
-							"label": "66%"
-						},
-						{
-							"value": "75",
-							"label": "75%"
-						},
-						{
-							"value": "80",
-							"label": "80%"
-						},
-						{
-							"value": "100",
-							"label": "100%"
-						}
-					]
-				},
-				{
-					"type": "text",
-					"id": "products_title",
-					"label": "Heading"
-				},
-				{
-					"type": "collection",
-					"id": "products_collection",
-					"label": "Collection"
-				},
-				{
-					"type": "text",
-					"id": "products_limit",
-					"label": "Limit",
-					"default": "2"
-				},
-				{
-					"type": "header",
-					"content": "3. Block html"
-				},
-				{
-					"type": "checkbox",
-					"id": "html",
-					"label": "Enable"
-				},
-				{
-					"type": "select",
-					"id": "html_order",
-					"label": "Order",
-					"default": "3",
-					"options": [
-						{
-							"value": "1",
-							"label": "1"
-						},
-						{
-							"value": "2",
-							"label": "2"
-						},
-						{
-							"value": "3",
-							"label": "3"
-						},
-						{
-							"value": "4",
-							"label": "4"
-						},
-						{
-							"value": "5",
-							"label": "5"
-						}
-					]
-				},
-				{
-					"type": "select",
-					"id": "html_col",
-					"label": "Block width",
-					"options": [
-						{
-							"value": "20",
-							"label": "20%"
-						},
-						{
-							"value": "25",
-							"label": "25%"
-						},
-						{
-							"value": "33",
-							"label": "33%"
-						},
-						{
-							"value": "50",
-							"label": "50%"
-						},
-						{
-							"value": "66",
-							"label": "66%"
-						},
-						{
-							"value": "75",
-							"label": "75%"
-						},
-						{
-							"value": "80",
-							"label": "80%"
-						},
-						{
-							"value": "100",
-							"label": "100%"
-						}
-					]
-				},
-				{
-					"type": "text",
-					"id": "html_title",
-					"label": "Heading"
-				},
-				{
-					"type": "html",
-					"id": "html_content",
-					"label": "Content HTML",
-					"info": "You can input HTML code, img tag, video code, ..."
-				},
-				{
-					"type": "header",
-					"content": "4. Block banner"
-				},
-				{
-					"type": "checkbox",
-					"id": "banner",
-					"label": "Enable"
-				},
-				{
-					"type": "select",
-					"id": "banner_order",
-					"label": "Order",
-					"default": "4",
-					"options": [
-						{
-							"value": "1",
-							"label": "1"
-						},
-						{
-							"value": "2",
-							"label": "2"
-						},
-						{
-							"value": "3",
-							"label": "3"
-						},
-						{
-							"value": "4",
-							"label": "4"
-						},
-						{
-							"value": "5",
-							"label": "5"
-						}
-					]
-				},
-				{
-					"type": "select",
-					"id": "banner_col",
-					"label": "Block width",
-					"options": [
-						{
-							"value": "20",
-							"label": "20%"
-						},
-						{
-							"value": "25",
-							"label": "25%"
-						},
-						{
-							"value": "33",
-							"label": "33%"
-						},
-						{
-							"value": "50",
-							"label": "50%"
-						},
-						{
-							"value": "66",
-							"label": "66%"
-						},
-						{
-							"value": "75",
-							"label": "75%"
-						},
-						{
-							"value": "80",
-							"label": "80%"
-						},
-						{
-							"value": "100",
-							"label": "100%"
-						}
-					]
-				},
-				{
-					"type": "image_picker",
-					"id": "image",
-					"label": "Banner image"
-				},
-				{
-					"type": "url",
-					"id": "banner_link",
-					"label": "Banner URL"
-				},
-				{
-					"type": "header",
-					"content": "5. Collection list"
-				},
-				{
-					"type": "checkbox",
-					"id": "collection_enable",
-					"label": "Enable"
-				},
-				{
-					"type": "select",
-					"id": "collection_order",
-					"label": "Order",
-					"default": "5",
-					"options": [
-						{
-							"value": "1",
-							"label": "1"
-						},
-						{
-							"value": "2",
-							"label": "2"
-						},
-						{
-							"value": "3",
-							"label": "3"
-						},
-						{
-							"value": "4",
-							"label": "4"
-						},
-						{
-							"value": "5",
-							"label": "5"
-						}
-					]
-				},
-				{
-					"type": "text",
-					"id": "collection_title",
-					"label": "Block Title"
-				},
-				{
-					"type": "select",
-					"id": "colllection_col",
-					"label": "Block width",
-					"options": [
-						{
-							"value": "20",
-							"label": "20%"
-						},
-						{
-							"value": "25",
-							"label": "25%"
-						},
-						{
-							"value": "33",
-							"label": "33%"
-						},
-						{
-							"value": "50",
-							"label": "50%"
-						},
-						{
-							"value": "66",
-							"label": "66%"
-						},
-						{
-							"value": "75",
-							"label": "75%"
-						},
-						{
-							"value": "80",
-							"label": "80%"
-						},
-						{
-							"value": "100",
-							"label": "100%"
-						}
-					]
-				},
-				{
-					"type": "select",
-					"id": "colllection_col_item",
-					"label": "Width of item",
-					"options": [
-						{
-							"value": "20",
-							"label": "20%"
-						},
-						{
-							"value": "25",
-							"label": "25%"
-						},
-						{
-							"value": "33",
-							"label": "33%"
-						},
-						{
-							"value": "50",
-							"label": "50%"
-						},
-						{
-							"value": "100",
-							"label": "100%"
-						}
-					]
-				},
-				{
-				   "type": "collection",
-				   "id": "velamenu_list_collection1",
-				   "label": "Select Collection"
-				 },
-				 {
-				   "type": "collection",
-				   "id": "velamenu_list_collection2",
-				   "label": "Select Collection"
-				 },
-				 {
-				   "type": "collection",
-				   "id": "velamenu_list_collection3",
-				   "label": "Select Collection"
-				 },
-				 {
-				   "type": "collection",
-				   "id": "velamenu_list_collection4",
-				   "label": "Select Collection"
-				 },
-				 {
-				   "type": "collection",
-				   "id": "velamenu_list_collection5",
-				   "label": "Select Collection"
-				 },
-				 {
-				   "type": "collection",
-				   "id": "velamenu_list_collection6",
-				   "label": "Select Collection"
-				 },
-				 {
-				   "type": "collection",
-				   "id": "velamenu_list_collection7",
-				   "label": "Select Collection"
-				 },
-				 {
-				   "type": "collection",
-				   "id": "velamenu_list_collection8",
-				   "label": "Select Collection"
-				 },
-				 {
-				   "type": "collection",
-				   "id": "velamenu_list_collection9",
-				   "label": "Select Collection"
-				 },
-				 {
-				   "type": "collection",
-				   "id": "velamenu_list_collection10",
-				   "label": "Select Collection"
-				 }
-			]
-		}
-  	]
-}
-{% endschema %}
