@@ -277,9 +277,7 @@
       },
       "header-contact": {
         "type": "header-contact",
-        "custom_css": [
-          "a.header__icon.header__icon--align.d-flex.flex-wrap.justify-content-end.collapsed.ms-2.ms-sm-3 {display: none !important;}"
-        ],
+        "custom_css": [],
         "settings": {
           "full_with": false,
           "color_bg": "rgba(0,0,0,0)",
