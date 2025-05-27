@@ -1,1 +1,62 @@
-{"sections":{"breadcrumb":{"type":"breadcrumb-page","settings":{"padding_block":"","margin_block":"0 auto 60px","bgimage":true,"image":"shopify:\/\/shop_images\/bcr_product.jpg","breadcrumb_title":"","enable_title":"desktop","breadcrumb_bg":"#f7f7f7","breadcrumb_color_heading":"#222222","breadcrumb_color":"#222222","breadcrumb_color_link":"#999999","breadcrumb-height":"342px","breadcrumb-mheight":"80px","text-align":"start"}},"main":{"type":"main-page","disabled":true,"settings":{"full_with":false,"color_bg":"rgba(0,0,0,0)","padding_block":"","margin_block":""}},"form":{"type":"contact-form","settings":{"full_with":false,"color_bg":"#ffffff","padding_block":"20px 0 0","margin_block":"","contactinfo_heading":"Contact.","contactinfo_title":"Find us here.","contactinfo_desc":"GOTO is a premium Templates theme with advanced admin module. It’s extremely customizable, easy to use and fully responsive and retina ready. Vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.","contactinfo_add":"<label>Address:<\/label>1234 Heaven Stress, Beverly Hill, Melbourne, USA.","contactinfo_phone":"<label>Phone Number:<\/label>(800) 123 456 789, (800) 987 654 321","contactinfo_email":"<label>Email:<\/label>Contact@erentheme.com","googlemap_iframe":"<iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m14!1m8!1m3!1d19867.311686031117!2d-0.111056!3d51.505621!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x4291f3172409ea92!2slastminute.com%20London%20Eye!5e0!3m2!1sen!2sus!4v1631783144736!5m2!1sen!2sus\" width=\"100%\" height=\"500px\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\"><\/iframe>"}}},"order":["breadcrumb","main","form"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb-page",
+      "settings": {
+        "padding_block": "",
+        "margin_block": "0 auto 60px",
+        "bgimage": true,
+        "image": "shopify://shop_images/pexels-padrinan-19670.jpg",
+        "breadcrumb_title": "",
+        "enable_title": "desktop",
+        "breadcrumb_bg": "#f7f7f7",
+        "breadcrumb_color_heading": "#222222",
+        "breadcrumb_color": "#222222",
+        "breadcrumb_color_link": "#999999",
+        "breadcrumb-height": "342px",
+        "breadcrumb-mheight": "80px",
+        "text-align": "start"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "full_with": false,
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "",
+        "margin_block": ""
+      }
+    },
+    "form": {
+      "type": "contact-form",
+      "settings": {
+        "full_with": false,
+        "color_bg": "#ffffff",
+        "padding_block": "20px 0 0",
+        "margin_block": "",
+        "contactinfo_heading": "Contact.",
+        "contactinfo_title": "Find us here.",
+        "contactinfo_desc": "GOTO is a premium Templates theme with advanced admin module. It’s extremely customizable, easy to use and fully responsive and retina ready. Vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.",
+        "contactinfo_add": "<label>Address:</label>1234 Heaven Stress, Beverly Hill, Melbourne, USA.",
+        "contactinfo_phone": "<label>Phone Number:</label>(800) 123 456 789, (800) 987 654 321",
+        "contactinfo_email": "<label>Email:</label>Contact@erentheme.com",
+        "googlemap_iframe": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d19867.311686031117!2d-0.111056!3d51.505621!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x4291f3172409ea92!2slastminute.com%20London%20Eye!5e0!3m2!1sen!2sus!4v1631783144736!5m2!1sen!2sus\" width=\"100%\" height=\"500px\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\"></iframe>"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "main",
+    "form"
+  ]
+}
