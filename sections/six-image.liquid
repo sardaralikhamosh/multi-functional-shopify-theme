@@ -101,12 +101,12 @@
                                 {%- endif -%}
                             </div>
                             <div class="six-image__item col">
-                                {%- if section.settings.image5_url != blank -%}
+                                {%- if section.settings.image6_url != blank -%}
                                     <a target="_blank" href="{{ section.settings.image5_url }}" title="" >
                                         {%- include 'icons', class: 'icon icon-instagram position-absolute top-50 start-50 translate-middle', attr: 'width="26px" height=26px' icon: 'instagram' -%}
                                 {%- endif -%}
-                                    {% if section.settings.image5 != blank %}
-                                        {% include 'img-global' with image: section.settings.image5 %}
+                                    {% if section.settings.image6 != blank %}
+                                        {% include 'img-global' with image: section.settings.image6 %}
                                     {% else %}
                                         {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                                     {% endif %}
