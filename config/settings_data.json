@@ -75,6 +75,7 @@
     "product_card_tax": true,
     "product_card_swatch": false,
     "cookie_consent_enable": false,
+    "newsletter_popup_enable": false,
     "newsletter_popup_color_bg": "#ffffff",
     "newsletter_popup_image": "shopify://shop_images/newslettermodal.png",
     "newsletter_popup_title": "Get Our Email Letter",
