@@ -138,6 +138,7 @@
         "16430737844209a302-1",
         "74d3aaea-38da-4ef9-9765-1011bb1a7110"
       ],
+      "disabled": true,
       "settings": {
         "full_with": true,
         "color_bg": "rgba(0,0,0,0)",
