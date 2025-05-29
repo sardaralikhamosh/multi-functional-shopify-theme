@@ -189,6 +189,7 @@
     },
     "1658915910fa8081ac": {
       "type": "feature-text",
+      "disabled": true,
       "settings": {
         "full_with": false,
         "imge_bg": "shopify://shop_images/bg.jpg",
