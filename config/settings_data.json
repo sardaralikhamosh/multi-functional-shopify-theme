@@ -205,7 +205,7 @@
           "logo_svg": "",
           "logo_width": 50,
           "menu": "main-menu",
-          "enable_sticky_header": false
+          "enable_sticky_header": true
         }
       },
       "footer": {
