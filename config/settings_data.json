@@ -18,12 +18,12 @@
     "color_header_text": "#222222",
     "color_header_bg": "#ffffff",
     "color_footer_heading": "#ffffff",
-    "color_footer_text": "#999999",
+    "color_footer_text": "#e1e1e1",
     "color_footer_link": "#ffffff",
-    "color_footer_link_hover": "#b97a4f",
+    "color_footer_link_hover": "#ffffff",
     "color_footer_bg": "#153824",
     "color_copyright_bg": "#222222",
-    "color_copyright": "#999999",
+    "color_copyright": "#e1e1e1",
     "color_menu_bg": "rgba(0,0,0,0)",
     "color_menu_text": "#222222",
     "color_menu_text_hover": "#b97a4f",
@@ -259,7 +259,7 @@
           "758f0291-59d6-499b-b9be-f7f625afdce6": {
             "type": "copyright",
             "settings": {
-              "footer_copyright": "Copyright © <span class=\"text-primary\">healththroughherbs</span>. All Right Reserved.",
+              "footer_copyright": "<label>Copyright © <span class=\"text-primary\">healththroughherbs</span>. All Right Reserved.</label>",
               "social_enable": true,
               "social_title": "Social Media:"
             }
