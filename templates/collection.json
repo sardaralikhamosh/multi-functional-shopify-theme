@@ -5,7 +5,6 @@
  * This file may be updated by the Shopify admin theme editor
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
- * if technical support needed then you can reach us by mail sardaralikhamosh@gmail.com
  * ------------------------------------------------------------
  */
 {
@@ -52,7 +51,7 @@
         "padding_block": "",
         "margin_block": "0 auto 60px",
         "bgimage": true,
-        "image": "shopify://shop_images/pexels-padrinan-19670.jpg",
+        "image": "shopify://shop_images/slider-health_8_bf85e890-8cfa-4ce7-bd1c-24c8fcd6486b.webp",
         "enable_title": "desktop",
         "breadcrumb_bg": "#f7f7f7",
         "breadcrumb_color_heading": "#222222",
