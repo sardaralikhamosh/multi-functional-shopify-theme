@@ -434,6 +434,28 @@
         "text_alignment": "center"
       }
     },
+    "1658922293a102383d": {
+      "type": "six-image",
+      "settings": {
+        "full_with": false,
+        "color_bg": "#f6f6f6",
+        "padding_block": "20px 0",
+        "margin_block": "",
+        "heading": "@healththroughherbs",
+        "image1": "shopify://shop_images/WeightLossPhakki_4.jpg",
+        "image1_url": "https://www.instagram.com/",
+        "image2": "shopify://shop_images/ChiaSeeds_3.jpg",
+        "image2_url": "https://www.instagram.com/",
+        "image3": "shopify://shop_images/Ashwaghanda_8.jpg",
+        "image3_url": "https://www.instagram.com/",
+        "image4": "shopify://shop_images/HerbalSlimmingTea_9.jpg",
+        "image4_url": "https://www.instagram.com/",
+        "image5": "shopify://shop_images/SHATAVARI_1.jpg",
+        "image5_url": "https://www.instagram.com/",
+        "image6": "shopify://shop_images/8_48b4da44-402e-420b-bf5e-4e21f24c61fc.jpg",
+        "image6_url": "https://www.instagram.com/"
+      }
+    },
     "164256418835253c35": {
       "type": "blog-posts",
       "settings": {
@@ -463,28 +485,6 @@
         "column2": 2,
         "column3": 1,
         "column4": 1
-      }
-    },
-    "1658922293a102383d": {
-      "type": "six-image",
-      "settings": {
-        "full_with": false,
-        "color_bg": "#f6f6f6",
-        "padding_block": "20px 0",
-        "margin_block": "",
-        "heading": "@healththroughherbs",
-        "image1": "shopify://shop_images/WeightLossPhakki_4.jpg",
-        "image1_url": "https://www.instagram.com/",
-        "image2": "shopify://shop_images/ChiaSeeds_3.jpg",
-        "image2_url": "https://www.instagram.com/",
-        "image3": "shopify://shop_images/Ashwaghanda_8.jpg",
-        "image3_url": "https://www.instagram.com/",
-        "image4": "shopify://shop_images/HerbalSlimmingTea_9.jpg",
-        "image4_url": "https://www.instagram.com/",
-        "image5": "shopify://shop_images/SHATAVARI_1.jpg",
-        "image5_url": "https://www.instagram.com/",
-        "image6": "shopify://shop_images/8_48b4da44-402e-420b-bf5e-4e21f24c61fc.jpg",
-        "image6_url": "https://www.instagram.com/"
       }
     },
     "164251888061f08632": {
@@ -789,9 +789,9 @@
     "1662221334cee13b3a",
     "1643043758ec2c692d",
     "1658915910fa8081ac",
+    "1658922293a102383d",
     "16626936658818a255",
     "164256418835253c35",
-    "1658922293a102383d",
     "164251888061f08632",
     "1643106707f8a692c1",
     "165591511898c71969",
