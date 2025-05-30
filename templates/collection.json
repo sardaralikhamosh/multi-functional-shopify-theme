@@ -5,7 +5,6 @@
  * This file may be updated by the Shopify admin theme editor
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
- * if technical support needed then you can reach us by mail sardaralikhamosh@gmail.com
  * ------------------------------------------------------------
  */
 {
@@ -50,14 +49,14 @@
       ],
       "settings": {
         "padding_block": "",
-        "margin_block": "0 auto 60px",
+        "margin_block": "0 auto 0px",
         "bgimage": true,
-        "image": "shopify://shop_images/pexels-padrinan-19670.jpg",
+        "image": "shopify://shop_images/slider-health_14.jpg",
         "enable_title": "desktop",
-        "breadcrumb_bg": "#f7f7f7",
-        "breadcrumb_color_heading": "#222222",
-        "breadcrumb_color": "#222222",
-        "breadcrumb_color_link": "#999999",
+        "breadcrumb_bg": "#e1e1e1",
+        "breadcrumb_color_heading": "#fff",
+        "breadcrumb_color": "#fff",
+        "breadcrumb_color_link": "#fff",
         "breadcrumb-height": "342px",
         "breadcrumb-mheight": "80px",
         "text-align": "start"
@@ -110,29 +109,12 @@
             "collection_handle": "frontpage",
             "limit": 4
           }
-        },
-        "83c84c5b-e545-4a8d-85ed-b331a3d4b09d": {
-          "type": "banner",
-          "settings": {
-            "banner_url": "shopify://collections/all",
-            "banner_img": "shopify://shop_images/pexels-padrinan-19670.jpg"
-          }
-        },
-        "e7f0bbe0-143b-45d0-9091-3c6d8e540b1b": {
-          "type": "html",
-          "disabled": true,
-          "settings": {
-            "html_title": "Custom Html",
-            "html_content": "<p>Use HTML to format your text so it can be easily read.</p><p>This text can be used to share information about your brand with customers.</p>"
-          }
         }
       },
       "block_order": [
         "bab3e1d7-85ae-4248-a305-180408ec2190",
         "11e379ad-52c7-4ce0-be64-822d4713d593",
-        "76253806-007f-400c-b968-dae5c1195e97",
-        "83c84c5b-e545-4a8d-85ed-b331a3d4b09d",
-        "e7f0bbe0-143b-45d0-9091-3c6d8e540b1b"
+        "76253806-007f-400c-b968-dae5c1195e97"
       ],
       "settings": {
         "sidebar_template": "sidebarleft",

@@ -5,8 +5,12 @@
 .custom-header-for-healththroughherb, .header-left col{
   float: right !important;
 }
+  .announcement-bar__right.col.d-none.d-sm-flex.justify-content-end.align-items-center {
+    margin: 0;
+}
 }
 
 .displaynone{
   display: none !important;
+  
 }
