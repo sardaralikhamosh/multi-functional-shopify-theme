@@ -39,7 +39,7 @@
     "breadcrumb_color_link": "#222222",
     "type_header_font": "poppins_n6",
     "type_header_base_size": 40,
-    "type_body_font": "cormorant_n4",
+    "type_body_font": "poppins_n4",
     "type_base_size": 18,
     "type_special_link": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&display=swap",
     "type_special_font": "Cormorant Garamond",
