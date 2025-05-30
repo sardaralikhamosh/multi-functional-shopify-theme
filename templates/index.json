@@ -421,6 +421,28 @@
         "button_url": "shopify://collections/new-products"
       }
     },
+    "1658922293a102383d": {
+      "type": "six-image",
+      "settings": {
+        "full_with": false,
+        "color_bg": "#f6f6f6",
+        "padding_block": "20px 0",
+        "margin_block": "",
+        "heading": "@healththroughherbs",
+        "image1": "shopify://shop_images/WeightLossPhakki_4.jpg",
+        "image1_url": "https://www.instagram.com/healththroughherbs",
+        "image2": "shopify://shop_images/ChiaSeeds_3.jpg",
+        "image2_url": "https://www.instagram.com/healththroughherbs",
+        "image3": "shopify://shop_images/Ashwaghanda_8.jpg",
+        "image3_url": "https://www.instagram.com/healththroughherbs",
+        "image4": "shopify://shop_images/HerbalSlimmingTea_9.jpg",
+        "image4_url": "https://www.instagram.com/healththroughherbs",
+        "image5": "shopify://shop_images/SHATAVARI_1.jpg",
+        "image5_url": "https://www.instagram.com/healththroughherbs",
+        "image6": "shopify://shop_images/8_48b4da44-402e-420b-bf5e-4e21f24c61fc.jpg",
+        "image6_url": "https://www.instagram.com/healththroughherbs"
+      }
+    },
     "16626936658818a255": {
       "type": "heading",
       "settings": {
@@ -432,28 +454,6 @@
         "heading": "Latest Blog Posts",
         "sub_heading": "Commodo sociosqu venenatis cras dolor sagittis integer luctus sem primis eget maecenas.",
         "text_alignment": "center"
-      }
-    },
-    "1658922293a102383d": {
-      "type": "six-image",
-      "settings": {
-        "full_with": false,
-        "color_bg": "#f6f6f6",
-        "padding_block": "20px 0",
-        "margin_block": "",
-        "heading": "@healththroughherbs",
-        "image1": "shopify://shop_images/WeightLossPhakki_4.jpg",
-        "image1_url": "https://www.instagram.com/",
-        "image2": "shopify://shop_images/ChiaSeeds_3.jpg",
-        "image2_url": "https://www.instagram.com/",
-        "image3": "shopify://shop_images/Ashwaghanda_8.jpg",
-        "image3_url": "https://www.instagram.com/",
-        "image4": "shopify://shop_images/HerbalSlimmingTea_9.jpg",
-        "image4_url": "https://www.instagram.com/",
-        "image5": "shopify://shop_images/SHATAVARI_1.jpg",
-        "image5_url": "https://www.instagram.com/",
-        "image6": "shopify://shop_images/8_48b4da44-402e-420b-bf5e-4e21f24c61fc.jpg",
-        "image6_url": "https://www.instagram.com/"
       }
     },
     "164256418835253c35": {
