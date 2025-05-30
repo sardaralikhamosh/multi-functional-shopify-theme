@@ -229,7 +229,7 @@
 
 .footer-newsletter .form-control {
   background: transparent;
-  border-color: #333;
+  /* border-color: ##999999; */
   color: var(--footer-color); }
 
 .footer-newsletter .btn--newsletter {
@@ -3179,7 +3179,8 @@ details[open] > .header__icon--menu .icon-hamburger {
   opacity: 0;
   visibility: hidden;
   z-index: 2;
-  transition: opacity 0.2s ease, visibility 0.2s ease; }
+  transition: opacity 0.2s ease,
+ visibility 0.2s ease; }
 
 menu-drawer > details[open] > summary::before {
   visibility: visible;
