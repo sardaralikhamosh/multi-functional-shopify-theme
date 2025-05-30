@@ -87,7 +87,7 @@
           "settings": {
             "content_color": "rgba(0,0,0,0)",
             "position_content": true,
-            "image": "shopify://shop_images/slider-health_10.jpg",
+            "image": "shopify://shop_images/slider-health_14.jpg",
             "link": "",
             "alignment": "text-start align-middle",
             "text-alignment": "start",
@@ -757,7 +757,7 @@
         "color_bg": "rgba(0,0,0,0)",
         "padding_block": "",
         "margin_block": "",
-        "video_url": "https://cdn.shopify.com/s/files/1/0071/1190/1231/files/videobackground.mp4?v=1621048139",
+        "video_url": "https://cdn.shopify.com/videos/c/o/v/2bbb98790f1242eaa62e579be1ba50e5.mp4",
         "muted": false,
         "aspect_ratios": "ratio-16x9",
         "overlay_color": "#ffffff",

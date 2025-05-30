@@ -51,7 +51,7 @@
         "padding_block": "",
         "margin_block": "0 auto 0px",
         "bgimage": true,
-        "image": "shopify://shop_images/slider-health_8_bf85e890-8cfa-4ce7-bd1c-24c8fcd6486b.webp",
+        "image": "shopify://shop_images/slider-health_14.jpg",
         "enable_title": "desktop",
         "breadcrumb_bg": "#f7f7f7",
         "breadcrumb_color_heading": "#222222",
@@ -109,29 +109,12 @@
             "collection_handle": "frontpage",
             "limit": 4
           }
-        },
-        "83c84c5b-e545-4a8d-85ed-b331a3d4b09d": {
-          "type": "banner",
-          "settings": {
-            "banner_url": "shopify://collections/all",
-            "banner_img": "shopify://shop_images/ChiaSeeds_2.jpg"
-          }
-        },
-        "e7f0bbe0-143b-45d0-9091-3c6d8e540b1b": {
-          "type": "html",
-          "disabled": true,
-          "settings": {
-            "html_title": "Custom Html",
-            "html_content": "<p>Use HTML to format your text so it can be easily read.</p><p>This text can be used to share information about your brand with customers.</p>"
-          }
         }
       },
       "block_order": [
         "bab3e1d7-85ae-4248-a305-180408ec2190",
         "11e379ad-52c7-4ce0-be64-822d4713d593",
-        "76253806-007f-400c-b968-dae5c1195e97",
-        "83c84c5b-e545-4a8d-85ed-b331a3d4b09d",
-        "e7f0bbe0-143b-45d0-9091-3c6d8e540b1b"
+        "76253806-007f-400c-b968-dae5c1195e97"
       ],
       "settings": {
         "sidebar_template": "sidebarleft",
