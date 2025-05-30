@@ -1424,7 +1424,7 @@ h6, .h6 {
   font-size: calc(1.275rem + 0.3vw); }
   @media (min-width: 1200px) {
     .product-price {
-      font-size: 1.5rem; } }
+      font-size: 13px; } }
   .product-price.product-price--regular {
     position: relative;
     color: #c5c5c5;
