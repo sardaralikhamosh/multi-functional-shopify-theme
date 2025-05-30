@@ -20,7 +20,7 @@
             "image": "shopify://shop_images/slider-health_6.jpg",
             "link": "shopify://collections",
             "alignment": "text-start align-middle",
-            "text-alignment": "center",
+            "text-alignment": "start",
             "slides_effect": "default",
             "subheading": "",
             "subheading_color": "#54504f",
