@@ -5,7 +5,6 @@
  * This file may be updated by the Shopify admin theme editor
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
- * if technical support needed then you can reach us by mail sardaralikhamosh@gmail.com
  * ------------------------------------------------------------
  */
 {
@@ -19,22 +18,22 @@
             "content_color": "rgba(0,0,0,0)",
             "position_content": true,
             "image": "shopify://shop_images/slider-health_6.jpg",
-            "link": "shopify://collections/make-up",
+            "link": "shopify://collections",
             "alignment": "text-start align-middle",
             "text-alignment": "center",
             "slides_effect": "default",
-            "subheading": "PCOS Tea",
+            "subheading": "",
             "subheading_color": "#54504f",
             "subheading_font_family": "text",
             "subheading_font_size": 18,
-            "title": "",
-            "title_color": "#000000",
+            "title": "PCOS Tea",
+            "title_color": "#ffffff",
             "title_font_family": "ff-special",
             "title_font_size": 60,
-            "title2": "",
-            "title2_color": "#222222",
+            "title2": "Healththroughherbs",
+            "title2_color": "#ffffff",
             "title2_font_family": "ff-special",
-            "title2_font_size": 70,
+            "title2_font_size": 60,
             "desc": "",
             "desc_color": "#222222",
             "desc_font_family": "text",
