@@ -49,7 +49,7 @@
       ],
       "settings": {
         "padding_block": "",
-        "margin_block": "0 auto 60px",
+        "margin_block": "0 auto 0px",
         "bgimage": true,
         "image": "shopify://shop_images/slider-health_8_bf85e890-8cfa-4ce7-bd1c-24c8fcd6486b.webp",
         "enable_title": "desktop",
