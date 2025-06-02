@@ -96,20 +96,82 @@
         "content_color_bg": "rgba(0,0,0,0)"
       }
     },
-    "product_list_banner_VajECg": {
-      "type": "product-list-banner",
-      "name": "Product with banner",
+    "multiple_collapse_UimYic": {
+      "type": "multiple-collapse",
+      "blocks": {
+        "collapse_yj4YqH": {
+          "type": "collapse",
+          "settings": {
+            "title": "What age group can use it?",
+            "content": "16 & above."
+          }
+        },
+        "collapse_x6cpER": {
+          "type": "collapse",
+          "settings": {
+            "title": "How long will a jar last?",
+            "content": "One Month Per our recommended dose."
+          }
+        },
+        "collapse_MeWCD4": {
+          "type": "collapse",
+          "settings": {
+            "title": "When do we see the difference?",
+            "content": "We recommend our customers to take it for at least 2-3 months to see the results. Some experience the results earlier however some take longer due to severeness of the issue."
+          }
+        },
+        "collapse_XJ39ew": {
+          "type": "collapse",
+          "settings": {
+            "title": "Does it help with acne, bloating and male pattern balding?",
+            "content": "Yes."
+          }
+        },
+        "collapse_rxnEVm": {
+          "type": "collapse",
+          "settings": {
+            "title": "Does it remove cysts?",
+            "content": "Yes"
+          }
+        },
+        "collapse_c8cANn": {
+          "type": "collapse",
+          "settings": {
+            "title": "Does it work?",
+            "content": "Don’t take our words, Check our satisfied Customer Reviews"
+          }
+        },
+        "collapse_XtBX9a": {
+          "type": "collapse",
+          "settings": {
+            "title": "Is it hot in nature?",
+            "content": "Yes."
+          }
+        },
+        "collapse_KmqeJC": {
+          "type": "collapse",
+          "settings": {
+            "title": "When to start using it?",
+            "content": "Depends, if you periods are getting delayed then start it immediately, if you had your periods recently (almost 1 week ago) then start 5 days before your next expected periods date."
+          }
+        }
+      },
+      "block_order": [
+        "collapse_yj4YqH",
+        "collapse_x6cpER",
+        "collapse_MeWCD4",
+        "collapse_XJ39ew",
+        "collapse_rxnEVm",
+        "collapse_c8cANn",
+        "collapse_XtBX9a",
+        "collapse_KmqeJC"
+      ],
+      "name": "Multiple Collapse",
       "settings": {
         "full_with": false,
         "color_bg": "rgba(0,0,0,0)",
         "padding_block": "",
-        "margin_block": "0 0 30px",
-        "heading": "Featured Products",
-        "sub_heading": "All collections",
-        "collection_handle": "frontpage",
-        "banner_title": "",
-        "banner": "{{ section.settings.collection_handle.image }}",
-        "banner_position": "left"
+        "margin_block": ""
       }
     }
   },
@@ -117,6 +179,6 @@
     "breadcrumb",
     "main",
     "16555686248290b630",
-    "product_list_banner_VajECg"
+    "multiple_collapse_UimYic"
   ]
 }
