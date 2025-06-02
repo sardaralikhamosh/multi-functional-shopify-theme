@@ -154,6 +154,27 @@
             "title": "When to start using it?",
             "content": "Depends, if you periods are getting delayed then start it immediately, if you had your periods recently (almost 1 week ago) then start 5 days before your next expected periods date."
           }
+        },
+        "collapse_xphizF": {
+          "type": "collapse",
+          "settings": {
+            "title": "Can I take it during my Periods?",
+            "content": "Yes."
+          }
+        },
+        "collapse_YDDNPJ": {
+          "type": "collapse",
+          "settings": {
+            "title": "Will it improve Periods Flow?",
+            "content": "Yes."
+          }
+        },
+        "collapse_aKp6PX": {
+          "type": "collapse",
+          "settings": {
+            "title": "Can un-married girls use it?",
+            "content": "Yes."
+          }
         }
       },
       "block_order": [
@@ -164,7 +185,10 @@
         "collapse_rxnEVm",
         "collapse_c8cANn",
         "collapse_XtBX9a",
-        "collapse_KmqeJC"
+        "collapse_KmqeJC",
+        "collapse_xphizF",
+        "collapse_YDDNPJ",
+        "collapse_aKp6PX"
       ],
       "name": "Multiple Collapse",
       "settings": {
