@@ -15,6 +15,9 @@
   
 }
 /*below is for allignment of icons and contaict details on this page https://healththroughherbs.com.pk/pages/contact*/
-.map-info__item.map-info__address.d-flex.mb-3.mb-xl-4 div{
+.map-info__item.map-info__address div,
+.map-info__item.map-info__phone div,
+.map-info__item.map-info__email div
+{
   align-content: center;
 }
