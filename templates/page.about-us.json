@@ -56,26 +56,10 @@
             "margin_mobile": "0 0 10px"
           }
         },
-        "2a69795c-5f42-49f9-a679-3f6ebb6207f0": {
-          "type": "text",
-          "settings": {
-            "text": "Online Shop",
-            "text_style": "h3",
-            "text_color_desktop": "#161311",
-            "text_font_size_desktop": 40,
-            "margin_desktop": "0 0 30px",
-            "text_color_tablet": "#161311",
-            "text_font_size_tablet": 34,
-            "margin_tablet": "0 0 22px",
-            "text_color_mobile": "#000000",
-            "text_font_size_mobile": 30,
-            "margin_mobile": "0 0 20px"
-          }
-        },
         "c5df092c-e871-4e16-b16e-adf874c9b6df": {
           "type": "text",
           "settings": {
-            "text": "Here you will get chemical free,  qualitative and 100% pure organic products",
+            "text": "At Health Through Herbs, we believe that the journey to good health begins with nature. Our products are rooted in the wisdom of traditional South Asian remedies, crafted with care using only the finest organic ingredients.\nWe started this journey with a simple mission: to offer safe, natural, and effective Organic Herbs for both male and female clients. \nOur flagship products, Herbal PCOS Tea, Weight loss Phakki and Fertility Combo are the talk of the town as it has helped thousands of our female clients.\n All our Products is made from 100% organic herbs, carefully formulated to help support with PCOS issue, hormonal imbalances, fertility issues in our female clients and to fight against weight gain in both our male &amp; female clients. \nIn supporting your own wellness journey, our blends are free from preservatives, additives, or artificial flavors—just pure goodness from the earth.\nJoin our community of health-conscious families who are choosing better, one spoonful at a time.",
             "text_style": "text",
             "text_color_desktop": "#54504f",
             "text_font_size_desktop": 16,
@@ -91,7 +75,6 @@
       },
       "block_order": [
         "1655568624f4d9638a-0",
-        "2a69795c-5f42-49f9-a679-3f6ebb6207f0",
         "c5df092c-e871-4e16-b16e-adf874c9b6df"
       ],
       "settings": {
@@ -107,6 +90,7 @@
         "banner_position": "right",
         "text_align": "start",
         "banner_mobile": "always",
+        "banner": "shopify://shop_images/1_4588e21e-5160-4f90-a6f1-dad98b35f4c2.jpg",
         "banner_url": "",
         "padding_content": "0 40px 0 0",
         "content_color_bg": "rgba(0,0,0,0)"
