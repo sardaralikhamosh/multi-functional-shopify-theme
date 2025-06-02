@@ -1421,7 +1421,11 @@ h6, .h6 {
   font-size: 100%; }
 
 .product-price {
-  font-size: calc(1.275rem + 0.3vw); }
+/*  font-size: calc(1.275rem + 0.3vw);*/
+/*this above is for dynemic font size setting from shopify dashboard, */
+/*below size is set by sardaralikhamosh for minimizing the font on mobile devices in https://healththroughherbs.com.pk/*/
+   font-size: 12px;
+   }
   @media (min-width: 1200px) {
     .product-price {
       font-size: 13px; } }
@@ -1580,8 +1584,11 @@ h6, .h6 {
   line-height: calc(var(--font-size-base) + 4px); }
 
 .product-list-style .product-price {
-  font-size: var(--font-size-base); }
-
+/*  font-size: var(--font-size-base); */
+/*above is for default font size control from shopify dashboard*/
+/*below is set by saradraalikhamosh for minimizing the size of price on https://healththroughherbs.com.pk/*/
+font-size: 12px;
+}
 .product-list-style .spr-badge .spr-badge-caption {
   display: none; }
 
