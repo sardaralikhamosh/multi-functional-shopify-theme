@@ -373,7 +373,7 @@
         "color_bg": "rgba(0,0,0,0)",
         "padding_block": "0 0 10px",
         "margin_block": "0 0 10px",
-        "caption": "Explore The Lookbook",
+        "caption": "Healththroughherbs",
         "heading": "Top Selling Products",
         "sub_heading": "Commodo sociosqu venenatis cras dolor sagittis integer luctus sem primis eget maecenas.",
         "text_alignment": "center"
@@ -389,7 +389,7 @@
         "heading": "",
         "sub_heading": "",
         "collection_handle": "frontpage",
-        "limit": 8,
+        "limit": 12,
         "product_style": "grid",
         "button_text": "Show All Products",
         "slide_enable": false,
