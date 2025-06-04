@@ -249,7 +249,7 @@
           "758f0291-59d6-499b-b9be-f7f625afdce6": {
             "type": "copyright",
             "settings": {
-              "footer_copyright": "<label>Copyright © <span class=\"text-primary\">healththroughherbs</span>. All Right Reserved.</label>",
+              "footer_copyright": "<label>Copyright © <span class=\"text-primary\">healththroughherbs</span></label>",
               "social_enable": true,
               "social_title": "Social Media:"
             }
