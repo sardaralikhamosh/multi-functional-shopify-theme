@@ -443,50 +443,6 @@
         "image6_url": "https://www.instagram.com/healththroughherbs"
       }
     },
-    "16626936658818a255": {
-      "type": "heading",
-      "settings": {
-        "full_with": false,
-        "color_bg": "rgba(0,0,0,0)",
-        "padding_block": "20px 0 10px",
-        "margin_block": "0 0 10px",
-        "caption": "Explore The blog",
-        "heading": "Latest Blog Posts",
-        "sub_heading": "Commodo sociosqu venenatis cras dolor sagittis integer luctus sem primis eget maecenas.",
-        "text_alignment": "center"
-      }
-    },
-    "164256418835253c35": {
-      "type": "blog-posts",
-      "settings": {
-        "full_with": false,
-        "color_bg": "rgba(0,0,0,0)",
-        "padding_block": "0 0 20px",
-        "margin_block": "0  0 60px",
-        "heading": "",
-        "sub_heading": "",
-        "blog_handle": "news",
-        "limit": 5,
-        "blog_image": true,
-        "blog_tags": true,
-        "blog_date": true,
-        "blog_author": true,
-        "blog_excerp": true,
-        "blog_readmore": true,
-        "image_ratio": "adapt",
-        "crop": false,
-        "blog_style": "grid",
-        "navigation": true,
-        "pagination": false,
-        "infinite": false,
-        "autoplay": false,
-        "autoplay_speed": "10000",
-        "column1": 3,
-        "column2": 2,
-        "column3": 1,
-        "column4": 1
-      }
-    },
     "164251888061f08632": {
       "type": "testimonial",
       "blocks": {
@@ -790,8 +746,6 @@
     "1643043758ec2c692d",
     "1658915910fa8081ac",
     "1658922293a102383d",
-    "16626936658818a255",
-    "164256418835253c35",
     "164251888061f08632",
     "1643106707f8a692c1",
     "165591511898c71969",
