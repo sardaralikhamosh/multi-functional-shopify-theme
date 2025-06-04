@@ -211,16 +211,6 @@
       "footer": {
         "type": "footer",
         "blocks": {
-          "a0091743-73be-4735-b63f-79b5725ac294": {
-            "type": "newsletter",
-            "settings": {
-              "newsletter_caption": "OUR NEWSLETTER",
-              "newsletter_title": "join our newsletter",
-              "newsletter_description": "Subscribe to the Goto store mailing list to receive updates on new arrivals, special offers and other discount information.",
-              "newsletter_mailchimp": false,
-              "newsletter_form_action": ""
-            }
-          },
           "70983933-17cd-45a0-bcc5-d614521caf18": {
             "type": "link_list",
             "settings": {
@@ -239,7 +229,7 @@
             "type": "text",
             "settings": {
               "heading": "LOOKING FOR GOTo?",
-              "subtext": "<i>+1 (800) 123 456 789<br>\n460 Peutestrabe, Hamburg, Germany<br>\nGoto@google.com</i>"
+              "subtext": "<i>+923308235400 <br>\nIslamabad, Pakistan</i>"
             }
           },
           "eb95aebb-991a-46a6-8ccc-2a7c4ce80a1b": {
@@ -248,7 +238,7 @@
               "contactinfo_heading": "About Goto",
               "contactinfo_logo_svg": "",
               "logo_footer_width": 150,
-              "contactinfo_desc": "<i>Goto is a premium template theme with advanced admin module. It's extremely easy to use and fully responsive and retina ready.</i>",
+              "contactinfo_desc": "<i>Health Through Herbs is one of the famous brand in pakistan which provides 100% organic, chemical free products.</i>",
               "contactinfo_add": "",
               "contactinfo_phone": "",
               "contactinfo_email": "",
@@ -266,7 +256,6 @@
           }
         },
         "block_order": [
-          "a0091743-73be-4735-b63f-79b5725ac294",
           "70983933-17cd-45a0-bcc5-d614521caf18",
           "efc937e0-642e-4e4c-ada0-1d76f486880d",
           "27398413-e621-4048-8d92-e3ef84c95240",
