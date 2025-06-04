@@ -2406,6 +2406,7 @@ font-size: 12px;
   margin: 0;
   /* font-size: calc(var(--font-size-base) + 8px); */
   /* the above code is hide by sardaralikhamosh and added below custom font size to reached the clients (healththroughherbs.com.pk) requirenments  */
+  font-size: 13px;
   line-height: calc(var(--font-size-base) + 16px); }
 
 .product-single__price--compare-at {
