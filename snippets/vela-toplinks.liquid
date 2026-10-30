@@ -4,7 +4,7 @@
 	{%- assign login = 'customer.log_in' | t -%}
 	{%- assign register = 'customer.registration' | t -%}
 	<div class="header-customer">
-		<a class="d-block d-sm-none" href="{{routes.account_url}}" title="{{ 'customer.account.title' | t }}">{%- render 'icons' with icon: 'user', class: 'icon icon-user', attr: 'width="20" height="20"' -%}</a>
+		<a class="d-block d-sm-none" href="{{routes.account_url}}" title="{{ 'customer.account.title' | t }}">{%- render 'icons' with icon, icon: 'user', class: 'icon icon-user', attr: 'width="20" height="20"' -%}</a>
 		<ul class="d-none d-sm-flex align-items-center list-unstyled m-0">
 			{% if customer  %}
 				<li><a href="{{routes.account_url}}" title="{{ 'customer.account.title' | t }}">{{ 'customer.account.title' | t }}</a></li> 
@@ -17,4 +17,15 @@
 			{% endif %}
 		</ul>
 	</div>
-{% endif %}
+{% endif %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: '{%- render ''icons'' with icon: ''user'', class: ''icon icon-user'', attr:
+    ''width="20" height="20"'' -%}'
+  to: '{%- render ''icons'' with icon, icon: ''user'', class: ''icon icon-user'',
+    attr: ''width="20" height="20"'' -%}'
+  position: 428..531
+{%- endcomment -%}

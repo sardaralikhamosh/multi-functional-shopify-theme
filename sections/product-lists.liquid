@@ -39,7 +39,7 @@
                                         <div class="slick-carousel__item">
                                     {%- endif -%}
                                         <div class="mb-3">
-                                            {% include 'product-list-style' with rating: 'show' %}
+                                            {% include 'product-list-style' with rating, rating: 'show' %}
                                         </div>
                                     {% if forloop.last or item == 0 %}
                                         </div>
@@ -155,4 +155,13 @@
             }
         ]
     }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'product-list-style' with rating: 'show' %}"
+  to: "{% include 'product-list-style' with rating, rating: 'show' %}"
+  position: 2267..2329
+{%- endcomment -%}

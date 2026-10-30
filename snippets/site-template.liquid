@@ -50,7 +50,7 @@
                   <h2 class="newsletter-popup__title mb-2 fw-normal text-center h1" style="color: {{ settings.newsletter_title_color }};">{{ settings.newsletter_popup_title }}</h2>
                 {%- endif -%}
                 {%- if settings.newsletter_popup_html != blank  -%}
-                  <div class="newsletter-popup__desc fst-italic text-center mb-4" {% if settings.newsletter_html_color != rgba(0,0,0,0) %} style="color: {{ settings.newsletter_html_color }};"{% endif %}>
+                  <div class="newsletter-popup__desc fst-italic text-center mb-4" {% if settings.newsletter_html_color != rgba['0'] %} style="color: {{ settings.newsletter_html_color }};"{% endif %}>
                     {{ settings.newsletter_popup_html }}
                   </div>
                 {%- endif -%}
@@ -407,3 +407,13 @@
     </div>
   {% endraw %}
   </script>
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% if settings.newsletter_html_color != rgba(0,0,0,0) %}"
+  to: "{% if settings.newsletter_html_color != rgba['0'] %}"
+  position: 3176..3228
+{% endcomment %}

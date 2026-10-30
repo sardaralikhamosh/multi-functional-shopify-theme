@@ -32,7 +32,7 @@
                     <div class="product-banner__wrap collection-wrapper position-relative overflow-hidden">
                         <a class="product-banner__image collection-effect__image" href="{% if proCollection != blank %}{{ collections[proCollection].url }}{% else %}#{% endif %}" title="{{ section.settings.banner_title }}">
                             {% if section.settings.banner != blank %}
-                                {% include 'img-global' with image: section.settings.banner %}
+                                {% include 'img-global' with image, image: section.settings.banner %}
                             {% else %}
                                 {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                             {% endif %}
@@ -169,4 +169,13 @@
         }
     ]
 }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'img-global' with image: section.settings.banner %}"
+  to: "{% include 'img-global' with image, image: section.settings.banner %}"
+  position: 1937..2006
+{%- endcomment -%}

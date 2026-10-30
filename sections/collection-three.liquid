@@ -34,7 +34,7 @@
                                         </span> 
                                     {%- endif -%}                                                         
                                     {% if section.settings.single_images1 != blank %}
-                                        {% include 'img-global' with image: section.settings.single_images1 %}
+                                        {% include 'img-global' with image, image: section.settings.single_images1 %}
                                     {% else %}
                                         {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                                     {% endif %}
@@ -62,7 +62,7 @@
                                         </span> 
                                     {%- endif -%}                                                          
                                     {% if section.settings.single_images2 != blank %}
-                                        {% include 'img-global' with image: section.settings.single_images2 %}
+                                        {% include 'img-global' with image, image: section.settings.single_images2 %}
                                     {% else %}
                                         {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                                     {% endif %}
@@ -90,7 +90,7 @@
                                         </span> 
                                     {%- endif -%}                                                           
                                     {% if section.settings.single_images3 != blank %}
-                                        {% include 'img-global' with image: section.settings.single_images3 %}
+                                        {% include 'img-global' with image, image: section.settings.single_images3 %}
                                     {% else %}
                                         {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                                     {% endif %}
@@ -212,4 +212,22 @@
             }
         ]
     }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'img-global' with image: section.settings.single_images1 %}"
+  to: "{% include 'img-global' with image, image: section.settings.single_images1
+    %}"
+  position: 2711..2788
+- from: "{% include 'img-global' with image: section.settings.single_images2 %}"
+  to: "{% include 'img-global' with image, image: section.settings.single_images2
+    %}"
+  position: 5048..5125
+- from: "{% include 'img-global' with image: section.settings.single_images3 %}"
+  to: "{% include 'img-global' with image, image: section.settings.single_images3
+    %}"
+  position: 7405..7482
+{%- endcomment -%}

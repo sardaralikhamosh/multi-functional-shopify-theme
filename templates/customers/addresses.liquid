@@ -92,7 +92,7 @@
 									<input class="form-control" type="tel" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}" autocomplete="tel" placeholder="{{ 'customer.addresses.phone' | t }}">
 								</div>
 								<div class="form-check mb-3 mb-lg-4 p-0">
-									{{ form.set_as_default_checkbox, class="form-check-input" }}
+									{{ form.set_as_default_checkbox }}
 									<label class="form-check-label" for="address_default_address_new">{{ 'customer.addresses.set_default' | t }}</label>
 								</div>
 								<div class="mb-3 mb-lg-4">
@@ -249,3 +249,13 @@
     typeof CustomerAddresses !== 'undefined' && new CustomerAddresses();
   }
 </script>
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: '{{ form.set_as_default_checkbox, class="form-check-input" }}'
+  to: "{{ form.set_as_default_checkbox }}"
+  position: 5581..5615
+{% endcomment %}

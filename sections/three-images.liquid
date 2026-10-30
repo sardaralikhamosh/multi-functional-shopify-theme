@@ -17,7 +17,7 @@
                     <div class="three-image__item col">
                         <a  href="{{ section.settings.url1 }}" title="" >
                             {% if section.settings.single_images1 != blank %}
-                                {% include 'img-global' with image: section.settings.single_images1 %}
+                                {% include 'img-global' with image, image: section.settings.single_images1 %}
                             {% else %}
                                 {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                             {% endif %}
@@ -26,7 +26,7 @@
                     <div class="three-image__item col">
                         <a  href="{{ section.settings.url2 }}" title="" >
                             {% if section.settings.single_images2 != blank %}
-                                {% include 'img-global' with image: section.settings.single_images2 %}
+                                {% include 'img-global' with image, image: section.settings.single_images2 %}
                             {% else %}
                                 {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                             {% endif %}
@@ -35,7 +35,7 @@
                     <div class="three-image__item col">
                         <a  href="{{ section.settings.url3 }}" title="" >
                             {% if section.settings.single_images3 != blank %}
-                                {% include 'img-global' with image: section.settings.single_images3 %}
+                                {% include 'img-global' with image, image: section.settings.single_images3 %}
                             {% else %}
                                 {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                             {% endif %}
@@ -130,4 +130,22 @@
             }
         ]
     }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'img-global' with image: section.settings.single_images1 %}"
+  to: "{% include 'img-global' with image, image: section.settings.single_images1
+    %}"
+  position: 1023..1100
+- from: "{% include 'img-global' with image: section.settings.single_images2 %}"
+  to: "{% include 'img-global' with image, image: section.settings.single_images2
+    %}"
+  position: 1563..1640
+- from: "{% include 'img-global' with image: section.settings.single_images3 %}"
+  to: "{% include 'img-global' with image, image: section.settings.single_images3
+    %}"
+  position: 2103..2180
+{%- endcomment -%}

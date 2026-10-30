@@ -15,7 +15,7 @@
             {%- if section.settings.contact_logo != blank -%}
                 <div class="d-flex justify-content-center">
                     <a href="{{ routes }}" class="d-block mb-2 pb-md-1" style="width: 76px;">
-                        {%- include "img-global" with image: section.settings.contact_logo -%}
+                        {%- include "img-global" with image, image: section.settings.contact_logo -%}
                     </a>
                 </div>
             {%- endif -%}
@@ -31,7 +31,7 @@
                             <div class="col-4">         
                                 <a href="{{ block.settings.link }}"  title="{{ block.settings.image.alt | default: shop.name }}">
                                     {%- if block.settings.image != blank -%}
-                                        {% include 'img-global' with image: block.settings.image %}
+                                        {% include 'img-global' with image, image: block.settings.image %}
                                     {%- else -%}
                                         {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                                     {%- endif -%}
@@ -207,4 +207,16 @@
             }
         ]
 	}
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: '{%- include "img-global" with image: section.settings.contact_logo -%}'
+  to: '{%- include "img-global" with image, image: section.settings.contact_logo -%}'
+  position: 1176..1253
+- from: "{% include 'img-global' with image: block.settings.image %}"
+  to: "{% include 'img-global' with image, image: block.settings.image %}"
+  position: 2138..2204
+{%- endcomment -%}

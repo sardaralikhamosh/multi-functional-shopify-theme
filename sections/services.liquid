@@ -63,7 +63,7 @@
                                     {%- if block.settings.icon != blank -%}
                                         <div class="services-box__image d-flex justify-content-center mb-3">
                                             <div class="d-block" style="width: {{mwidth}}px;">
-                                                {% include 'img-global' with image: block.settings.icon, section.settings.iconsize: section.settings.iconsize, image_ratio: image_ratio, crop: image_crop %}
+                                                {% include 'img-global' with image, image: block.settings.icon, iconsize: section.settings.iconsize, image_ratio: image_ratio, crop: image_crop %}
                                             </div>
                                         </div>
                                     {%- endif -%}
@@ -321,4 +321,15 @@
             }
         ]
     }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'img-global' with image: block.settings.icon, section.settings.iconsize:
+    section.settings.iconsize, image_ratio: image_ratio, crop: image_crop %}"
+  to: "{% include 'img-global' with image, image: block.settings.icon, iconsize: section.settings.iconsize,
+    image_ratio: image_ratio, crop: image_crop %}"
+  position: 3285..3431
+{%- endcomment -%}

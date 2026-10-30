@@ -136,7 +136,7 @@
                     {%- endif -%}
                 {%- when 'buy_buttons' -%}
                     <div class="buy_buttons--wrap {{ block.settings.block_margin}}">
-                        {%- capture "form_classes" -%}
+                        {%- capture form_classes -%}
                             js-addtocart-form product-single__form{% if product.has_only_default_variant %} product-single__form--no-variants{% endif %}
                         {%- endcapture %}
                         {% form 'product', product, class:form_classes, data-product-form: '' %}
@@ -326,3 +326,13 @@
             {%- endcase -%}
         {%- endfor -%}
     </div>
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: '{%- capture "form_classes" -%}'
+  to: "{%- capture form_classes -%}"
+  position: 9894..9922
+{% endcomment %}

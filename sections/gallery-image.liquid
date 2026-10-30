@@ -53,7 +53,7 @@
                             <div class="slick-carousel__item gallery___item">
                                 <a class="overflow-hidden{% unless section.settings.popup %} img-link{% endunless %}" target="_blank" href="{%if section.settings.popup %}{{ block.settings.image | img_url: 'master'}}{% else%}{{ block.settings.link }}{% endif %}">
                                     {%- if block.settings.image != blank -%}
-                                        {% include 'img-global' with image: block.settings.image, image_ratio: section.settings.image_ratio, crop: image_crop  %}
+                                        {% include 'img-global' with image, image: block.settings.image, image_ratio: section.settings.image_ratio, crop: image_crop %}
                                     {%- else -%}
                                         {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                                     {%- endif -%}
@@ -70,7 +70,7 @@
                             <div class="col gallery___item">
                                 <a class="overflow-hidden{% unless section.settings.popup %} img-link{% endunless %}" target="_blank" href="{%if section.settings.popup %}{{ block.settings.image | img_url: 'master'}}{% else%}{{ block.settings.link }}{% endif %}">
                                     {%- if block.settings.image != blank -%}
-                                        {% include 'img-global' with image: block.settings.image, image_ratio: section.settings.image_ratio, crop: image_crop  %}
+                                        {% include 'img-global' with image, image: block.settings.image, image_ratio: section.settings.image_ratio, crop: image_crop %}
                                     {%- else -%}
                                         {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                                     {%- endif -%}
@@ -298,4 +298,20 @@
             }
         ]
     }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'img-global' with image: block.settings.image, image_ratio: section.settings.image_ratio,
+    crop: image_crop  %}"
+  to: "{% include 'img-global' with image, image: block.settings.image, image_ratio:
+    section.settings.image_ratio, crop: image_crop %}"
+  position: 3098..3225
+- from: "{% include 'img-global' with image: block.settings.image, image_ratio: section.settings.image_ratio,
+    crop: image_crop  %}"
+  to: "{% include 'img-global' with image, image: block.settings.image, image_ratio:
+    section.settings.image_ratio, crop: image_crop %}"
+  position: 4489..4616
+{%- endcomment -%}

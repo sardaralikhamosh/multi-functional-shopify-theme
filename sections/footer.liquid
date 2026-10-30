@@ -76,7 +76,7 @@
 																{%- if block.settings[image_url] != blank -%}
 																	<a href="{{ block.settings[image_url] }}" title="{{ shop.name }}" target="_blank">
 																{%- endif -%}
-																	{% include 'img-global' with image: block.settings[image_item], image_ratio: 'square', crop: 'center'  %}
+																	{% include 'img-global' with image, image: block.settings[image_item], image_ratio: 'square', crop: 'center' %}
 																{%- if block.settings[image_url] != blank -%}
 																	</a>
 																{%- endif -%}
@@ -441,3 +441,15 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'img-global' with image: block.settings[image_item], image_ratio:
+    'square', crop: 'center'  %}"
+  to: "{% include 'img-global' with image, image: block.settings[image_item], image_ratio:
+    'square', crop: 'center' %}"
+  position: 4293..4404
+{% endcomment %}

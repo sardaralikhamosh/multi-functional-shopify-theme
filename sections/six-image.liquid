@@ -22,7 +22,7 @@
                                         {%- include 'icons', class: 'icon icon-instagram position-absolute top-50 start-50 translate-middle', attr: 'width="26px" height=26px' icon: 'instagram' -%}
                                 {%- endif -%}
                                     {% if section.settings.image1 != blank %}
-                                        {% include 'img-global' with image: section.settings.image1 %}
+                                        {% include 'img-global' with image, image: section.settings.image1 %}
                                     {% else %}
                                         {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                                     {% endif %}
@@ -36,7 +36,7 @@
                                         {%- include 'icons', class: 'icon icon-instagram position-absolute top-50 start-50 translate-middle', attr: 'width="26px" height=26px' icon: 'instagram' -%}
                                 {%- endif -%}
                                     {% if section.settings.image2 != blank %}
-                                        {% include 'img-global' with image: section.settings.image2 %}
+                                        {% include 'img-global' with image, image: section.settings.image2 %}
                                     {% else %}
                                         {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                                     {% endif %}
@@ -53,7 +53,7 @@
                                     {%- include 'icons', class: 'icon icon-instagram position-absolute top-50 start-50 translate-middle', attr: 'width="26px" height=26px' icon: 'instagram' -%}
                             {%- endif -%}
                                 {% if section.settings.image3 != blank %}
-                                    {% include 'img-global' with image: section.settings.image3 %}
+                                    {% include 'img-global' with image, image: section.settings.image3 %}
                                 {% else %}
                                     {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                                 {% endif %}
@@ -78,7 +78,7 @@
                                         {%- include 'icons', class: 'icon icon-instagram position-absolute top-50 start-50 translate-middle', attr: 'width="26px" height=26px' icon: 'instagram' -%}
                                 {%- endif -%}
                                     {% if section.settings.image4 != blank %}
-                                        {% include 'img-global' with image: section.settings.image4 %}
+                                        {% include 'img-global' with image, image: section.settings.image4 %}
                                     {% else %}
                                         {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                                     {% endif %}
@@ -92,7 +92,7 @@
                                         {%- include 'icons', class: 'icon icon-instagram position-absolute top-50 start-50 translate-middle', attr: 'width="26px" height=26px' icon: 'instagram' -%}
                                 {%- endif -%}
                                     {% if section.settings.image5 != blank %}
-                                        {% include 'img-global' with image: section.settings.image5 %}
+                                        {% include 'img-global' with image, image: section.settings.image5 %}
                                     {% else %}
                                         {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                                     {% endif %}
@@ -106,7 +106,7 @@
                                         {%- include 'icons', class: 'icon icon-instagram position-absolute top-50 start-50 translate-middle', attr: 'width="26px" height=26px' icon: 'instagram' -%}
                                 {%- endif -%}
                                     {% if section.settings.image6 != blank %}
-                                        {% include 'img-global' with image: section.settings.image6 %}
+                                        {% include 'img-global' with image, image: section.settings.image6 %}
                                     {% else %}
                                         {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                                     {% endif %}
@@ -233,4 +233,28 @@
             }
         ]
     }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'img-global' with image: section.settings.image1 %}"
+  to: "{% include 'img-global' with image, image: section.settings.image1 %}"
+  position: 1580..1649
+- from: "{% include 'img-global' with image: section.settings.image2 %}"
+  to: "{% include 'img-global' with image, image: section.settings.image2 %}"
+  position: 2652..2721
+- from: "{% include 'img-global' with image: section.settings.image3 %}"
+  to: "{% include 'img-global' with image, image: section.settings.image3 %}"
+  position: 3811..3880
+- from: "{% include 'img-global' with image: section.settings.image4 %}"
+  to: "{% include 'img-global' with image, image: section.settings.image4 %}"
+  position: 5682..5751
+- from: "{% include 'img-global' with image: section.settings.image5 %}"
+  to: "{% include 'img-global' with image, image: section.settings.image5 %}"
+  position: 6754..6823
+- from: "{% include 'img-global' with image: section.settings.image6 %}"
+  to: "{% include 'img-global' with image, image: section.settings.image6 %}"
+  position: 7826..7895
+{%- endcomment -%}

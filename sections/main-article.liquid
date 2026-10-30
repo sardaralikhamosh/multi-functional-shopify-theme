@@ -48,7 +48,7 @@
 					</div>
 					<div class="text-center return-link-wrapper d-none">
 						<a href="{{ blog.url }}" class="btn-link">
-							{%- render 'icons', icon: 'arrow', class'icon icon-arrow'-%}
+							{%- render 'icons', icon: 'arrow' -%}
 							{{ 'blogs.article.back_to_blog' | t: title: blog.title }}
 						</a>
 					</div>
@@ -401,3 +401,13 @@
 	]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- render 'icons', icon: 'arrow', class'icon icon-arrow'-%}"
+  to: "{%- render 'icons', icon: 'arrow' -%}"
+  position: 2707..2744
+{% endcomment %}

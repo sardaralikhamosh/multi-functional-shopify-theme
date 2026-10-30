@@ -26,7 +26,7 @@
     <div class="product-media__wrapper product-media__wrapper--model">
       {{ media | model_viewer_tag: image_size: image_size, reveal: 'interaction', toggleable: true, data-model-id: media.id}}
       {%- if first_3d_model -%}
-        {%- include 'xr-button' with model_id: first_3d_model.id, multi: false -%}
+        {%- include 'xr-button' with model_id, model_id: first_3d_model.id, multi: false -%}
       {%- endif -%}
     </div>
 
@@ -36,3 +36,14 @@
     </div>
   {% endcase %}
 </div>
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- include 'xr-button' with model_id: first_3d_model.id, multi: false -%}"
+  to: "{%- include 'xr-button' with model_id, model_id: first_3d_model.id, multi:
+    false -%}"
+  position: 1511..1595
+{% endcomment %}

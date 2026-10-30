@@ -66,7 +66,7 @@
                                             <div class="avata d-inline-block">
                                                 <div class="d-block overflow-hidden rounded-circle" style="width: {{wimg}}px; height: {{himg}}px;">
                                                     {%- if block.settings.avatar != blank -%}
-                                                        {% include 'img-global' with image: block.settings.avatar, image_size: section.settings.size, image_ratio: 'square', crop: 'center'  %}
+                                                        {% include 'img-global' with image, image: block.settings.avatar, image_size: section.settings.size, image_ratio: 'square', crop: 'center' %}
                                                     {%- else -%}
                                                         {{ 'image' | placeholder_svg_tag: 'placeholder-svg ' }}
                                                     {%- endif -%}
@@ -106,7 +106,7 @@
                                             <div class="avata d-inline-block">
                                                 <div class="d-block overflow-hidden rounded-circle" style="width: {{wimg}}px; height: {{himg}}px;">
                                                     {%- if block.settings.avatar != blank -%}
-                                                        {% include 'img-global' with image: block.settings.avatar, image_size: section.settings.size  %}
+                                                        {% include 'img-global' with image, image: block.settings.avatar, image_size: section.settings.size %}
                                                     {%- else -%}
                                                         {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                                                     {%- endif -%}
@@ -322,4 +322,20 @@
             }
         ]
     }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'img-global' with image: block.settings.avatar, image_size: section.settings.size,
+    image_ratio: 'square', crop: 'center'  %}"
+  to: "{% include 'img-global' with image, image: block.settings.avatar, image_size:
+    section.settings.size, image_ratio: 'square', crop: 'center' %}"
+  position: 3804..3945
+- from: "{% include 'img-global' with image: block.settings.avatar, image_size: section.settings.size
+    \ %}"
+  to: "{% include 'img-global' with image, image: block.settings.avatar, image_size:
+    section.settings.size %}"
+  position: 7299..7401
+{%- endcomment -%}
